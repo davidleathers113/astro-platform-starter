@@ -1,0 +1,82 @@
+---
+import LandingLayout from '../layouts/LandingLayout.astro';
+import { Image } from 'astro:assets';
+
+// Page metadata
+const pageTitle = 'Break Free From Credit Card Debt - Save Up To 50%';
+const pageDescription = 'Professional debt settlement program to help you reduce what you owe and become debt-free faster';
+
+// Import debt relief section components
+import DebtReliefHero from '../components/debt-relief/Hero.astro';
+import QualificationForm from '../components/debt-relief/QualificationForm.astro';
+import Benefits from '../components/debt-relief/Benefits.astro';
+import ProcessSteps from '../components/debt-relief/ProcessSteps.astro';
+import Testimonials from '../components/debt-relief/Testimonials.astro';
+// import ComparisonTable from '../components/debt-relief/ComparisonTable.astro';
+import FAQSection from '../components/debt-relief/FAQSection.astro';
+import Disclosures from '../components/debt-relief/Disclosures.astro';
+import FinalCTA from '../components/debt-relief/FinalCTA.astro';
+---
+
+<LandingLayout title={pageTitle}>
+    <!-- Hero Section -->
+    <DebtReliefHero 
+        title="Break Free From Credit Card Debt - Save Up To 50%"
+        subtitle="Reduce Your Debt By Thousands | Become Debt-Free in 12-36 Months"
+        description="Are you struggling with $15,000+ in credit card debt? Our professional debt settlement program can help you reduce what you owe and become debt-free faster than making minimum payments."
+        primaryCta={{
+            text: "Get Your Free Consultation Now",
+            url: "#qualification-form"
+        }}
+        phoneNumber="(800) 555-1234"
+        availability="Available 9:00am - 8:00pm EST, 7 days a week"
+    />
+
+    <!-- Qualification Form Section -->
+    <section id="qualification-form" class="py-12 sm:py-16">
+        <h2 class="mb-8">You Could Save Thousands - See If You Qualify in 30 Seconds</h2>
+        <QualificationForm />
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="py-12 sm:py-16">
+        <h2 class="mb-10">Why Choose Our Debt Settlement Program?</h2>
+        <Benefits />
+    </section>
+
+    <!-- Process Steps Section -->
+    <section class="py-12 sm:py-16">
+        <h2 class="mb-10">How It Works - 3 Simple Steps</h2>
+        <ProcessSteps />
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-12 sm:py-16">
+        <h2 class="mb-10">Client Success Stories</h2>
+        <Testimonials />
+    </section>
+
+    <!-- Comparison Table Section -->
+    <section class="py-12 sm:py-16">
+        <h2 class="mb-10">Compare Your Options</h2>
+        <!-- Comparison table will be implemented in a separate component -->
+        <p class="text-text-muted">Comparison table implementation coming soon...</p>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-12 sm:py-16">
+        <h2 class="mb-10">Frequently Asked Questions</h2>
+        <FAQSection />
+    </section>
+
+    <!-- Disclosures Section -->
+    <section class="py-12 sm:py-16">
+        <h2 class="mb-6">Important Program Disclosures</h2>
+        <Disclosures />
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="py-12 sm:py-16">
+        <FinalCTA />
+    </section>
+</LandingLayout>

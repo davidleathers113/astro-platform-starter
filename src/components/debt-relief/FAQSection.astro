@@ -1,0 +1,44 @@
+---
+// src/components/debt-relief/FAQSection.astro
+import FAQItem from './FAQItem.astro';
+
+const faqs = [
+    {
+        question: "How does debt settlement work?",
+        answer: "Our program works by negotiating directly with your creditors to reduce the amount you owe. While you make affordable monthly deposits into a dedicated account, our team works to settle each debt for less than the full balance. Once enough funds are accumulated and a settlement is reached, we pay the creditor and the debt is considered resolved."
+    },
+    {
+        question: "What types of debt qualify?",
+        answer: "Our program works with unsecured debts such as credit cards, personal loans, medical debt, and some private student loans. Secured debts like mortgages and auto loans, federal student loans, and tax debt typically do not qualify."
+    },
+    {
+        question: "How much does the program cost?",
+        answer: "Our fees are performance-based, meaning we only charge when we successfully settle a debt. Fees are calculated as a percentage of the enrolled debt amount or the amount saved, depending on your state. During your free consultation, we'll explain the exact fee structure for your situation."
+    },
+    {
+        question: "Will this affect my credit score?",
+        answer: "Yes, debt settlement can negatively impact your credit score initially. When you stop making payments to creditors as part of the program, it will be reported to credit bureaus. However, many clients find that resolving their debt problems provides long-term financial benefits that outweigh the temporary credit impact."
+    },
+    {
+        question: "How long does the program take?",
+        answer: "Most clients complete our program within 24-36 months, though timeframes can range from 12-48 months depending on your specific situation, including the amount of debt enrolled and your monthly program payment amount."
+    },
+    {
+        question: "Can creditors sue me during the program?",
+        answer: "While creditors have the legal right to pursue collection, including potential lawsuits, our experienced team works to negotiate settlements before such actions occur. If legal action is taken, we work with partners who can provide appropriate guidance."
+    }
+];
+---
+
+<div class="space-y-4">
+    {faqs.map(faq => (
+        <FAQItem
+            question={faq.question}
+            answer={faq.answer}
+        />
+    ))}
+</div>
+
+<div class="mt-10 text-center">
+    <a href="tel:8005551234" class="btn btn-lg">Speak With A Specialist Now: (800) 555-1234</a>
+</div>

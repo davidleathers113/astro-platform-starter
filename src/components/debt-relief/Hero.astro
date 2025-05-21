@@ -1,0 +1,44 @@
+---
+// src/components/debt-relief/Hero.astro
+interface Props {
+    title: string;
+    subtitle: string;
+    description: string;
+    primaryCta: {
+        text: string;
+        url: string;
+    };
+    phoneNumber: string;
+    availability: string;
+}
+
+const { 
+    title = "Break Free From Credit Card Debt - Save Up To 50%",
+    subtitle = "Reduce Your Debt By Thousands | Become Debt-Free in 12-36 Months",
+    description = "Are you struggling with $15,000+ in credit card debt? Our professional debt settlement program can help you reduce what you owe and become debt-free faster than making minimum payments.",
+    primaryCta = {
+        text: "Get Your Free Consultation Now",
+        url: "#qualification-form"
+    },
+    phoneNumber = "(800) 555-1234",
+    availability = "Available 9:00am - 8:00pm EST, 7 days a week"
+} = Astro.props;
+---
+
+<section class="py-12 sm:py-16 text-center md:text-left">
+    <div class="max-w-4xl">
+        <h1 class="mb-4">{title}</h1>
+        <h2 class="mb-6 text-xl font-medium text-text-muted">{subtitle}</h2>
+        <p class="mb-8 text-lg max-w-3xl">{description}</p>
+        
+        <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+            <a href={primaryCta.url} class="btn btn-lg">{primaryCta.text}</a>
+            <div class="flex items-center gap-2">
+                <span class="font-semibold">or Call</span>
+                <a href={`tel:${phoneNumber.replace(/\D/g, '')}`} class="text-xl font-bold text-primary">{phoneNumber}</a>
+            </div>
+        </div>
+        
+        <p class="mt-4 text-sm text-text-muted">{availability}</p>
+    </div>
+</section>

@@ -1,0 +1,67 @@
+---
+// src/components/debt-relief/Testimonials.astro
+import TestimonialItem from './TestimonialItem.astro';
+
+const testimonials = [
+    {
+        quote: "I had over $23,000 in credit card debt after my medical emergency. The minimum payments were crushing me. DebtFreedom helped me settle for just $12,400 - saving me over $10,000! I completed the program in 28 months and now I'm completely debt-free.",
+        name: "Sarah M.",
+        location: "Texas",
+        debtDetails: "Enrolled Debt: $23,000 | Settled Amount: $12,400 | Program Length: 28 months"
+    },
+    {
+        quote: "After losing my job, my credit card debt spiraled to $32,500. DebtFreedom negotiated my debt down to $16,800. Their team handled everything - all the calls from creditors stopped. The relief is incredible.",
+        name: "James T.",
+        location: "Florida",
+        debtDetails: "Enrolled Debt: $32,500 | Settled Amount: $16,800 | Program Length: 36 months"
+    }
+];
+---
+
+<div>
+    <div class="grid gap-8 md:grid-cols-2">
+        {testimonials.map(testimonial => (
+            <TestimonialItem 
+                quote={testimonial.quote}
+                name={testimonial.name}
+                location={testimonial.location}
+                debtDetails={testimonial.debtDetails}
+            />
+        ))}
+    </div>
+    
+    <p class="mt-6 text-sm text-text-muted text-center">
+        *Testimonials represent actual client experiences. Individual results may vary based on your specific situation.
+    </p>
+    
+    <div class="mt-12">
+        <h3 class="mb-8 text-xl font-semibold text-center">Expert Debt Relief Since 2005</h3>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div class="p-4 bg-background-form rounded-lg">
+                <h4 class="text-2xl font-bold text-primary">20,000+</h4>
+                <p class="text-sm">Clients Helped</p>
+            </div>
+            
+            <div class="p-4 bg-background-form rounded-lg">
+                <h4 class="text-2xl font-bold text-primary">$800 Million+</h4>
+                <p class="text-sm">Debt Resolved</p>
+            </div>
+            
+            <div class="p-4 bg-background-form rounded-lg">
+                <h4 class="text-2xl font-bold text-primary">40%</h4>
+                <p class="text-sm">Average Savings*</p>
+            </div>
+            
+            <div class="p-4 bg-background-form rounded-lg">
+                <h4 class="text-2xl font-bold text-primary">4.8/5</h4>
+                <p class="text-sm">Client Rating</p>
+            </div>
+        </div>
+        
+        <p class="mt-6 text-sm text-text-muted text-center">
+            *Average savings represents the total debt enrolled compared to the amount paid to creditors before fees. 
+            Individual results may vary based on creditor participation, program length, and other factors.
+        </p>
+    </div>
+</div>

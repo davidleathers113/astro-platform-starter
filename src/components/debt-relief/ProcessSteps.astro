@@ -1,0 +1,45 @@
+---
+// src/components/debt-relief/ProcessSteps.astro
+import ProcessStep from './ProcessStep.astro';
+
+const steps = [
+    {
+        stepNumber: 1,
+        title: "Free Consultation",
+        description: "Speak with a Certified Debt Specialist who will evaluate your situation and explain your options."
+    },
+    {
+        stepNumber: 2,
+        title: "Custom Plan",
+        description: "Get a personalized program with a single monthly payment that fits your budget."
+    },
+    {
+        stepNumber: 3,
+        title: "Debt Freedom",
+        description: "We negotiate with creditors to reduce your balances while you make program payments."
+    }
+];
+---
+
+<div class="relative">
+    <!-- Steps container -->
+    <div class="grid gap-16 md:grid-cols-3 md:gap-8">
+        <!-- Process step components -->
+        {steps.map(step => (
+            <ProcessStep 
+                stepNumber={step.stepNumber}
+                title={step.title}
+                description={step.description}
+            />
+        ))}
+    </div>
+    
+    <!-- Connecting line (visible on desktop only) -->
+    <div class="absolute top-8 left-0 w-full hidden md:block">
+        <div class="border-t-2 border-primary border-dashed"></div>
+    </div>
+</div>
+
+<div class="mt-10 text-center">
+    <a href="#qualification-form" class="btn btn-lg">See If You Qualify Now</a>
+</div>

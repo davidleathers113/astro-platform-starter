@@ -1,0 +1,44 @@
+---
+// src/components/debt-relief/Benefits.astro
+import BenefitItem from './BenefitItem.astro';
+
+const benefits = [
+    {
+        title: "Reduce What You Owe",
+        description: "Clients typically save 30-50% on enrolled debt before fees through our professional negotiation service."
+    },
+    {
+        title: "One Affordable Monthly Payment",
+        description: "Replace multiple high-interest minimum payments with one lower monthly program payment."
+    },
+    {
+        title: "Become Debt-Free Faster",
+        description: "Most clients complete the program in 24-36 months, compared to 20+ years making minimum payments."
+    },
+    {
+        title: "Professional Negotiation",
+        description: "Our experienced team handles all creditor communication and negotiation on your behalf."
+    },
+    {
+        title: "No Upfront Fees",
+        description: "You only pay when we successfully settle your debt - performance-based fees mean we're on your side."
+    },
+    {
+        title: "Custom Solution",
+        description: "Get a personalized plan based on your specific debt situation and financial goals."
+    }
+];
+---
+
+<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    {benefits.map(benefit => (
+        <BenefitItem 
+            title={benefit.title}
+            description={benefit.description}
+        />
+    ))}
+</div>
+
+<div class="mt-10 text-center">
+    <a href="#qualification-form" class="btn btn-lg">Take The First Step Today</a>
+</div>
