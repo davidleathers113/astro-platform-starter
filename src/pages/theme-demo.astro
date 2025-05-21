@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { ThemeProvider } from '../components/theme';
+import ThemeTest from '../components/theme/ThemeTest';
+import SystemThemeDemo from '../components/theme/SystemThemeDemo';
+import MediaQueryListenerDemo from '../components/theme/MediaQueryListenerDemo';
+---
+
+<Layout title="Theme System Demo">
+  <div>
+    <h1 class="mb-8">Theme System Demo</h1>
+    
+    <p class="mb-6">
+      This page demonstrates the Theme Context Provider and System Preference Detection Utility implementations.
+    </p>
+    
+    <div class="grid grid-cols-1 gap-8">
+      <section>
+        <h2 class="text-2xl font-bold mb-4">1. Theme Context API</h2>
+        <p class="mb-4">
+          The context allows React components to access and modify the current theme state.
+        </p>
+        <ThemeProvider client:load>
+          <ThemeTest client:load />
+        </ThemeProvider>
+        
+        <div class="mt-4 p-4 bg-surface-2 rounded-lg">
+          <h3 class="font-bold mb-2">Implementation Notes</h3>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>The ThemeProvider connects to the existing theme detection script via window.themeManager</li>
+            <li>Theme changes are synchronized between the context and localStorage</li>
+            <li>The context provides convenient hooks and methods for React components</li>
+            <li>System preferences are automatically detected and applied when using the 'system' setting</li>
+          </ul>
+        </div>
+      </section>
+      
+      <section>
+        <h2 class="text-2xl font-bold mb-4">2. System Preference Detection</h2>
+        <p class="mb-4">
+          The System Preference Detection Utility provides robust detection and event handling for system color scheme preferences.
+        </p>
+        <SystemThemeDemo client:load />
+        
+        <div class="mt-4 p-4 bg-surface-2 rounded-lg">
+          <h3 class="font-bold mb-2">Implementation Notes</h3>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Reliable detection of system dark/light mode preference</li>
+            <li>Event listeners for real-time system preference changes</li>
+            <li>Browser compatibility handling for older browsers</li>
+            <li>Server-side rendering (SSR) support with safe defaults</li>
+            <li>TypeScript types for improved developer experience</li>
+          </ul>
+        </div>
+      </section>
+      
+      <section>
+        <h2 class="text-2xl font-bold mb-4">3. Media Query Listeners</h2>
+        <p class="mb-4">
+          The Media Query Listeners implementation ensures that the application responds to system preference changes in real-time.
+        </p>
+        <ThemeProvider client:load>
+          <MediaQueryListenerDemo client:load />
+        </ThemeProvider>
+        
+        <div class="mt-4 p-4 bg-surface-2 rounded-lg">
+          <h3 class="font-bold mb-2">Implementation Notes</h3>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Automatic detection of system preference changes</li>
+            <li>Real-time theme updates when system preferences change</li>
+            <li>Efficient cleanup of event listeners to prevent memory leaks</li>
+            <li>Proper useEffect dependency handling</li>
+            <li>Error handling and improved debugging</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </div>
+</Layout>

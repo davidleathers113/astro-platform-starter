@@ -8,9 +8,30 @@ interface Props {
 const { title, description } = Astro.props;
 ---
 
-<div class="p-6 form-container rounded-lg">
+<div class="p-6 form-container rounded-lg bg-background-form text-text shadow-md border border-border hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
     <h3 class="mb-3 text-xl font-semibold flex items-center gap-2">
-        <span class="text-primary">✓</span> {title}
+        <span class="text-primary font-bold text-2xl flex items-center justify-center w-8 h-8 rounded-full bg-primary bg-opacity-10">✓</span> 
+        {title}
     </h3>
-    <p class="text-text-muted">{description}</p>
+    <p class="text-text-muted leading-relaxed">{description}</p>
 </div>
+
+<style>
+    /* Add a slight scale effect on hover for better interactivity */
+    .form-container {
+        will-change: transform, box-shadow;
+    }
+    
+    @media (prefers-reduced-motion: no-preference) {
+        .form-container:hover {
+            transform: translateY(-4px) scale(1.01);
+        }
+    }
+    
+    /* Improve readability on mobile */
+    @media (max-width: 640px) {
+        .form-container {
+            padding: 1.25rem;
+        }
+    }
+</style>

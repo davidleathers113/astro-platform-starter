@@ -1,0 +1,99 @@
+---
+import LandingLayout from '../../layouts/LandingLayout.astro';
+---
+
+<LandingLayout title="Contact Us | Debt Freedom Toolkit">
+    <section class="py-12 sm:py-16">
+        <h1 class="mb-8 text-4xl font-bold">Contact Us</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div>
+                <h2 class="mb-6 text-2xl font-semibold">Get in Touch</h2>
+                <p class="mb-6">Have questions about our debt relief program? Our debt specialists are ready to help you understand your options and start your journey to financial freedom.</p>
+                
+                <div class="mb-8">
+                    <h3 class="mb-2 text-xl font-medium">Phone</h3>
+                    <p class="text-primary text-xl font-bold">(800) 555-1234</p>
+                    <p class="text-sm text-gray-400">Available 9:00am - 8:00pm EST, 7 days a week</p>
+                </div>
+                
+                <div class="mb-8">
+                    <h3 class="mb-2 text-xl font-medium">Email</h3>
+                    <p><a href="mailto:support@debtfreedomtoolkit.com" class="text-primary">support@debtfreedomtoolkit.com</a></p>
+                </div>
+                
+                <div class="mb-8">
+                    <h3 class="mb-2 text-xl font-medium">Office Address</h3>
+                    <p>Debt Freedom Toolkit</p>
+                    <p>123 Financial Way, Suite 500</p>
+                    <p>Clearwater, FL 33759</p>
+                </div>
+                
+                <div class="mt-10">
+                    <h3 class="mb-4 text-xl font-medium">Business Hours</h3>
+                    <table class="w-full">
+                        <tr>
+                            <td class="py-2">Monday - Friday</td>
+                            <td class="py-2">9:00am - 8:00pm EST</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2">Saturday - Sunday</td>
+                            <td class="py-2">10:00am - 6:00pm EST</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div>
+                <h2 class="mb-6 text-2xl font-semibold">Send Us a Message</h2>
+                
+                <form class="space-y-6">
+                    <div>
+                        <label for="name" class="block mb-2 font-medium">Full Name*</label>
+                        <input type="text" id="name" name="name" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-md text-white" required>
+                    </div>
+                    
+                    <div>
+                        <label for="email" class="block mb-2 font-medium">Email Address*</label>
+                        <input type="email" id="email" name="email" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-md text-white" required>
+                    </div>
+                    
+                    <div>
+                        <label for="phone" class="block mb-2 font-medium">Phone Number*</label>
+                        <input type="tel" id="phone" name="phone" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-md text-white" placeholder="(___) ___-____" required>
+                    </div>
+                    
+                    <div>
+                        <label for="debt-amount" class="block mb-2 font-medium">Total Debt Amount*</label>
+                        <select id="debt-amount" name="debtAmount" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-md text-white" required>
+                            <option value="">Select Amount</option>
+                            <option value="10000-15000">$10,000 - $15,000</option>
+                            <option value="15000-25000">$15,000 - $25,000</option>
+                            <option value="25000-50000">$25,000 - $50,000</option>
+                            <option value="50000+">$50,000+</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="message" class="block mb-2 font-medium">Message</label>
+                        <textarea id="message" name="message" rows="4" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-md text-white"></textarea>
+                    </div>
+                    
+                    <div>
+                        <button type="submit" class="w-full p-4 text-center font-bold bg-primary text-primary-content rounded-md transition-colors hover:bg-primary/85">
+                            Send Message
+                        </button>
+                    </div>
+                    
+                    <p class="text-xs text-gray-400">
+                        By submitting this form, you authorize Debt Freedom Toolkit to contact you at the number provided using automated technology. Your information is kept secure and confidential.
+                    </p>
+                </form>
+            </div>
+        </div>
+        
+        <div class="mt-10 text-center">
+            <a href="/debt-relief" class="btn bg-primary text-primary-content">Back to Debt Relief</a>
+        </div>
+    </section>
+</LandingLayout>

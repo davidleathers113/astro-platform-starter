@@ -1,0 +1,50 @@
+---
+---
+
+<div class="dark-mode-test p-6 my-8 rounded-lg transition-theme duration-300 bg-background-form dark:bg-slate-800">
+    <h2 class="text-2xl font-bold mb-4">Dark Mode Test</h2>
+    
+    <p class="mb-4">This component demonstrates both CSS variable-based theme styles and Tailwind's dark mode classes.</p>
+    
+    <!-- CSS Variables Test -->
+    <div class="p-4 mb-4 rounded bg-background dark:bg-slate-900 transition-theme duration-300">
+        <h3 class="text-xl font-bold mb-2">CSS Variables</h3>
+        <p class="text-text-muted mb-2">This text uses CSS custom properties from globals.css</p>
+        <div class="flex gap-2 flex-wrap">
+            <button class="btn">Primary Button</button>
+            <button class="btn-secondary">Secondary Button</button>
+            <button class="btn-accent">Accent Button</button>
+        </div>
+    </div>
+    
+    <!-- Tailwind Dark Mode Test -->
+    <div class="p-4 rounded bg-white dark:bg-slate-700 text-gray-800 dark:text-gray-100 transition-theme duration-300">
+        <h3 class="text-xl font-bold mb-2">Tailwind Dark Mode</h3>
+        <p class="mb-2">This section uses Tailwind's dark: variant classes</p>
+        <div class="flex gap-2 flex-wrap">
+            <button class="px-4 py-2 bg-blue-500 dark:bg-blue-700 text-white rounded hover:opacity-90 transition-theme duration-300">
+                Blue Button
+            </button>
+            <button class="px-4 py-2 bg-green-500 dark:bg-green-700 text-white rounded hover:opacity-90 transition-theme duration-300">
+                Green Button
+            </button>
+            <button class="px-4 py-2 bg-purple-500 dark:bg-purple-700 text-white rounded hover:opacity-90 transition-theme duration-300">
+                Purple Button
+            </button>
+        </div>
+    </div>
+    
+    <!-- Mixed Approach -->
+    <div class="p-4 mt-4 rounded border dark:border-slate-600 transition-theme duration-300">
+        <h3 class="text-xl font-bold mb-2">Mixed Approach</h3>
+        <p class="mb-2 text-primary dark:text-accent">This text combines CSS variables and Tailwind's dark: variant</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-3 bg-background-input dark:bg-slate-950 rounded transition-theme duration-300">
+                <p>Panel with CSS variables</p>
+            </div>
+            <div class="p-3 bg-gray-100 dark:bg-gray-900 rounded transition-theme duration-300">
+                <p>Panel with Tailwind colors</p>
+            </div>
+        </div>
+    </div>
+</div>

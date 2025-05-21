@@ -25,20 +25,43 @@ const {
 } = Astro.props;
 ---
 
-<section class="py-12 sm:py-16 text-center md:text-left">
-    <div class="max-w-4xl">
-        <h1 class="mb-4">{title}</h1>
-        <h2 class="mb-6 text-xl font-medium text-text-muted">{subtitle}</h2>
-        <p class="mb-8 text-lg max-w-3xl">{description}</p>
+<section class="py-12 sm:py-20 text-center md:text-left">
+    <div class="max-w-4xl mx-auto md:mx-0 animate-fade-in">
+        <h1 class="mb-4 text-4xl sm:text-5xl font-bold leading-tight tracking-tight text-shadow">{title}</h1>
+        <h2 class="mb-6 text-xl font-medium text-text-muted leading-relaxed animate-fade-in-delay-1">{subtitle}</h2>
+        <p class="mb-8 text-lg max-w-3xl leading-relaxed animate-fade-in-delay-2">{description}</p>
         
-        <div class="flex flex-wrap gap-4 justify-center md:justify-start">
-            <a href={primaryCta.url} class="btn btn-lg">{primaryCta.text}</a>
-            <div class="flex items-center gap-2">
+        <div class="flex flex-wrap gap-6 justify-center md:justify-start items-center animate-fade-in-delay-3">
+            <a 
+                href={primaryCta.url} 
+                class="btn btn-lg shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all animate-pulse-once"
+            >
+                {primaryCta.text}
+            </a>
+            <div class="flex flex-col sm:flex-row items-center gap-2">
                 <span class="font-semibold">or Call</span>
-                <a href={`tel:${phoneNumber.replace(/\D/g, '')}`} class="text-xl font-bold text-primary">{phoneNumber}</a>
+                <a 
+                    href={`tel:${phoneNumber.replace(/\D/g, '')}`} 
+                    class="text-xl font-bold text-primary hover:text-accent transition-colors"
+                >
+                    {phoneNumber}
+                </a>
             </div>
         </div>
         
         <p class="mt-4 text-sm text-text-muted">{availability}</p>
     </div>
 </section>
+
+<style>
+    .text-shadow {
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Improved responsive behavior for very small screens */
+    @media (max-width: 340px) {
+        .btn {
+            width: 100%;
+        }
+    }
+</style>

@@ -1,5 +1,8 @@
 ---
 import '../styles/globals.css';
+import '../styles/print.css';
+import '../styles/faq-fixes.css';
+import '../styles/testimonial-fixes.css';
 import '@fontsource-variable/inter/wght.css';
 import interWoff2 from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 import LandingHeader from '../components/debt-relief/LandingHeader.astro';
@@ -106,8 +109,8 @@ const { title } = Astro.props;
         </script>
     </head>
     <body class="antialiased text-text bg-background">
-        <div class="flex flex-col min-h-screen px-6 sm:px-12">
-            <div class="flex flex-col w-full max-w-5xl mx-auto grow">
+        <div class="flex flex-col min-h-screen px-4 bg-noise sm:px-8 md:px-12">
+            <div class="flex flex-col w-full max-w-5xl mx-auto grow py-4 sm:py-6 md:py-8">
                 <LandingHeader />
                 <main class="grow"><slot /></main>
                 <Footer />
@@ -115,3 +118,67 @@ const { title } = Astro.props;
         </div>
     </body>
 </html>
+
+<style>
+    .bg-noise {
+        background-image: var(--background-image-noise);
+        background-attachment: fixed;
+        position: relative;
+        z-index: 0;
+    }
+    
+    /* Add texture overlay for better visual effect */
+    .bg-noise::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('/images/noise.png');
+        opacity: 0.03;
+        z-index: -1;
+        pointer-events: none;
+    }
+    
+    /* Improve font rendering */
+    body {
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    
+    /* Smooth scrolling for better UX */
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    /* Ensure proper page height on mobile */
+    @media (max-width: 640px) {
+        html, body {
+            min-height: 100%;
+            height: -webkit-fill-available;
+        }
+    }
+    
+    /* Ensure proper spacing on various device sizes */
+    @media (min-width: 1280px) {
+        .max-w-5xl {
+            max-width: 64rem;
+        }
+    }
+    
+    /* Prevent content from being too wide on extra large screens */
+    @media (min-width: 1536px) {
+        body {
+            font-size: 1.05rem;
+        }
+    }
+    
+    /* Handle iOS-specific issues */
+    @supports (-webkit-touch-callout: none) {
+        .min-h-screen {
+            min-height: -webkit-fill-available;
+        }
+    }
+</style>

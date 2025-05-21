@@ -20,63 +20,202 @@ import FinalCTA from '../components/debt-relief/FinalCTA.astro';
 
 <LandingLayout title={pageTitle}>
     <!-- Hero Section -->
-    <DebtReliefHero 
-        title="Break Free From Credit Card Debt - Save Up To 50%"
-        subtitle="Reduce Your Debt By Thousands | Become Debt-Free in 12-36 Months"
-        description="Are you struggling with $15,000+ in credit card debt? Our professional debt settlement program can help you reduce what you owe and become debt-free faster than making minimum payments."
-        primaryCta={{
-            text: "Get Your Free Consultation Now",
-            url: "#qualification-form"
-        }}
-        phoneNumber="(800) 555-1234"
-        availability="Available 9:00am - 8:00pm EST, 7 days a week"
-    />
+    <div class="py-16 sm:py-20 md:py-24 border-b border-border">
+        <DebtReliefHero 
+            title="Break Free From Credit Card Debt - Save Up To 50%"
+            subtitle="Reduce Your Debt By Thousands | Become Debt-Free in 12-36 Months"
+            description="Are you struggling with $15,000+ in credit card debt? Our professional debt settlement program can help you reduce what you owe and become debt-free faster than making minimum payments."
+            primaryCta={{
+                text: "Get Your Free Consultation Now",
+                url: "#qualification-form"
+            }}
+            phoneNumber="(800) 555-1234"
+            availability="Available 9:00am - 8:00pm EST, 7 days a week"
+        />
+    </div>
 
     <!-- Qualification Form Section -->
-    <section id="qualification-form" class="py-12 sm:py-16">
-        <h2 class="mb-8">You Could Save Thousands - See If You Qualify in 30 Seconds</h2>
-        <QualificationForm />
+    <section id="qualification-form" class="py-16 sm:py-20">
+        <h2 class="mb-10 text-center">You Could Save Thousands - See If You Qualify in 30 Seconds</h2>
+        <div class="max-w-lg mx-auto">
+            <QualificationForm />
+        </div>
     </section>
 
     <!-- Benefits Section -->
-    <section class="py-12 sm:py-16">
-        <h2 class="mb-10">Why Choose Our Debt Settlement Program?</h2>
-        <Benefits />
+    <section class="py-16 sm:py-20 bg-background-form/30 border-y border-border">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="mb-12 text-center">Why Choose Our Debt Settlement Program?</h2>
+            <Benefits />
+        </div>
     </section>
 
     <!-- Process Steps Section -->
-    <section class="py-12 sm:py-16">
-        <h2 class="mb-10">How It Works - 3 Simple Steps</h2>
-        <ProcessSteps />
+    <section class="py-16 sm:py-20">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="mb-12 text-center">How It Works - 3 Simple Steps</h2>
+            <ProcessSteps />
+        </div>
     </section>
 
     <!-- Testimonials Section -->
-    <section class="py-12 sm:py-16">
-        <h2 class="mb-10">Client Success Stories</h2>
-        <Testimonials />
+    <section class="py-16 sm:py-20 bg-background-form/30 border-y border-border" id="testimonials-section">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="mb-12 text-center">Client Success Stories</h2>
+            <Testimonials />
+        </div>
     </section>
 
     <!-- Comparison Table Section -->
-    <section class="py-12 sm:py-16">
-        <h2 class="mb-10">Compare Your Options</h2>
-        <!-- Comparison table will be implemented in a separate component -->
-        <p class="text-text-muted">Comparison table implementation coming soon...</p>
+    <section class="py-16 sm:py-20">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="mb-12 text-center">Compare Your Options</h2>
+            <!-- Comparison table will be implemented in a separate component -->
+            <div class="p-8 text-center bg-background-form rounded-lg shadow-md border border-border">
+                <p class="text-text-muted">Comparison table implementation coming soon...</p>
+            </div>
+        </div>
     </section>
 
     <!-- FAQ Section -->
-    <section class="py-12 sm:py-16">
-        <h2 class="mb-10">Frequently Asked Questions</h2>
-        <FAQSection />
+    <section class="py-16 sm:py-20 bg-background-form/30 border-y border-border">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="mb-12 text-center">Frequently Asked Questions</h2>
+            <FAQSection />
+        </div>
     </section>
 
     <!-- Disclosures Section -->
-    <section class="py-12 sm:py-16">
-        <h2 class="mb-6">Important Program Disclosures</h2>
-        <Disclosures />
+    <section class="py-16">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="mb-8 text-center">Important Program Disclosures</h2>
+            <Disclosures />
+        </div>
     </section>
 
     <!-- Final CTA Section -->
-    <section class="py-12 sm:py-16">
-        <FinalCTA />
+    <section class="py-16 sm:py-20">
+        <div class="max-w-2xl mx-auto">
+            <FinalCTA />
+        </div>
     </section>
 </LandingLayout>
+
+<style is:global>
+    h2 {
+        position: relative;
+    }
+    
+    h2::after {
+        content: "";
+        position: absolute;
+        bottom: -0.75rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background-color: var(--color-primary);
+        border-radius: 3px;
+    }
+    
+    @media (min-width: 768px) {
+        section {
+            scroll-margin-top: 80px;
+        }
+    }
+    
+    /* CRITICAL FIX: Override any huge SVG chevrons ONLY in the FAQ section */
+    .faq-item .faq-icon,
+    .faq-question svg {
+        max-width: 20px !important;
+        max-height: 20px !important;
+        width: 20px !important;
+        height: 20px !important;
+        flex-shrink: 0 !important;
+    }
+    
+    /* Hide any extraneous SVGs outside proper containers */
+    section:nth-of-type(7) > div > svg,
+    section:nth-of-type(7) svg:not(.faq-icon):not(:has(path[stroke-linecap="round"])) {
+        display: none !important;
+    }
+    
+    /* Override specific large chevrons seen in screenshot */
+    svg path[d="M19.5 8.25l-7.5 7.5-7.5-7.5"] {
+        stroke-width: 1.5 !important;
+    }
+    
+    /* TESTIMONIALS SECTION CRITICAL FIXES */
+    #testimonials-section .testimonial-card {
+        display: block !important;
+        background-color: var(--color-form-bg) !important;
+        border: 1px solid var(--color-border) !important;
+        border-radius: 0.5rem !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+        padding: 1.5rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    /* QUOTATION ICON SIZE FIX */
+    #testimonials-section .testimonial-quote-icon,
+    #testimonials-section .testimonial-card svg,
+    section:nth-of-type(5) svg {
+        width: 2.5rem !important;
+        height: 2.5rem !important;
+        max-width: none !important;
+        max-height: none !important;
+        min-width: 2.5rem !important;
+        min-height: 2.5rem !important;
+    }
+    
+    /* Exempt testimonial section SVGs from FAQ icon size restriction */
+    section:nth-of-type(5) svg {
+        width: 2.5rem !important;
+        height: 2.5rem !important;
+    }
+    
+    #testimonials-section .grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+    }
+    
+    @media (min-width: 768px) {
+        #testimonials-section .grid.md\:grid-cols-2 {
+            grid-template-columns: repeat(2, 1fr) !important;
+        }
+        
+        #testimonials-section .grid.md\:grid-cols-4 {
+            grid-template-columns: repeat(4, 1fr) !important;
+        }
+    }
+    
+    #testimonials-section blockquote {
+        font-style: italic !important;
+        margin-bottom: 1rem !important;
+        font-size: 1.1rem !important;
+        line-height: 1.6 !important;
+    }
+    
+    #testimonials-section .font-bold {
+        font-weight: 700 !important;
+        color: var(--color-primary) !important;
+    }
+    
+    #testimonials-section .text-sm {
+        font-size: 0.875rem !important;
+    }
+    
+    #testimonials-section .mt-6 {
+        margin-top: 1.5rem !important;
+    }
+    
+    #testimonials-section .pt-4 {
+        padding-top: 1rem !important;
+    }
+    
+    #testimonials-section .border-t {
+        border-top-width: 1px !important;
+        border-top-style: solid !important;
+        border-top-color: var(--color-border) !important;
+    }
+</style>

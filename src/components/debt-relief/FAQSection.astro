@@ -30,15 +30,100 @@ const faqs = [
 ];
 ---
 
-<div class="space-y-4">
-    {faqs.map(faq => (
-        <FAQItem
-            question={faq.question}
-            answer={faq.answer}
-        />
+<div class="space-y-4 faq-container">
+    {faqs.map((faq, index) => (
+        <div class="animate-fade-in" style={`animation-delay: ${index * 100}ms`}>
+            <FAQItem
+                question={faq.question}
+                answer={faq.answer}
+            />
+        </div>
     ))}
 </div>
 
-<div class="mt-10 text-center">
-    <a href="tel:8005551234" class="btn btn-lg">Speak With A Specialist Now: (800) 555-1234</a>
+<style>
+    /* Ensure SVG icons stay at the correct size and don't get enlarged */
+    :global(.faq-container svg) {
+        max-width: 20px !important;
+        max-height: 20px !important;
+        width: 20px !important;
+        height: 20px !important;
+        flex-shrink: 0 !important;
+    }
+    
+    /* Hide any potential oversized chevrons */
+    :global(.faq-container > svg),
+    :global(.faq-container svg:not(.faq-icon)) {
+        display: none !important;
+    }
+</style>
+
+<div class="mt-10 text-center animate-fade-in" style="animation-delay: 600ms">
+    <a href="tel:8005551234" class="btn btn-lg animate-pulse-once" style="animation-delay: 800ms">Speak With A Specialist Now: (800) 555-1234</a>
 </div>
+
+<script>
+    // Additional script to ensure all FAQ items are properly initialized
+    document.addEventListener('astro:page-load', () => {
+        // Get all FAQ items and ensure they're properly set up
+        const initializeFAQs = () => {
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                // Make sure all the required elements exist
+                const button = item.querySelector('.faq-question');
+                const answer = item.querySelector('.faq-answer');
+                const content = item.querySelector('.faq-content');
+                const icon = item.querySelector('.faq-icon');
+                
+                if (button && answer && icon && content) {
+                    // Ensure ARIA attributes are correctly set
+                    const id = answer.id || `faq-${Math.floor(Math.random() * 10000)}`;
+                    
+                    // Set the correct ID if it's missing
+                    if (!answer.id) {
+                        answer.id = id;
+                    }
+                    
+                    button.setAttribute('aria-controls', id);
+                    button.setAttribute('aria-expanded', 'false');
+                    answer.setAttribute('aria-hidden', 'true');
+                }
+            });
+        };
+        
+        // Run initialization
+        initializeFAQs();
+        
+        // Add a backup for browsers that might not support the astro:page-load event
+        setTimeout(initializeFAQs, 500);
+    });
+    
+    // Fallback for compatibility
+    document.addEventListener('DOMContentLoaded', () => {
+        if (!document.body.dataset.astroPageLoaded) {
+            const event = new Event('astro:page-load');
+            document.dispatchEvent(event);
+            document.body.dataset.astroPageLoaded = 'true';
+        }
+    });
+</script>
+
+<style>
+    .faq-container {
+        position: relative;
+    }
+    
+    /* Add staggered animation for better visual experience */
+    .faq-container > div {
+        opacity: 0;
+        transform: translateY(10px);
+        animation: fadeSlideUp 0.5s ease-out forwards;
+    }
+    
+    @keyframes fadeSlideUp {
+        to { 
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>

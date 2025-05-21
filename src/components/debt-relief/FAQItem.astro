@@ -1,5 +1,7 @@
 ---
 // src/components/debt-relief/FAQItem.astro
+import ChevronIcon from './ChevronIcon.astro';
+
 interface Props {
     question: string;
     answer: string;
@@ -9,45 +11,152 @@ const { question, answer } = Astro.props;
 const id = `faq-${Math.floor(Math.random() * 1000)}`;
 ---
 
-<div class="faq-item mb-4 bg-background-form rounded-lg overflow-hidden">
+<!-- Force style to prevent oversized icons -->
+<div class="faq-item mb-4 bg-background-form rounded-lg overflow-hidden shadow-md border border-border hover:shadow-lg transition-all duration-300" style="position: relative; z-index: 1;">
     <button 
-        class="faq-question w-full p-5 text-left flex justify-between items-center" 
+        class="faq-question w-full p-5 text-left flex justify-between items-center hover:bg-background-form/50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
         aria-expanded="false" 
         aria-controls={id}
     >
         <span class="font-semibold">{question}</span>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 faq-icon transition-transform">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-        </svg>
+        <span class="flex-shrink-0 ml-2">
+            <ChevronIcon />
+        </span>
     </button>
-    <div id={id} class="faq-answer hidden overflow-hidden p-5 pt-0 bg-background-form" aria-hidden="true">
-        <p class="text-text-muted">{answer}</p>
+    <div id={id} class="faq-answer hidden overflow-hidden p-5 pt-0 bg-background-form border-t-0 border-border" aria-hidden="true">
+        <div class="faq-content transform transition-all duration-300 opacity-0 translate-y-4">
+            <p class="text-text-muted py-4 leading-relaxed">{answer}</p>
+        </div>
     </div>
 </div>
 
+<style>
+    .faq-item {
+        transform: translateZ(0); /* Force hardware acceleration */
+        will-change: transform, box-shadow; /* Optimize for animation */
+    }
+    
+    .faq-question:hover {
+        background-color: rgba(var(--color-form-bg-rgb, 32, 43, 61), 0.7);
+    }
+    
+    /* Enhanced focus outline for better accessibility */
+    .faq-question:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px var(--color-primary);
+    }
+    
+    /* Smooth height transition for FAQ answers */
+    .faq-answer {
+        transition: all 0.3s ease-out;
+        max-height: 0;
+    }
+    
+    .faq-answer:not(.hidden) {
+        max-height: 500px; /* Large enough to fit content */
+    }
+    
+    /* Visible state for FAQ content */
+    .faq-content {
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    }
+    
+    .faq-content.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    /* Chevron animation */
+    .faq-icon {
+        transition: transform 0.3s ease-out;
+    }
+    
+    [aria-expanded="true"] .faq-icon {
+        transform: rotate(180deg);
+    }
+</style>
+
 <script>
-    // Client-side script for accordion functionality
-    document.addEventListener('DOMContentLoaded', () => {
+    // Enhanced client-side script for accordion functionality with animations
+    document.addEventListener('astro:page-load', () => {
         const faqItems = document.querySelectorAll('.faq-item');
         
         faqItems.forEach(item => {
             const button = item.querySelector('.faq-question');
             const answer = item.querySelector('.faq-answer');
+            const content = item.querySelector('.faq-content');
             const icon = item.querySelector('.faq-icon');
             
-            if (button && answer && icon) {
+            if (button && answer && icon && content) {
                 button.addEventListener('click', () => {
                     const expanded = button.getAttribute('aria-expanded') === 'true';
                     
-                    // Toggle this FAQ item
+                    // Toggle aria states
                     button.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-                    answer.classList.toggle('hidden', expanded);
                     answer.setAttribute('aria-hidden', expanded ? 'true' : 'false');
                     
-                    // Rotate icon
-                    icon.style.transform = expanded ? '' : 'rotate(180deg)';
+                    if (expanded) {
+                        // Closing the FAQ
+                        content.classList.remove('visible');
+                        icon.style.transform = '';
+                        
+                        // Wait for content animation to complete before hiding
+                        setTimeout(() => {
+                            answer.classList.add('hidden');
+                        }, 300);
+                    } else {
+                        // Opening the FAQ
+                        answer.classList.remove('hidden');
+                        
+                        // Small delay for the content animation
+                        setTimeout(() => {
+                            content.classList.add('visible');
+                            icon.style.transform = 'rotate(180deg)';
+                        }, 10);
+                    }
                 });
             }
         });
+        
+        // Add keyboard navigation for accessibility
+        faqItems.forEach((item, index) => {
+            const button = item.querySelector('.faq-question');
+            
+            if (button) {
+                button.addEventListener('keydown', (e) => {
+                    // Up arrow key
+                    if (e.key === 'ArrowUp' && index > 0) {
+                        e.preventDefault();
+                        faqItems[index - 1].querySelector('.faq-question').focus();
+                    }
+                    // Down arrow key
+                    else if (e.key === 'ArrowDown' && index < faqItems.length - 1) {
+                        e.preventDefault();
+                        faqItems[index + 1].querySelector('.faq-question').focus();
+                    }
+                    // Home key
+                    else if (e.key === 'Home') {
+                        e.preventDefault();
+                        faqItems[0].querySelector('.faq-question').focus();
+                    }
+                    // End key
+                    else if (e.key === 'End') {
+                        e.preventDefault();
+                        faqItems[faqItems.length - 1].querySelector('.faq-question').focus();
+                    }
+                });
+            }
+        });
+    });
+    
+    // For browsers that don't support astro:page-load event, also use DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', () => {
+        if (!document.body.dataset.astroPageLoaded) {
+            const event = new Event('astro:page-load');
+            document.dispatchEvent(event);
+            document.body.dataset.astroPageLoaded = 'true';
+        }
     });
 </script>

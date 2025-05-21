@@ -18,8 +18,9 @@ const testimonials = [
 ];
 ---
 
-<div>
-    <div class="grid gap-8 md:grid-cols-2">
+<div class="testimonials-section">
+    <!-- Testimonial Cards Grid -->
+    <div class="grid gap-8 md:grid-cols-2 mb-8">
         {testimonials.map(testimonial => (
             <TestimonialItem 
                 quote={testimonial.quote}
@@ -30,38 +31,78 @@ const testimonials = [
         ))}
     </div>
     
-    <p class="mt-6 text-sm text-text-muted text-center">
+    <!-- Disclaimer -->
+    <p class="mt-4 text-sm text-text-muted text-center italic mb-10">
         *Testimonials represent actual client experiences. Individual results may vary based on your specific situation.
     </p>
     
-    <div class="mt-12">
-        <h3 class="mb-8 text-xl font-semibold text-center">Expert Debt Relief Since 2005</h3>
+    <!-- Stats Section -->
+    <div class="mt-16">
+        <h3 class="mb-10 text-2xl font-bold text-center">Expert Debt Relief Since 2005</h3>
         
+        <!-- Stats Cards Grid -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div class="p-4 bg-background-form rounded-lg">
-                <h4 class="text-2xl font-bold text-primary">20,000+</h4>
+            <div class="stats-card p-6 bg-background-form rounded-lg shadow-lg border border-border hover:shadow-xl transition-all duration-300">
+                <h4 class="text-3xl font-bold text-primary mb-2">20,000+</h4>
                 <p class="text-sm">Clients Helped</p>
             </div>
             
-            <div class="p-4 bg-background-form rounded-lg">
-                <h4 class="text-2xl font-bold text-primary">$800 Million+</h4>
+            <div class="stats-card p-6 bg-background-form rounded-lg shadow-lg border border-border hover:shadow-xl transition-all duration-300">
+                <h4 class="text-3xl font-bold text-primary mb-2">$800 Million+</h4>
                 <p class="text-sm">Debt Resolved</p>
             </div>
             
-            <div class="p-4 bg-background-form rounded-lg">
-                <h4 class="text-2xl font-bold text-primary">40%</h4>
+            <div class="stats-card p-6 bg-background-form rounded-lg shadow-lg border border-border hover:shadow-xl transition-all duration-300">
+                <h4 class="text-3xl font-bold text-primary mb-2">40%</h4>
                 <p class="text-sm">Average Savings*</p>
             </div>
             
-            <div class="p-4 bg-background-form rounded-lg">
-                <h4 class="text-2xl font-bold text-primary">4.8/5</h4>
+            <div class="stats-card p-6 bg-background-form rounded-lg shadow-lg border border-border hover:shadow-xl transition-all duration-300">
+                <h4 class="text-3xl font-bold text-primary mb-2">4.8/5</h4>
                 <p class="text-sm">Client Rating</p>
             </div>
         </div>
         
-        <p class="mt-6 text-sm text-text-muted text-center">
+        <!-- Stats Disclaimer -->
+        <p class="mt-6 text-sm text-text-muted text-center italic">
             *Average savings represents the total debt enrolled compared to the amount paid to creditors before fees. 
             Individual results may vary based on creditor participation, program length, and other factors.
         </p>
     </div>
 </div>
+
+<style>
+    .testimonials-section {
+        position: relative;
+    }
+    
+    .stats-card {
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+        transform: translateZ(0);
+        will-change: transform, box-shadow;
+    }
+    
+    .stats-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    
+    /* Ensure consistent heading styling */
+    h3 {
+        position: relative;
+    }
+    
+    h3::after {
+        content: "";
+        position: absolute;
+        bottom: -0.75rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background-color: var(--color-primary);
+        border-radius: 3px;
+    }
+</style>

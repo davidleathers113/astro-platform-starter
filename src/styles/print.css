@@ -1,0 +1,128 @@
+/* Print styles for debt-relief landing page */
+@media print {
+    /* General print settings */
+    body {
+        font-size: 12pt !important;
+        line-height: 1.5 !important;
+        background: white !important;
+        color: black !important;
+    }
+    
+    /* Hide navigation and footer */
+    nav, footer, 
+    [href^="#"]:not([href="#qualification-form"]),
+    button:not([type="submit"]) {
+        display: none !important;
+    }
+    
+    /* Ensure proper layout and margins */
+    .min-h-screen {
+        min-height: auto !important;
+    }
+    
+    .px-6, .px-12, .px-4, .px-8 {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    
+    .py-12, .py-20, .py-8, .py-6, .py-4 {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+    }
+    
+    /* Remove background effects */
+    .bg-noise {
+        background-image: none !important;
+    }
+    
+    /* Ensure all text is visible */
+    .text-text-muted {
+        color: #444 !important;
+    }
+    
+    /* Adjust form for printing */
+    .form-container {
+        page-break-inside: avoid;
+        border: 1px solid #ccc !important;
+        box-shadow: none !important;
+    }
+    
+    /* Ensure headings print properly */
+    h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid;
+        page-break-inside: avoid;
+    }
+    
+    h1 {
+        font-size: 18pt !important;
+        margin-top: 2rem !important;
+    }
+    
+    h2 {
+        font-size: 16pt !important;
+        margin-top: 1.5rem !important;
+    }
+    
+    h3 {
+        font-size: 14pt !important;
+    }
+    
+    /* Make links more readable */
+    a {
+        text-decoration: underline !important;
+        color: #000 !important;
+    }
+    
+    a[href^="http"]::after,
+    a[href^="https://"]::after {
+        content: " (" attr(href) ")";
+        font-size: 90%;
+    }
+    
+    /* Ensure form fields are visible */
+    input, select, textarea {
+        border: 1px solid #999 !important;
+        background: #fff !important;
+        color: #000 !important;
+    }
+    
+    /* Ensure important content doesn't break across pages */
+    .faq-item, 
+    blockquote, 
+    table {
+        page-break-inside: avoid;
+    }
+    
+    /* Add page breaks where appropriate */
+    section {
+        page-break-inside: avoid;
+    }
+    
+    /* Show all FAQ answers when printing */
+    .faq-answer {
+        display: block !important;
+        opacity: 1 !important;
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        visibility: visible !important;
+    }
+    
+    .faq-content {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    
+    /* Hide decorative elements */
+    .animate-fade-in,
+    .animate-fade-in-delay-1,
+    .animate-fade-in-delay-2,
+    .animate-fade-in-delay-3,
+    .animate-slide-up,
+    .animate-pulse-once,
+    .animate-float {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}

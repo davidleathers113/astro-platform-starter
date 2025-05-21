@@ -3,7 +3,16 @@
 ---
 
 <footer class="pt-16 pb-12 sm:pt-24 sm:pb-16">
-    <p class="text-sm">
-        <a href="https://docs.netlify.com/frameworks/astro/" class="decoration-dashed text-primary underline-offset-8"> Astro on Netlify </a>
-    </p>
+    <div class="mb-8">
+        <slot />
+    </div>
+    
+    <div class="flex flex-col items-center gap-4 text-sm">
+        <div class="flex flex-wrap justify-center gap-6">
+            <a href="/privacy-policy" class="text-gray-400 hover:text-primary">Privacy Policy</a>
+            <a href="/terms-of-service" class="text-gray-400 hover:text-primary">Terms of Service</a>
+            <a href="/contact" class="text-gray-400 hover:text-primary">Contact Us</a>
+        </div>
+        <p class="text-gray-500">© {new Date().getFullYear()} DebtFreedom Financial Solutions LLC</p>
+    </div>
 </footer>
