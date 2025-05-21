@@ -1,6 +1,8 @@
 ---
 import Logo from '../components/Logo.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
+import HamburgerIcon from '../components/icons/HamburgerIcon.astro';
+import XIcon from '../components/icons/XIcon.astro';
 
 const navItems = [
     { linkText: 'Home', href: '/' },
@@ -15,10 +17,11 @@ const navItems = [
 <header class="header-section fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="main-header">
     <div class="container mx-auto px-4">
         <nav class="flex justify-between items-center py-4">
-            <!-- Logo -->
-            <div class="logo-container">
-                <a href="/" class="inline-block" aria-label="Debt Freedom Toolkit">
+            <!-- Logo with text -->
+            <div class="logo-container flex items-center">
+                <a href="/" class="inline-flex items-center gap-3" aria-label="Debt Freedom Toolkit">
                     <Logo />
+                    <span class="text-lg md:text-xl font-bold text-primary hidden sm:inline-block">DebtFreedomToolkit.com</span>
                 </a>
             </div>
             
@@ -56,10 +59,8 @@ const navItems = [
                 <div class="flex items-center gap-2">
                     <ThemeToggle />
                     <button id="mobile-menu-button" class="flex items-center p-2 rounded-lg text-text hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
+                        <HamburgerIcon class="w-6 h-6" />
+                    </button>
                 </div>
             </div>
         </nav>
@@ -132,19 +133,11 @@ const navItems = [
             if (!expanded) {
                 mobileMenu.classList.remove('hidden');
                 // Change hamburger to X
-                mobileMenuButton.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                `;
+                mobileMenuButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>`;
             } else {
                 mobileMenu.classList.add('hidden');
                 // Change X to hamburger
-                mobileMenuButton.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                `;
+                mobileMenuButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>`;
             }
         });
         
@@ -154,11 +147,7 @@ const navItems = [
                 mobileMenu.classList.add('hidden');
                 mobileMenuButton.setAttribute('aria-expanded', 'false');
                 // Change X to hamburger
-                mobileMenuButton.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                `;
+                mobileMenuButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>`;
             });
         });
         

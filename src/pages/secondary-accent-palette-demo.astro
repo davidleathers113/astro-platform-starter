@@ -1,0 +1,557 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+---
+
+<Layout title="Secondary & Accent Color Palette Demo">
+  <div class="max-w-5xl mx-auto py-8">
+    <div class="flex justify-between items-center mb-8">
+      <h1 class="text-4xl font-bold">Secondary & Accent Color Palettes</h1>
+      <div class="md:hidden">
+        <ThemeToggle />
+      </div>
+    </div>
+    
+    <p class="mb-8 text-lg">
+      This page demonstrates the comprehensive secondary and accent color palettes with all variants for both light and dark mode.
+      Use the theme toggle in the header to switch between modes and see how colors adapt.
+    </p>
+    
+    <div class="flex space-x-4 mb-8">
+      <a href="/color-palette-demo" class="bg-primary hover:bg-primary-hover text-primary-textOnPrimary px-4 py-2 rounded">Primary Palette</a>
+      <a href="/secondary-accent-palette-demo" class="bg-secondary hover:bg-secondary-hover text-secondary-textOnSecondary px-4 py-2 rounded">Secondary & Accent Palette</a>
+    </div>
+
+    <!-- SECONDARY COLOR PALETTE -->
+    <h2 class="text-3xl font-bold mb-6 pb-2 border-b border-border dark:border-gray-700">Secondary Color Palette</h2>
+    
+    <!-- Secondary Base Colors Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold mb-4 pb-2 border-b border-border dark:border-gray-700">Base Colors</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Secondary Default -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-secondary flex items-center justify-center">
+            <span class="text-secondary-textOnSecondary font-semibold">#0062b3</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h3 class="font-semibold">Secondary</h3>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-secondary</code>
+          </div>
+        </div>
+        
+        <!-- Light Variant -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-secondary-light flex items-center justify-center">
+            <span class="text-secondary-textOnLight font-semibold">#4a94d8</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h3 class="font-semibold">Secondary Light</h3>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-secondary-light</code>
+          </div>
+        </div>
+        
+        <!-- Dark Variant -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-secondary-dark flex items-center justify-center">
+            <span class="text-secondary-textOnDark font-semibold">#004b8c</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h3 class="font-semibold">Secondary Dark</h3>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-secondary-dark</code>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Secondary Interactive Elements Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold mb-4 pb-2 border-b border-border dark:border-gray-700">Interactive States</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Buttons -->
+        <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+          <h4 class="font-semibold mb-4">Buttons</h4>
+          <div class="space-y-4">
+            <div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Secondary Button (hover & active states)</p>
+              <button class="bg-secondary hover:bg-secondary-hover active:bg-secondary-active text-secondary-textOnSecondary px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-secondary-focus focus:ring-opacity-50">
+                Secondary Button
+              </button>
+            </div>
+            
+            <div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Light Variant (hover & active states)</p>
+              <button class="bg-secondary-light hover:bg-secondary-lightHover active:bg-secondary-lightActive text-secondary-textOnLight px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-secondary-lightFocus focus:ring-opacity-50">
+                Light Button
+              </button>
+            </div>
+            
+            <div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Dark Variant (hover & active states)</p>
+              <button class="bg-secondary-dark hover:bg-secondary-darkHover active:bg-secondary-darkActive text-secondary-textOnDark px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-secondary-darkFocus focus:ring-opacity-50">
+                Dark Button
+              </button>
+            </div>
+            
+            <div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Disabled State</p>
+              <button class="bg-secondary-disabled text-white px-4 py-2 rounded cursor-not-allowed opacity-75">
+                Disabled Button
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Other Interactive Elements -->
+        <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+          <h4 class="font-semibold mb-4">Form Elements</h4>
+          <div class="space-y-4">
+            <div>
+              <label class="block mb-2">Input with focus state</label>
+              <input type="text" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-secondary-focus focus:border-secondary" placeholder="Focus to see secondary-focus ring">
+            </div>
+            
+            <div>
+              <label class="block mb-2">Input with light variant focus</label>
+              <input type="text" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-secondary-lightFocus focus:border-secondary-light" placeholder="Focus to see secondary-lightFocus ring">
+            </div>
+            
+            <div>
+              <p class="mb-2">Link with hover/focus styles</p>
+              <a href="#" class="text-secondary hover:text-secondary-hover focus:outline-none focus:ring-2 focus:ring-secondary-focus rounded">Secondary link with hover state</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Secondary Hover States Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold mb-4 pb-2 border-b border-border dark:border-gray-700">Hover States</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Base Hover -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-secondary-hover flex items-center justify-center">
+            <span class="text-white font-semibold">#0055a0</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h4 class="font-semibold">Secondary Hover</h4>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-secondary-hover</code>
+          </div>
+        </div>
+        
+        <!-- Light Hover -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-secondary-lightHover flex items-center justify-center">
+            <span class="text-gray-900 font-semibold">#3a85c9</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h4 class="font-semibold">Secondary Light Hover</h4>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-secondary-lightHover</code>
+          </div>
+        </div>
+        
+        <!-- Dark Hover -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-secondary-darkHover flex items-center justify-center">
+            <span class="text-white font-semibold">#003e73</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h4 class="font-semibold">Secondary Dark Hover</h4>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-secondary-darkHover</code>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Secondary Active States Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold mb-4 pb-2 border-b border-border dark:border-gray-700">Active States</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Base Active -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-secondary-active flex items-center justify-center">
+            <span class="text-white font-semibold">#00488c</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h4 class="font-semibold">Secondary Active</h4>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-secondary-active</code>
+          </div>
+        </div>
+        
+        <!-- Light Active -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-secondary-lightActive flex items-center justify-center">
+            <span class="text-gray-900 font-semibold">#2a75b9</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h4 class="font-semibold">Secondary Light Active</h4>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-secondary-lightActive</code>
+          </div>
+        </div>
+        
+        <!-- Dark Active -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-secondary-darkActive flex items-center justify-center">
+            <span class="text-white font-semibold">#00315c</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h4 class="font-semibold">Secondary Dark Active</h4>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-secondary-darkActive</code>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Secondary Disabled States Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold mb-4 pb-2 border-b border-border dark:border-gray-700">Disabled States</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Base Disabled -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-secondary-disabled flex items-center justify-center">
+            <span class="text-white font-semibold">#7da7d1</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h4 class="font-semibold">Secondary Disabled</h4>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-secondary-disabled</code>
+          </div>
+        </div>
+        
+        <!-- Light Disabled -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-secondary-lightDisabled flex items-center justify-center">
+            <span class="text-gray-900 font-semibold">#9cc0e8</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h4 class="font-semibold">Secondary Light Disabled</h4>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-secondary-lightDisabled</code>
+          </div>
+        </div>
+        
+        <!-- Dark Disabled -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-secondary-darkDisabled flex items-center justify-center">
+            <span class="text-white font-semibold">#495d7a</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h4 class="font-semibold">Secondary Dark Disabled</h4>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-secondary-darkDisabled</code>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Secondary Text Colors Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold mb-4 pb-2 border-b border-border dark:border-gray-700">Text Colors</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Text on Secondary -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-secondary flex flex-col items-center justify-center">
+            <span class="text-secondary-textOnSecondary font-semibold mb-2">Text on Secondary</span>
+            <code class="bg-black bg-opacity-20 text-white text-sm px-2 py-1 rounded">text-secondary-textOnSecondary</code>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h4 class="font-semibold">Text on Secondary</h4>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">#ffffff</code>
+          </div>
+        </div>
+        
+        <!-- Text on Light -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-secondary-light flex flex-col items-center justify-center">
+            <span class="text-secondary-textOnLight font-semibold mb-2">Text on Light</span>
+            <code class="bg-black bg-opacity-20 text-secondary-textOnLight text-sm px-2 py-1 rounded">text-secondary-textOnLight</code>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h4 class="font-semibold">Text on Light</h4>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">#1a2234</code>
+          </div>
+        </div>
+        
+        <!-- Text on Dark -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-secondary-dark flex flex-col items-center justify-center">
+            <span class="text-secondary-textOnDark font-semibold mb-2">Text on Dark</span>
+            <code class="bg-black bg-opacity-20 text-white text-sm px-2 py-1 rounded">text-secondary-textOnDark</code>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h4 class="font-semibold">Text on Dark</h4>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">#ffffff</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACCENT COLOR PALETTE -->
+    <h2 class="text-3xl font-bold mb-6 pb-2 border-b border-border dark:border-gray-700 mt-16">Accent Color Palette</h2>
+
+    <!-- Accent Base Colors Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold mb-4 pb-2 border-b border-border dark:border-gray-700">Base Colors</h3>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <!-- Accent Default -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-accent flex items-center justify-center">
+            <span class="text-accent-textOnAccent font-semibold">#58cbe0</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h4 class="font-semibold">Accent</h4>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-accent</code>
+          </div>
+        </div>
+        
+        <!-- Light Variant -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-accent-light flex items-center justify-center">
+            <span class="text-accent-textOnLight font-semibold">#7fdff2</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h4 class="font-semibold">Accent Light</h4>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-accent-light</code>
+          </div>
+        </div>
+        
+        <!-- Dark Variant -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-accent-dark flex items-center justify-center">
+            <span class="text-accent-textOnDark font-semibold">#3ba6b9</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h4 class="font-semibold">Accent Dark</h4>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-accent-dark</code>
+          </div>
+        </div>
+        
+        <!-- Warm Variant -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-accent-warm flex items-center justify-center">
+            <span class="text-accent-textOnWarm font-semibold">#F8C88F</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h4 class="font-semibold">Accent Warm</h4>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-accent-warm</code>
+          </div>
+        </div>
+        
+        <!-- Warm Light Variant -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-accent-warmLight flex items-center justify-center">
+            <span class="text-accent-textOnWarmLight font-semibold">#fbd7ab</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h4 class="font-semibold">Accent Warm Light</h4>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-accent-warmLight</code>
+          </div>
+        </div>
+        
+        <!-- Warm Dark Variant -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-accent-warmDark flex items-center justify-center">
+            <span class="text-accent-textOnWarmDark font-semibold">#f6b973</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h4 class="font-semibold">Accent Warm Dark</h4>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-accent-warmDark</code>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Accent Interactive Elements Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold mb-4 pb-2 border-b border-border dark:border-gray-700">Interactive States</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Buttons -->
+        <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+          <h4 class="font-semibold mb-4">Accent Buttons</h4>
+          <div class="space-y-4">
+            <div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Accent Button (hover & active states)</p>
+              <button class="bg-accent hover:bg-accent-hover active:bg-accent-active text-accent-textOnAccent px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-accent-focus focus:ring-opacity-50">
+                Accent Button
+              </button>
+            </div>
+            
+            <div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Light Variant (hover & active states)</p>
+              <button class="bg-accent-light hover:bg-accent-lightHover active:bg-accent-lightActive text-accent-textOnLight px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-accent-lightFocus focus:ring-opacity-50">
+                Light Button
+              </button>
+            </div>
+            
+            <div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Dark Variant (hover & active states)</p>
+              <button class="bg-accent-dark hover:bg-accent-darkHover active:bg-accent-darkActive text-accent-textOnDark px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-accent-darkFocus focus:ring-opacity-50">
+                Dark Button
+              </button>
+            </div>
+            
+            <div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Disabled State</p>
+              <button class="bg-accent-disabled text-accent-textOnAccent px-4 py-2 rounded cursor-not-allowed opacity-75">
+                Disabled Button
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Warm Buttons -->
+        <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+          <h4 class="font-semibold mb-4">Warm Accent Buttons</h4>
+          <div class="space-y-4">
+            <div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Warm Button (hover & active states)</p>
+              <button class="bg-accent-warm hover:bg-accent-warmHover active:bg-accent-warmActive text-accent-textOnWarm px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-accent-warmFocus focus:ring-opacity-50">
+                Warm Button
+              </button>
+            </div>
+            
+            <div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Light Warm Variant</p>
+              <button class="bg-accent-warmLight hover:bg-accent-warmHover active:bg-accent-warmActive text-accent-textOnWarmLight px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-accent-warmFocus focus:ring-opacity-50">
+                Light Warm Button
+              </button>
+            </div>
+            
+            <div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Dark Warm Variant</p>
+              <button class="bg-accent-warmDark hover:bg-accent-warmHover active:bg-accent-warmActive text-accent-textOnWarmDark px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-accent-warmFocus focus:ring-opacity-50">
+                Dark Warm Button
+              </button>
+            </div>
+            
+            <div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Form Element with Accent</p>
+              <input type="text" class="w-full px-4 py-2 border border-accent rounded focus:outline-none focus:ring-2 focus:ring-accent-focus focus:border-accent" placeholder="Focus to see accent-focus ring">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Usage Examples Section -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold mb-4 pb-2 border-b border-border dark:border-gray-700">Usage Examples</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Cards with Different Accent Colors -->
+        <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+          <h4 class="font-semibold mb-4 text-secondary">Color Combination Examples</h4>
+          
+          <!-- Primary + Secondary Combination -->
+          <div class="mb-6 p-4 border border-primary rounded-lg">
+            <h5 class="text-primary font-semibold mb-2">Primary + Secondary Combination</h5>
+            <p class="mb-4 text-gray-700 dark:text-gray-300">This example uses primary colors for structure and secondary for interactive elements.</p>
+            <button class="bg-secondary hover:bg-secondary-hover text-secondary-textOnSecondary px-4 py-2 rounded">
+              Secondary Button
+            </button>
+          </div>
+          
+          <!-- Secondary + Accent Combination -->
+          <div class="mb-6 p-4 border border-secondary rounded-lg">
+            <h5 class="text-secondary font-semibold mb-2">Secondary + Accent Combination</h5>
+            <p class="mb-4 text-gray-700 dark:text-gray-300">This example uses secondary colors for structure and accent for interactive elements.</p>
+            <button class="bg-accent hover:bg-accent-hover text-accent-textOnAccent px-4 py-2 rounded">
+              Accent Button
+            </button>
+          </div>
+          
+          <!-- Primary + Warm Accent Combination -->
+          <div class="p-4 border border-primary rounded-lg">
+            <h5 class="text-primary font-semibold mb-2">Primary + Warm Accent Combination</h5>
+            <p class="mb-4 text-gray-700 dark:text-gray-300">This example uses primary colors for structure and warm accent for highlights.</p>
+            <button class="bg-accent-warm hover:bg-accent-warmHover text-accent-textOnWarm px-4 py-2 rounded">
+              Warm Accent Button
+            </button>
+          </div>
+        </div>
+        
+        <!-- Component Examples -->
+        <div class="space-y-6">
+          <!-- Alert with Secondary -->
+          <div class="p-4 rounded-lg bg-secondary-light border-l-4 border-secondary">
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <svg class="h-5 w-5 text-secondary" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div class="ml-3">
+                <h5 class="text-secondary-dark font-semibold">Information Alert</h5>
+                <p class="text-secondary-dark text-sm">This alert uses secondary colors to convey information.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Card with Accent -->
+          <div class="rounded-lg shadow-md overflow-hidden">
+            <div class="p-4 bg-accent text-accent-textOnAccent">
+              <h5 class="font-semibold">Feature Card</h5>
+            </div>
+            <div class="p-4 bg-white dark:bg-gray-800">
+              <p class="mb-4 text-gray-700 dark:text-gray-300">This card uses accent colors for the header section.</p>
+              <button class="bg-accent-dark hover:bg-accent-darkHover text-accent-textOnDark px-4 py-2 rounded text-sm">
+                Learn More
+              </button>
+            </div>
+          </div>
+          
+          <!-- Banner with Warm Accent -->
+          <div class="p-4 bg-accent-warm text-accent-textOnWarm rounded-lg shadow-md">
+            <h5 class="font-semibold mb-2">Special Promotion</h5>
+            <p class="mb-4">This banner uses warm accent colors for an attention-grabbing effect.</p>
+            <button class="bg-accent-warmDark hover:bg-accent-warmHover text-accent-textOnWarmDark px-4 py-2 rounded text-sm">
+              View Offer
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Usage Guidelines -->
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold mb-4 pb-2 border-b border-border dark:border-gray-700">Usage Guidelines</h3>
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+        <h4 class="font-semibold mb-4">When to use each palette</h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h5 class="font-semibold mb-2 text-secondary">Secondary Color Palette</h5>
+            <ul class="space-y-3 list-disc pl-5">
+              <li><strong>Secondary (default):</strong> Use for secondary action buttons, supporting UI elements, and informational components.</li>
+              <li><strong>Light variant:</strong> Use for less prominent elements, backgrounds of secondary sections, and subtle highlights.</li>
+              <li><strong>Dark variant:</strong> Use for more prominent secondary elements that need stronger contrast.</li>
+              <li><strong>Best paired with:</strong> Primary colors for UI hierarchy, or with accent colors for interactive elements.</li>
+            </ul>
+          </div>
+          
+          <div>
+            <h5 class="font-semibold mb-2 text-accent">Accent Color Palette</h5>
+            <ul class="space-y-3 list-disc pl-5">
+              <li><strong>Accent (teal):</strong> Use for highlights, success indicators, and tertiary actions.</li>
+              <li><strong>Accent warm:</strong> Use for attention-grabbing elements, promotional content, and calls to action that should stand out.</li>
+              <li><strong>Light/Dark variants:</strong> Use when you need a more subtle or more prominent version of the accent color.</li>
+              <li><strong>Best paired with:</strong> Primary or secondary colors as the main UI structure, with accent colors used sparingly for emphasis.</li>
+            </ul>
+          </div>
+        </div>
+        
+        <h4 class="font-semibold mt-6 mb-4">Accessibility Considerations</h4>
+        <ul class="space-y-3 list-disc pl-5">
+          <li>Always use the appropriate text color (<code>textOnSecondary</code>, <code>textOnAccent</code>, etc.) to ensure sufficient contrast for readability.</li>
+          <li>For interactive elements, ensure that hover and focus states are clearly distinguishable from the default state.</li>
+          <li>When using accent colors, especially the warm accent, be mindful of their use for error states or critical actions to avoid confusion.</li>
+          <li>Test color combinations in both light and dark modes to ensure proper contrast and visibility.</li>
+        </ul>
+        
+        <h4 class="font-semibold mt-6 mb-4">Color Combination Recommendations</h4>
+        <ul class="space-y-3 list-disc pl-5">
+          <li><strong>Primary + Secondary:</strong> Use primary for main actions and branding, with secondary for supporting elements and actions.</li>
+          <li><strong>Secondary + Accent:</strong> Use secondary for main structure and accent for highlights and interactive elements.</li>
+          <li><strong>Primary + Accent Warm:</strong> Creates a strong contrast that can be effective for promotional content or important notifications.</li>
+          <li><strong>Avoid:</strong> Using too many accent colors together, or using secondary and accent colors without clear hierarchy, which can create visual confusion.</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</Layout>

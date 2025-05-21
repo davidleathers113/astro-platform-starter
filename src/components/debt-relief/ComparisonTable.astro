@@ -1,0 +1,147 @@
+---
+import CheckIcon from '../icons/CheckIcon.astro';
+import XIcon from '../icons/XIcon.astro';
+
+// Data for the comparison table
+const comparisonData = [
+    {
+        feature: 'Reduces Total Debt Amount',
+        debtSettlement: true,
+        consolidation: false,
+        bankruptcy: true,
+        minimumPayments: false
+    },
+    {
+        feature: 'No New Loan Required',
+        debtSettlement: true,
+        consolidation: false,
+        bankruptcy: true,
+        minimumPayments: true
+    },
+    {
+        feature: 'Become Debt-Free in 24-48 Months',
+        debtSettlement: true,
+        consolidation: false,
+        bankruptcy: true,
+        minimumPayments: false
+    },
+    {
+        feature: 'Avoid Bankruptcy Court',
+        debtSettlement: true,
+        consolidation: true,
+        bankruptcy: false,
+        minimumPayments: true
+    },
+    {
+        feature: 'Single Monthly Program Payment',
+        debtSettlement: true,
+        consolidation: true,
+        bankruptcy: false,
+        minimumPayments: false
+    },
+    {
+        feature: 'No Minimum Credit Score Required',
+        debtSettlement: true,
+        consolidation: false,
+        bankruptcy: true,
+        minimumPayments: true
+    },
+    {
+        feature: 'Professional Debt Negotiation',
+        debtSettlement: true,
+        consolidation: false,
+        bankruptcy: false,
+        minimumPayments: false
+    }
+];
+---
+
+<div class="overflow-x-auto shadow-md rounded-lg border border-border mb-4">
+    <table class="w-full text-sm">
+        <thead>
+            <tr class="bg-[#2d7984] text-white">
+                <th class="p-4 text-left font-medium min-w-[200px]">Debt Relief Option</th>
+                <th class="p-4 text-center font-medium">Debt Settlement<br /><span class="text-xs font-normal">(Our Program)</span></th>
+                <th class="p-4 text-center font-medium">Debt Consolidation</th>
+                <th class="p-4 text-center font-medium">Bankruptcy</th>
+                <th class="p-4 text-center font-medium">Minimum Payments</th>
+            </tr>
+        </thead>
+        <tbody>
+            {comparisonData.map((item, index) => (
+                <tr class={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} dark:bg-gray-800 dark:border-gray-700`}>
+                    <td class="p-4 font-medium">{item.feature}</td>
+                    <td class="p-4 text-center">
+                        {item.debtSettlement ? 
+                            <div class="flex justify-center">
+                                <CheckIcon class="w-6 h-6 text-green-500" />
+                            </div> : 
+                            <div class="flex justify-center">
+                                <XIcon class="w-6 h-6 text-red-500" />
+                            </div>
+                        }
+                    </td>
+                    <td class="p-4 text-center">
+                        {item.consolidation ? 
+                            <div class="flex justify-center">
+                                <CheckIcon class="w-6 h-6 text-green-500" />
+                            </div> : 
+                            <div class="flex justify-center">
+                                <XIcon class="w-6 h-6 text-red-500" />
+                            </div>
+                        }
+                    </td>
+                    <td class="p-4 text-center">
+                        {item.bankruptcy ? 
+                            <div class="flex justify-center">
+                                <CheckIcon class="w-6 h-6 text-green-500" />
+                            </div> : 
+                            <div class="flex justify-center">
+                                <XIcon class="w-6 h-6 text-red-500" />
+                            </div>
+                        }
+                    </td>
+                    <td class="p-4 text-center">
+                        {item.minimumPayments ? 
+                            <div class="flex justify-center">
+                                <CheckIcon class="w-6 h-6 text-green-500" />
+                            </div> : 
+                            <div class="flex justify-center">
+                                <XIcon class="w-6 h-6 text-red-500" />
+                            </div>
+                        }
+                    </td>
+                </tr>
+            ))}
+        </tbody>
+    </table>
+</div>
+
+<div class="bg-background-form/30 p-4 rounded-lg border border-border">
+    <p class="text-sm text-center text-text-muted mb-0">
+        <strong>Note:</strong> This comparison is for informational purposes only. Individual results may vary based on your specific financial situation, creditor policies, and applicable laws in your state.
+    </p>
+</div>
+
+<style>
+    /* Responsive table adjustments */
+    @media (max-width: 768px) {
+        table {
+            display: block;
+        }
+        
+        th:first-child {
+            position: sticky;
+            left: 0;
+            background-color: #2d7984;
+            z-index: 1;
+        }
+        
+        td:first-child {
+            position: sticky;
+            left: 0;
+            background-color: inherit;
+            z-index: 1;
+        }
+    }
+</style>

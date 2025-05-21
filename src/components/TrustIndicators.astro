@@ -1,4 +1,8 @@
 ---
+import ShieldIcon from './icons/ShieldIcon.astro';
+import UsersIcon from './icons/UsersIcon.astro';
+import CreditCardIcon from './icons/CreditCardIcon.astro';
+import ClockIcon from './icons/ClockIcon.astro';
 ---
 
 <div class="trust-indicators py-8 md:py-10 relative">
@@ -8,9 +12,7 @@
                 <!-- Trust Badge 1: BBB Rating -->
                 <div class="trust-badge flex flex-col items-center text-center">
                     <div class="badge-icon bg-[#2d7984]/10 p-3 rounded-full mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                        </svg>
+                        <ShieldIcon />
                     </div>
                     <div class="badge-text">
                         <p class="font-bold text-md">A+ BBB Rating</p>
@@ -21,12 +23,7 @@
                 <!-- Trust Badge 2: Customers Served -->
                 <div class="trust-badge flex flex-col items-center text-center">
                     <div class="badge-icon bg-[#2d7984]/10 p-3 rounded-full mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="9" cy="7" r="4"></circle>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                        </svg>
+                        <UsersIcon />
                     </div>
                     <div class="badge-text">
                         <p class="font-bold text-md">50,000+</p>
@@ -37,13 +34,7 @@
                 <!-- Trust Badge 3: Debt Resolved -->
                 <div class="trust-badge flex flex-col items-center text-center">
                     <div class="badge-icon bg-[#2d7984]/10 p-3 rounded-full mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
-                            <line x1="12" y1="16" x2="12" y2="16"></line>
-                            <line x1="6" y1="12" x2="6" y2="12"></line>
-                            <line x1="18" y1="12" x2="18" y2="12"></line>
-                            <line x1="12" y1="8" x2="12" y2="8"></line>
-                        </svg>
+                        <CreditCardIcon />
                     </div>
                     <div class="badge-text">
                         <p class="font-bold text-md">$1.2 Billion</p>
@@ -54,10 +45,7 @@
                 <!-- Trust Badge 4: Years in Business -->
                 <div class="trust-badge flex flex-col items-center text-center">
                     <div class="badge-icon bg-[#2d7984]/10 p-3 rounded-full mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polyline points="12 6 12 12 16 14"></polyline>
-                        </svg>
+                        <ClockIcon />
                     </div>
                     <div class="badge-text">
                         <p class="font-bold text-md">12+ Years</p>

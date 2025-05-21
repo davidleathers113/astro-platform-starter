@@ -12,7 +12,8 @@ import QualificationForm from '../components/debt-relief/QualificationForm.astro
 import Benefits from '../components/debt-relief/Benefits.astro';
 import ProcessSteps from '../components/debt-relief/ProcessSteps.astro';
 import Testimonials from '../components/debt-relief/Testimonials.astro';
-// import ComparisonTable from '../components/debt-relief/ComparisonTable.astro';
+import ComparisonTable from '../components/debt-relief/ComparisonTable.astro';
+import DebtCalculator from '../components/debt-relief/DebtCalculator.astro';
 import FAQSection from '../components/debt-relief/FAQSection.astro';
 import Disclosures from '../components/debt-relief/Disclosures.astro';
 import FinalCTA from '../components/debt-relief/FinalCTA.astro';
@@ -63,6 +64,14 @@ import TrustIndicators from '../components/TrustIndicators.astro';
             <ProcessSteps />
         </div>
     </section>
+    
+    <!-- Debt Calculator Section -->
+    <section class="py-16 sm:py-20 bg-background-form/30 border-y border-border">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="mb-12 text-center">Calculate Your Debt Savings</h2>
+            <DebtCalculator />
+        </div>
+    </section>
 
     <!-- Testimonials Section -->
     <section class="py-16 sm:py-20 bg-background-form/30 border-y border-border" id="testimonials-section">
@@ -76,10 +85,7 @@ import TrustIndicators from '../components/TrustIndicators.astro';
     <section class="py-16 sm:py-20">
         <div class="max-w-5xl mx-auto">
             <h2 class="mb-12 text-center">Compare Your Options</h2>
-            <!-- Comparison table will be implemented in a separate component -->
-            <div class="p-8 text-center bg-background-form rounded-lg shadow-md border border-border">
-                <p class="text-text-muted">Comparison table implementation coming soon...</p>
-            </div>
+            <ComparisonTable />
         </div>
     </section>
 

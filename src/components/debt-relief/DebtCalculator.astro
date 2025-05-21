@@ -1,0 +1,199 @@
+---
+import { Image } from 'astro:assets';
+import DollarIcon from '../icons/DollarIcon.astro';
+import ClockIcon from '../icons/ClockIcon.astro';
+---
+
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-border overflow-hidden">
+    <div class="p-6 md:p-8">
+        <h3 class="text-2xl font-bold text-[#2d7984] mb-6 text-center">Debt Savings Calculator</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Calculator Form -->
+            <div>
+                <form id="debt-calculator-form" class="space-y-6">
+                    <div>
+                        <label for="debt-amount" class="block mb-2 font-medium">Total Credit Card Debt</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">$</span>
+                            <input 
+                                type="number" 
+                                id="debt-amount" 
+                                name="debtAmount" 
+                                class="pl-8 w-full rounded-md border border-gray-300 py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#2d7984] focus:border-transparent" 
+                                placeholder="15000"
+                                min="1000"
+                                required
+                            />
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="interest-rate" class="block mb-2 font-medium">Average Interest Rate</label>
+                        <div class="relative">
+                            <input 
+                                type="number" 
+                                id="interest-rate" 
+                                name="interestRate" 
+                                class="w-full rounded-md border border-gray-300 py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#2d7984] focus:border-transparent" 
+                                placeholder="18"
+                                min="1"
+                                max="30"
+                                step="0.1"
+                                required
+                            />
+                            <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500">%</span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="monthly-payment" class="block mb-2 font-medium">Current Monthly Payment</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">$</span>
+                            <input 
+                                type="number" 
+                                id="monthly-payment" 
+                                name="monthlyPayment" 
+                                class="pl-8 w-full rounded-md border border-gray-300 py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#2d7984] focus:border-transparent" 
+                                placeholder="300"
+                                min="20"
+                                required
+                            />
+                        </div>
+                    </div>
+                    
+                    <button 
+                        type="submit" 
+                        class="w-full py-3 px-6 rounded-md bg-[#2d7984] hover:bg-[#1d5058] text-white font-semibold transition-colors duration-200 shadow-sm"
+                    >
+                        Calculate My Savings
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Results Section (initially hidden) -->
+            <div id="calculator-results" class="hidden">
+                <h4 class="text-lg font-semibold mb-4">Your Potential Savings</h4>
+                
+                <div class="space-y-6 mb-6">
+                    <div class="bg-[#2d7984]/10 p-4 rounded-md border border-[#2d7984]/20">
+                        <div class="flex items-start space-x-4">
+                            <div class="mt-1">
+                                <DollarIcon class="w-8 h-8 text-[#2d7984]" />
+                            </div>
+                            <div>
+                                <p class="text-gray-700 dark:text-gray-300 mb-1">Total Savings with Our Program:</p>
+                                <p class="text-2xl font-bold text-[#2d7984]">$<span id="total-savings">0</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-[#2d7984]/10 p-4 rounded-md border border-[#2d7984]/20">
+                        <div class="flex items-start space-x-4">
+                            <div class="mt-1">
+                                <ClockIcon class="w-8 h-8 text-[#2d7984]" />
+                            </div>
+                            <div>
+                                <p class="text-gray-700 dark:text-gray-300 mb-1">Time Saved on Repayment:</p>
+                                <p class="text-2xl font-bold text-[#2d7984]"><span id="months-saved">0</span> months</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <a 
+                        href="#qualification-form" 
+                        class="inline-block py-3 px-6 rounded-md bg-[#2d7984] hover:bg-[#1d5058] text-white font-semibold transition-colors duration-200 shadow-sm"
+                    >
+                        See If You Qualify
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Initial Info Message -->
+            <div id="calculator-info" class="flex flex-col justify-center h-full">
+                <div class="bg-[#2d7984]/10 p-6 rounded-md border border-[#2d7984]/20 text-center">
+                    <h4 class="text-lg font-semibold mb-3">See How Much You Could Save</h4>
+                    <p class="text-gray-700 dark:text-gray-300 mb-4">
+                        Our debt settlement program could help you reduce your total debt amount by up to 50% and become debt-free faster.
+                    </p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Fill out the calculator to see your potential savings.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        const calculatorForm = document.getElementById('debt-calculator-form');
+        const calculatorResults = document.getElementById('calculator-results');
+        const calculatorInfo = document.getElementById('calculator-info');
+        const totalSavingsElement = document.getElementById('total-savings');
+        const monthsSavedElement = document.getElementById('months-saved');
+        
+        if (calculatorForm) {
+            calculatorForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const debtAmount = parseFloat(document.getElementById('debt-amount').value);
+                const interestRate = parseFloat(document.getElementById('interest-rate').value) / 100; // Convert to decimal
+                const monthlyPayment = parseFloat(document.getElementById('monthly-payment').value);
+                
+                // Calculate time to pay off with minimum payments
+                const monthlyInterestRate = interestRate / 12;
+                let balance = debtAmount;
+                let monthsToPayOff = 0;
+                
+                while (balance > 0 && monthsToPayOff < 600) { // 50 years max to prevent infinite loop
+                    const interestForMonth = balance * monthlyInterestRate;
+                    balance = balance + interestForMonth - monthlyPayment;
+                    monthsToPayOff++;
+                    
+                    // Break if it would take too long (practical limit)
+                    if (monthsToPayOff >= 600) {
+                        monthsToPayOff = "600+";
+                        break;
+                    }
+                }
+                
+                // Calculate savings with debt settlement program
+                // Assuming 40% reduction in principal and 24 month program
+                const settlementSavings = debtAmount * 0.40; // 40% off principal
+                const programLength = 24; // 24 months
+                
+                // Calculate total interest saved
+                let interestPaid = 0;
+                if (typeof monthsToPayOff === 'number') {
+                    // Estimate total repayment amount
+                    const totalRepayment = monthlyPayment * monthsToPayOff;
+                    interestPaid = totalRepayment - debtAmount;
+                } else {
+                    // If it would take too long, estimate with 20 years of payments
+                    interestPaid = (monthlyPayment * 240) - debtAmount;
+                }
+                
+                // Total savings (principal reduction + interest savings)
+                const totalSavings = settlementSavings + interestPaid;
+                
+                // Update the results
+                totalSavingsElement.textContent = Math.round(totalSavings).toLocaleString();
+                
+                if (typeof monthsToPayOff === 'number') {
+                    monthsSavedElement.textContent = (monthsToPayOff - programLength).toLocaleString();
+                } else {
+                    monthsSavedElement.textContent = "500+";
+                }
+                
+                // Show results, hide info
+                calculatorResults.classList.remove('hidden');
+                calculatorInfo.classList.add('hidden');
+            });
+        }
+    });
+</script>

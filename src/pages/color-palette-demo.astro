@@ -1,0 +1,491 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+---
+
+<Layout title="Primary Color Palette Demo">
+  <div class="max-w-5xl mx-auto py-8">
+    <div class="flex justify-between items-center mb-8">
+      <h1 class="text-4xl font-bold">Primary Color Palette</h1>
+      <div class="md:hidden">
+        <ThemeToggle />
+      </div>
+    </div>
+    
+    <p class="mb-8 text-lg">
+      This page demonstrates the comprehensive primary color palette with all variants for both light and dark mode.
+      Use the theme toggle in the header to switch between modes and see how colors adapt.
+    </p>
+    
+    <div class="flex space-x-4 mb-8">
+      <a href="/color-palette-demo" class="bg-primary hover:bg-primary-hover text-primary-textOnPrimary px-4 py-2 rounded">Primary Palette</a>
+      <a href="/secondary-accent-palette-demo" class="bg-secondary hover:bg-secondary-hover text-secondary-textOnSecondary px-4 py-2 rounded">Secondary & Accent Palette</a>
+    </div>
+    
+    <!-- Base Colors Section -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4 pb-2 border-b border-border dark:border-gray-700">Base Colors</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Primary Default -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-primary flex items-center justify-center">
+            <span class="text-primary-textOnPrimary font-semibold">#2d7984</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h3 class="font-semibold">Primary</h3>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-primary</code>
+          </div>
+        </div>
+        
+        <!-- Light Variant -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-primary-light flex items-center justify-center">
+            <span class="text-primary-textOnLight font-semibold">#58cbe0</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h3 class="font-semibold">Primary Light</h3>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-primary-light</code>
+          </div>
+        </div>
+        
+        <!-- Dark Variant -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-primary-dark flex items-center justify-center">
+            <span class="text-primary-textOnDark font-semibold">#1d5058</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h3 class="font-semibold">Primary Dark</h3>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-primary-dark</code>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Interactive Elements Section -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4 pb-2 border-b border-border dark:border-gray-700">Interactive States</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Buttons -->
+        <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+          <h3 class="font-semibold mb-4">Buttons</h3>
+          <div class="space-y-4">
+            <div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Primary Button (hover & active states)</p>
+              <button class="bg-primary hover:bg-primary-hover active:bg-primary-active text-primary-textOnPrimary px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-primary-focus focus:ring-opacity-50">
+                Primary Button
+              </button>
+            </div>
+            
+            <div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Light Variant (hover & active states)</p>
+              <button class="bg-primary-light hover:bg-primary-lightHover active:bg-primary-lightActive text-primary-textOnLight px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-primary-lightFocus focus:ring-opacity-50">
+                Light Button
+              </button>
+            </div>
+            
+            <div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Dark Variant (hover & active states)</p>
+              <button class="bg-primary-dark hover:bg-primary-darkHover active:bg-primary-darkActive text-primary-textOnDark px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-primary-darkFocus focus:ring-opacity-50">
+                Dark Button
+              </button>
+            </div>
+            
+            <div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Disabled State</p>
+              <button class="bg-primary-disabled text-white px-4 py-2 rounded cursor-not-allowed opacity-75">
+                Disabled Button
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Other Interactive Elements -->
+        <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+          <h3 class="font-semibold mb-4">Form Elements</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block mb-2">Input with focus state</label>
+              <input type="text" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-primary-focus focus:border-primary" placeholder="Focus to see primary-focus ring">
+            </div>
+            
+            <div>
+              <label class="block mb-2">Input with light variant focus</label>
+              <input type="text" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-primary-lightFocus focus:border-primary-light" placeholder="Focus to see primary-lightFocus ring">
+            </div>
+            
+            <div>
+              <p class="mb-2">Link with hover/focus styles</p>
+              <a href="#" class="text-primary hover:text-primary-hover focus:outline-none focus:ring-2 focus:ring-primary-focus rounded">Primary link with hover state</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Hover States Section -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4 pb-2 border-b border-border dark:border-gray-700">Hover States</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Base Hover -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-primary-hover flex items-center justify-center">
+            <span class="text-white font-semibold">#266974</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h3 class="font-semibold">Primary Hover</h3>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-primary-hover</code>
+          </div>
+        </div>
+        
+        <!-- Light Hover -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-primary-lightHover flex items-center justify-center">
+            <span class="text-gray-900 font-semibold">#4bbbce</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h3 class="font-semibold">Primary Light Hover</h3>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-primary-lightHover</code>
+          </div>
+        </div>
+        
+        <!-- Dark Hover -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-primary-darkHover flex items-center justify-center">
+            <span class="text-white font-semibold">#15373e</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h3 class="font-semibold">Primary Dark Hover</h3>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-primary-darkHover</code>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Active States Section -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4 pb-2 border-b border-border dark:border-gray-700">Active States</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Base Active -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-primary-active flex items-center justify-center">
+            <span class="text-white font-semibold">#1d5058</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h3 class="font-semibold">Primary Active</h3>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-primary-active</code>
+          </div>
+        </div>
+        
+        <!-- Light Active -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-primary-lightActive flex items-center justify-center">
+            <span class="text-gray-900 font-semibold">#3eafc2</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h3 class="font-semibold">Primary Light Active</h3>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-primary-lightActive</code>
+          </div>
+        </div>
+        
+        <!-- Dark Active -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-primary-darkActive flex items-center justify-center">
+            <span class="text-white font-semibold">#102b30</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h3 class="font-semibold">Primary Dark Active</h3>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-primary-darkActive</code>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Focus States Section -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4 pb-2 border-b border-border dark:border-gray-700">Focus States</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Base Focus -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 flex items-center justify-center relative">
+            <div class="absolute inset-4 bg-primary"></div>
+            <div class="absolute inset-0 bg-primary-focus ring-4 ring-primary-focus ring-opacity-50"></div>
+            <span class="relative z-10 text-white font-semibold">#2d7984 (with focus ring)</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h3 class="font-semibold">Primary Focus</h3>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-primary-focus</code>
+          </div>
+        </div>
+        
+        <!-- Light Focus -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 flex items-center justify-center relative">
+            <div class="absolute inset-4 bg-primary-light"></div>
+            <div class="absolute inset-0 bg-primary-lightFocus ring-4 ring-primary-lightFocus ring-opacity-50"></div>
+            <span class="relative z-10 text-gray-900 font-semibold">#58cbe0 (with focus ring)</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h3 class="font-semibold">Primary Light Focus</h3>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-primary-lightFocus</code>
+          </div>
+        </div>
+        
+        <!-- Dark Focus -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 flex items-center justify-center relative">
+            <div class="absolute inset-4 bg-primary-dark"></div>
+            <div class="absolute inset-0 bg-primary-darkFocus ring-4 ring-primary-darkFocus ring-opacity-50"></div>
+            <span class="relative z-10 text-white font-semibold">#1d5058 (with focus ring)</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h3 class="font-semibold">Primary Dark Focus</h3>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-primary-darkFocus</code>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Disabled States Section -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4 pb-2 border-b border-border dark:border-gray-700">Disabled States</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Base Disabled -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-primary-disabled flex items-center justify-center">
+            <span class="text-white font-semibold">#a3c5cb</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h3 class="font-semibold">Primary Disabled</h3>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-primary-disabled</code>
+          </div>
+        </div>
+        
+        <!-- Light Disabled -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-primary-lightDisabled flex items-center justify-center">
+            <span class="text-gray-900 font-semibold">#b8e0ea</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h3 class="font-semibold">Primary Light Disabled</h3>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-primary-lightDisabled</code>
+          </div>
+        </div>
+        
+        <!-- Dark Disabled -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-primary-darkDisabled flex items-center justify-center">
+            <span class="text-white font-semibold">#6a8a8f</span>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h3 class="font-semibold">Primary Dark Disabled</h3>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">bg-primary-darkDisabled</code>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Text Colors Section -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4 pb-2 border-b border-border dark:border-gray-700">Text Colors</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Text on Primary -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-primary flex flex-col items-center justify-center">
+            <span class="text-primary-textOnPrimary font-semibold mb-2">Text on Primary</span>
+            <code class="bg-black bg-opacity-20 text-white text-sm px-2 py-1 rounded">text-primary-textOnPrimary</code>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h3 class="font-semibold">Text on Primary</h3>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">#ffffff</code>
+          </div>
+        </div>
+        
+        <!-- Text on Light -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-primary-light flex flex-col items-center justify-center">
+            <span class="text-primary-textOnLight font-semibold mb-2">Text on Light</span>
+            <code class="bg-black bg-opacity-20 text-primary-textOnLight text-sm px-2 py-1 rounded">text-primary-textOnLight</code>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h3 class="font-semibold">Text on Light</h3>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">#1a2234</code>
+          </div>
+        </div>
+        
+        <!-- Text on Dark -->
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <div class="h-32 bg-primary-dark flex flex-col items-center justify-center">
+            <span class="text-primary-textOnDark font-semibold mb-2">Text on Dark</span>
+            <code class="bg-black bg-opacity-20 text-white text-sm px-2 py-1 rounded">text-primary-textOnDark</code>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800">
+            <h3 class="font-semibold">Text on Dark</h3>
+            <code class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">#ffffff</code>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Usage Guidelines -->
+    <section class="mb-8">
+      <h2 class="text-2xl font-bold mb-4 pb-2 border-b border-border dark:border-gray-700">Usage Guidelines</h2>
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+        <h3 class="font-semibold mb-4">When to use each variant</h3>
+        <ul class="space-y-3 list-disc pl-5">
+          <li><strong>Primary (default):</strong> Use for primary action buttons, key UI elements, and main accent colors.</li>
+          <li><strong>Light variant:</strong> Use for secondary elements, backgrounds, highlights, and when you need a lighter version of the primary color that maintains brand identity.</li>
+          <li><strong>Dark variant:</strong> Use for more prominent elements that need stronger contrast, or for hover states of the primary color.</li>
+          <li><strong>Hover states:</strong> Apply to interactive elements when hovered to provide visual feedback.</li>
+          <li><strong>Active states:</strong> Apply to interactive elements when clicked/pressed to provide visual feedback.</li>
+          <li><strong>Focus states:</strong> Apply to interactive elements when focused (e.g., via keyboard navigation) to improve accessibility.</li>
+          <li><strong>Disabled states:</strong> Apply to elements that are currently not interactive or available.</li>
+        </ul>
+        
+        <h3 class="font-semibold mt-6 mb-4">Accessibility Considerations</h3>
+        <ul class="space-y-3 list-disc pl-5">
+          <li>Always use the appropriate text color (<code>textOnPrimary</code>, <code>textOnLight</code>, <code>textOnDark</code>) to ensure sufficient contrast for readability.</li>
+          <li>Focus states should be clearly visible for keyboard navigation - use the focus ring variants as shown in the examples.</li>
+          <li>Ensure disabled elements maintain clear visual distinction but avoid using color alone to convey information.</li>
+        </ul>
+      </div>
+    </section>
+    
+    <!-- Full Color Palette Reference -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4 pb-2 border-b border-border dark:border-gray-700">Complete Color Palette Reference</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white dark:bg-gray-800 rounded-lg shadow-md">
+          <thead class="bg-gray-50 dark:bg-gray-700">
+            <tr>
+              <th class="px-4 py-3 text-left">Name</th>
+              <th class="px-4 py-3 text-left">Hex Value</th>
+              <th class="px-4 py-3 text-left">Tailwind Class</th>
+              <th class="px-4 py-3 text-left">Preview</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+            <!-- Base Colors -->
+            <tr>
+              <td class="px-4 py-3">Primary</td>
+              <td class="px-4 py-3"><code>#2d7984</code></td>
+              <td class="px-4 py-3"><code>bg-primary</code></td>
+              <td class="px-4 py-3"><div class="w-16 h-8 bg-primary rounded"></div></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Primary Light</td>
+              <td class="px-4 py-3"><code>#58cbe0</code></td>
+              <td class="px-4 py-3"><code>bg-primary-light</code></td>
+              <td class="px-4 py-3"><div class="w-16 h-8 bg-primary-light rounded"></div></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Primary Dark</td>
+              <td class="px-4 py-3"><code>#1d5058</code></td>
+              <td class="px-4 py-3"><code>bg-primary-dark</code></td>
+              <td class="px-4 py-3"><div class="w-16 h-8 bg-primary-dark rounded"></div></td>
+            </tr>
+            
+            <!-- Hover States -->
+            <tr>
+              <td class="px-4 py-3">Primary Hover</td>
+              <td class="px-4 py-3"><code>#266974</code></td>
+              <td class="px-4 py-3"><code>bg-primary-hover</code></td>
+              <td class="px-4 py-3"><div class="w-16 h-8 bg-primary-hover rounded"></div></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Primary Light Hover</td>
+              <td class="px-4 py-3"><code>#4bbbce</code></td>
+              <td class="px-4 py-3"><code>bg-primary-lightHover</code></td>
+              <td class="px-4 py-3"><div class="w-16 h-8 bg-primary-lightHover rounded"></div></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Primary Dark Hover</td>
+              <td class="px-4 py-3"><code>#15373e</code></td>
+              <td class="px-4 py-3"><code>bg-primary-darkHover</code></td>
+              <td class="px-4 py-3"><div class="w-16 h-8 bg-primary-darkHover rounded"></div></td>
+            </tr>
+            
+            <!-- Active States -->
+            <tr>
+              <td class="px-4 py-3">Primary Active</td>
+              <td class="px-4 py-3"><code>#1d5058</code></td>
+              <td class="px-4 py-3"><code>bg-primary-active</code></td>
+              <td class="px-4 py-3"><div class="w-16 h-8 bg-primary-active rounded"></div></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Primary Light Active</td>
+              <td class="px-4 py-3"><code>#3eafc2</code></td>
+              <td class="px-4 py-3"><code>bg-primary-lightActive</code></td>
+              <td class="px-4 py-3"><div class="w-16 h-8 bg-primary-lightActive rounded"></div></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Primary Dark Active</td>
+              <td class="px-4 py-3"><code>#102b30</code></td>
+              <td class="px-4 py-3"><code>bg-primary-darkActive</code></td>
+              <td class="px-4 py-3"><div class="w-16 h-8 bg-primary-darkActive rounded"></div></td>
+            </tr>
+            
+            <!-- Focus States -->
+            <tr>
+              <td class="px-4 py-3">Primary Focus</td>
+              <td class="px-4 py-3"><code>#2d7984</code></td>
+              <td class="px-4 py-3"><code>bg-primary-focus</code></td>
+              <td class="px-4 py-3"><div class="w-16 h-8 bg-primary-focus rounded"></div></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Primary Light Focus</td>
+              <td class="px-4 py-3"><code>#58cbe0</code></td>
+              <td class="px-4 py-3"><code>bg-primary-lightFocus</code></td>
+              <td class="px-4 py-3"><div class="w-16 h-8 bg-primary-lightFocus rounded"></div></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Primary Dark Focus</td>
+              <td class="px-4 py-3"><code>#1d5058</code></td>
+              <td class="px-4 py-3"><code>bg-primary-darkFocus</code></td>
+              <td class="px-4 py-3"><div class="w-16 h-8 bg-primary-darkFocus rounded"></div></td>
+            </tr>
+            
+            <!-- Disabled States -->
+            <tr>
+              <td class="px-4 py-3">Primary Disabled</td>
+              <td class="px-4 py-3"><code>#a3c5cb</code></td>
+              <td class="px-4 py-3"><code>bg-primary-disabled</code></td>
+              <td class="px-4 py-3"><div class="w-16 h-8 bg-primary-disabled rounded"></div></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Primary Light Disabled</td>
+              <td class="px-4 py-3"><code>#b8e0ea</code></td>
+              <td class="px-4 py-3"><code>bg-primary-lightDisabled</code></td>
+              <td class="px-4 py-3"><div class="w-16 h-8 bg-primary-lightDisabled rounded"></div></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Primary Dark Disabled</td>
+              <td class="px-4 py-3"><code>#6a8a8f</code></td>
+              <td class="px-4 py-3"><code>bg-primary-darkDisabled</code></td>
+              <td class="px-4 py-3"><div class="w-16 h-8 bg-primary-darkDisabled rounded"></div></td>
+            </tr>
+            
+            <!-- Text Colors -->
+            <tr>
+              <td class="px-4 py-3">Text on Primary</td>
+              <td class="px-4 py-3"><code>#ffffff</code></td>
+              <td class="px-4 py-3"><code>text-primary-textOnPrimary</code></td>
+              <td class="px-4 py-3"><div class="w-16 h-8 bg-primary flex items-center justify-center"><span class="text-primary-textOnPrimary text-xs">Text</span></div></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Text on Light</td>
+              <td class="px-4 py-3"><code>#1a2234</code></td>
+              <td class="px-4 py-3"><code>text-primary-textOnLight</code></td>
+              <td class="px-4 py-3"><div class="w-16 h-8 bg-primary-light flex items-center justify-center"><span class="text-primary-textOnLight text-xs">Text</span></div></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Text on Dark</td>
+              <td class="px-4 py-3"><code>#ffffff</code></td>
+              <td class="px-4 py-3"><code>text-primary-textOnDark</code></td>
+              <td class="px-4 py-3"><div class="w-16 h-8 bg-primary-dark flex items-center justify-center"><span class="text-primary-textOnDark text-xs">Text</span></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</Layout>

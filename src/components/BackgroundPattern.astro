@@ -1,6 +1,7 @@
 ---
 // This component generates a decorative background with abstract shapes
 // Can be included anywhere you want a creative background pattern
+import DotsPattern from './icons/DotsPattern.astro';
 ---
 
 <div class="background-pattern-container absolute inset-0 overflow-hidden pointer-events-none z-0">
@@ -20,14 +21,7 @@
         
         <!-- Dots pattern -->
         <div class="absolute inset-0 opacity-30">
-            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <pattern id="dots-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                        <circle cx="1" cy="1" r="1" fill="currentColor" class="text-primary/40" />
-                    </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#dots-pattern)" />
-            </svg>
+            <DotsPattern />
         </div>
     </div>
 </div>

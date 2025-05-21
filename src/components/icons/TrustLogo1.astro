@@ -1,0 +1,15 @@
+---
+interface Props {
+    class?: string;
+    width?: string;
+    height?: string;
+}
+
+const { class: className = "", width = "120", height = "40" } = Astro.props;
+---
+
+<svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 120 40" class={className}>
+  <path fill="currentColor" d="M12 6.286c-3.464 0-6.286 2.822-6.286 6.286s2.822 6.286 6.286 6.286 6.286-2.822 6.286-6.286S15.464 6.286 12 6.286zm0 10.286c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
+  <path fill="currentColor" d="M34.457 20.571h-3.429v-8.571h3.429v8.571zm-1.714-9.714c-1.105 0-1.714-.61-1.714-1.429s.61-1.429 1.714-1.429 1.714.61 1.714 1.429-.609 1.429-1.714 1.429zM45.714 20.571h-3.429v-4.571c0-1.371-.61-2.286-1.714-2.286-.61 0-1.067.305-1.371.61a2.536 2.536 0 00-.457 1.676v4.571h-3.429v-8.571h3.429v1.067a3.538 3.538 0 012.896-1.371c1.981 0 4.076 1.219 4.076 4.267v4.608z"/>
+  <text x="55" y="20" font-family="Arial" font-size="12" fill="currentColor">FINANCE</text>
+</svg>
