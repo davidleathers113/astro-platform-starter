@@ -1,0 +1,117 @@
+---
+import '../styles/globals.css';
+import '@fontsource-variable/inter/wght.css';
+import interWoff2 from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import LandingHeader from '../components/debt-relief/LandingHeader.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>{title}</title>
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="preload" as="font" type="font/woff2" href={interWoff2} crossorigin />
+        <!-- Additional meta tags for landing page SEO -->
+        <meta name="description" content="Professional debt settlement program to help you reduce what you owe and become debt-free faster than making minimum payments." />
+        <meta property="og:title" content="Debt Freedom Toolkit - Break Free From Credit Card Debt" />
+        <meta property="og:description" content="Our professional debt settlement program can help you reduce what you owe and become debt-free faster than making minimum payments." />
+        <meta property="og:url" content="https://debtfreedomtoolkit.com" />
+        <link rel="canonical" href="https://debtfreedomtoolkit.com" />
+        
+        <!-- Theme detection script - executed before page renders -->
+        <script is:inline>
+            (function() {
+                // Check for saved theme preference in localStorage
+                const savedTheme = localStorage.getItem('theme');
+                
+                // Function to get system color scheme preference
+                function getSystemPreference() {
+                    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                }
+                
+                // Apply the theme
+                function applyTheme(theme) {
+                    // If theme is 'system', get the system preference
+                    if (theme === 'system') {
+                        theme = getSystemPreference();
+                    }
+                    
+                    // Apply the appropriate theme class to the document
+                    if (theme === 'dark') {
+                        document.documentElement.classList.add('dark-theme');
+                        document.documentElement.classList.add('dark');
+                        document.documentElement.classList.remove('light-theme');
+                        document.documentElement.setAttribute('data-theme', 'dark');
+                    } else {
+                        document.documentElement.classList.add('light-theme');
+                        document.documentElement.classList.remove('dark-theme');
+                        document.documentElement.classList.remove('dark');
+                        document.documentElement.setAttribute('data-theme', 'light');
+                    }
+                }
+                
+                // Determine which theme to use
+                let themeToApply;
+                
+                if (savedTheme) {
+                    // Use saved preference if available
+                    themeToApply = savedTheme;
+                } else {
+                    // Otherwise, use system preference and save it
+                    themeToApply = 'system';
+                    localStorage.setItem('theme', 'system');
+                }
+                
+                // Apply the theme immediately to prevent flash
+                applyTheme(themeToApply);
+                
+                // Set up listener for system preference changes
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                    if (localStorage.getItem('theme') === 'system') {
+                        applyTheme('system');
+                    }
+                });
+                
+                // Make these functions available globally
+                window.themeManager = {
+                    getTheme: function() {
+                        return localStorage.getItem('theme') || 'system';
+                    },
+                    setTheme: function(theme) {
+                        localStorage.setItem('theme', theme);
+                        applyTheme(theme);
+                        
+                        // Dispatch an event for cross-tab synchronization
+                        window.dispatchEvent(new CustomEvent('theme-change', { detail: { theme }}));
+                    }
+                };
+                
+                // Listen for storage changes for cross-tab sync
+                window.addEventListener('storage', (e) => {
+                    if (e.key === 'theme') {
+                        applyTheme(e.newValue);
+                    }
+                });
+            })();
+        </script>
+    </head>
+    <body class="antialiased text-text bg-background">
+        <div class="flex flex-col min-h-screen px-6 sm:px-12">
+            <div class="flex flex-col w-full max-w-5xl mx-auto grow">
+                <LandingHeader />
+                <main class="grow"><slot /></main>
+                <Footer />
+            </div>
+        </div>
+    </body>
+</html>

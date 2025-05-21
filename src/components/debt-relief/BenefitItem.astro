@@ -1,0 +1,16 @@
+---
+// src/components/debt-relief/BenefitItem.astro
+interface Props {
+    title: string;
+    description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<div class="p-6 form-container rounded-lg">
+    <h3 class="mb-3 text-xl font-semibold flex items-center gap-2">
+        <span class="text-primary">✓</span> {title}
+    </h3>
+    <p class="text-text-muted">{description}</p>
+</div>
