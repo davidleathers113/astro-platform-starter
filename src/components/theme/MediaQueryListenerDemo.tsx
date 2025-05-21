@@ -2,9 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { 
   getSystemPreference, 
   addPreferenceChangeListener, 
-  removePreferenceChangeListener,
-  ThemePreference
+  removePreferenceChangeListener
 } from './systemTheme';
+import type { ThemePreference } from './systemTheme';
 import { useTheme } from './useTheme';
 
 export default function MediaQueryListenerDemo() {

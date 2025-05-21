@@ -14,14 +14,42 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="custom-scrollbar">
     <head>
         <meta charset="UTF-8" />
         <title>{title}</title>
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Break free from credit card debt and save up to 50%. Our professional debt settlement program helps you reduce what you owe and become debt-free faster with no upfront fees." />
+        <meta name="keywords" content="debt relief, credit card debt, debt settlement, debt reduction, financial freedom, debt help" />
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="Debt Freedom Toolkit" />
         <meta name="generator" content={Astro.generator} />
+        
+        <!-- Open Graph / Social Media Meta Tags -->
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content="Break free from credit card debt and save up to 50%. Reduce your debt and become financially free." />
+        <meta property="og:image" content="/images/debt-freedom-social.jpg" />
+        <meta property="og:url" content="https://debtfreedomtoolkit.com" />
+        <meta property="og:site_name" content="Debt Freedom Toolkit" />
+        
+        <!-- Twitter Meta Tags -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content="Break free from credit card debt and save up to 50%. Reduce your debt and become financially free." />
+        <meta name="twitter:image" content="/images/debt-freedom-social.jpg" />
+        
+        <!-- Favicon -->
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="theme-color" content="#2d7984" />
+        
+        <!-- Preload critical resources -->
         <link rel="preload" as="font" type="font/woff2" href={interWoff2} crossorigin />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         
         <!-- Theme detection script - executed before page renders -->
         <script is:inline>
@@ -100,15 +128,44 @@ const { title } = Astro.props;
             })();
         </script>
     </head>
-    <body class="antialiased">
-        <div class="theme-toggle-container absolute top-4 right-4 z-10">
-            <ThemeToggle />
-        </div>
-        <div class="flex flex-col min-h-screen px-6 bg-noise sm:px-12">
-            <div class="flex flex-col w-full max-w-5xl mx-auto grow">
+    <body class="antialiased text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-900">
+        <!-- Import Background Pattern Component -->
+        <div class="flex flex-col min-h-screen px-6 sm:px-12 relative bg-white dark:bg-gray-900 transition-colors duration-300">
+            <!-- Background Pattern -->
+            <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                <div class="fixed inset-0 z-0">
+                    <!-- Light mode gradients (hidden in dark mode) -->
+                    <div class="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-b from-[#2d7984]/5 to-transparent dark:hidden"></div>
+                    <div class="absolute bottom-0 left-0 right-0 h-[300px] bg-gradient-to-t from-[#2d7984]/5 to-transparent dark:hidden"></div>
+                    
+                    <!-- Dark mode gradients (hidden in light mode) -->
+                    <div class="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-b from-[#58cbe0]/10 to-transparent hidden dark:block"></div>
+                    <div class="absolute bottom-0 left-0 right-0 h-[300px] bg-gradient-to-t from-[#58cbe0]/10 to-transparent hidden dark:block"></div>
+                    
+                    <!-- Noise texture overlay -->
+                    <div class="absolute inset-0 opacity-20 dark:opacity-30 bg-noise"></div>
+                </div>
+            </div>
+            
+            <div class="flex flex-col w-full max-w-6xl mx-auto grow relative z-10">
                 <Header />
                 <main class="grow"><slot /></main>
                 <Footer />
+            </div>
+        </div>
+        
+        <!-- Back to Top Button -->
+        <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transform transition-all duration-300 translate-y-20 opacity-0 hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-gray-800 z-50" aria-label="Back to top">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+            </svg>
+        </button>
+        
+        <!-- Loading Indicator -->
+        <div id="page-loader" class="fixed inset-0 bg-white dark:bg-gray-900 flex items-center justify-center z-[100] transition-opacity duration-500">
+            <div class="relative">
+                <div class="w-16 h-16 border-4 border-[#2d7984]/30 border-t-[#2d7984] rounded-full animate-spin"></div>
+                <div class="mt-4 text-center text-gray-600 dark:text-gray-300">Loading...</div>
             </div>
         </div>
     </body>
@@ -118,4 +175,110 @@ const { title } = Astro.props;
     .bg-noise {
         background-image: var(--background-image-noise);
     }
+    
+    /* Use CSS variables defined in globals.css for theme-specific noise pattern */
+    :root {
+        --background-image-noise: linear-gradient(to bottom, rgba(250, 250, 255, 0.05), rgba(250, 250, 255, 0.1)), url('/images/noise.png');
+    }
+    
+    .dark {
+        --background-image-noise: linear-gradient(to bottom, rgba(10, 15, 25, 0.1), rgba(10, 15, 25, 0.2)), url('/images/noise.png');
+    }
 </style>
+
+<script>
+    // Page loader functionality
+    const pageLoader = document.getElementById('page-loader');
+    
+    // Hide loader once page is fully loaded
+    window.addEventListener('load', () => {
+        if (pageLoader) {
+            // Add fade out transition
+            pageLoader.style.opacity = '0';
+            
+            // Remove from DOM after transition completes
+            setTimeout(() => {
+                pageLoader.style.display = 'none';
+            }, 500);
+        }
+    });
+    
+    // Back to top button functionality
+    document.addEventListener('DOMContentLoaded', () => {
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        if (backToTopButton) {
+            // Function to toggle button visibility
+            const toggleBackToTopButton = () => {
+                if (window.scrollY > 300) {
+                    backToTopButton.classList.remove('translate-y-20', 'opacity-0');
+                    backToTopButton.classList.add('translate-y-0', 'opacity-100');
+                } else {
+                    backToTopButton.classList.add('translate-y-20', 'opacity-0');
+                    backToTopButton.classList.remove('translate-y-0', 'opacity-100');
+                }
+            };
+            
+            // Initial check
+            toggleBackToTopButton();
+            
+            // Add scroll event listener
+            window.addEventListener('scroll', toggleBackToTopButton);
+            
+            // Add click event to scroll to top
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+        
+        // Add smooth scroll behavior to all anchor links
+        document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    // Account for fixed header height
+                    const headerHeight = document.querySelector('header')?.offsetHeight || 0;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Add animation on scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight * 0.9) {
+                    // Trigger the animation based on the class
+                    if (element.classList.contains('fade-in-up')) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    } else if (element.classList.contains('fade-in')) {
+                        element.style.opacity = '1';
+                    }
+                }
+            });
+        };
+        
+        // Run once on load
+        animateOnScroll();
+        
+        // Add scroll listener
+        window.addEventListener('scroll', animateOnScroll);
+    });
+</script>

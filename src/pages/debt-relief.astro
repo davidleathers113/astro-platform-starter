@@ -16,11 +16,12 @@ import Testimonials from '../components/debt-relief/Testimonials.astro';
 import FAQSection from '../components/debt-relief/FAQSection.astro';
 import Disclosures from '../components/debt-relief/Disclosures.astro';
 import FinalCTA from '../components/debt-relief/FinalCTA.astro';
+import TrustIndicators from '../components/TrustIndicators.astro';
 ---
 
 <LandingLayout title={pageTitle}>
     <!-- Hero Section -->
-    <div class="py-16 sm:py-20 md:py-24 border-b border-border">
+    <div class="py-16 sm:py-20 md:py-24">
         <DebtReliefHero 
             title="Break Free From Credit Card Debt - Save Up To 50%"
             subtitle="Reduce Your Debt By Thousands | Become Debt-Free in 12-36 Months"
@@ -32,6 +33,11 @@ import FinalCTA from '../components/debt-relief/FinalCTA.astro';
             phoneNumber="(800) 555-1234"
             availability="Available 9:00am - 8:00pm EST, 7 days a week"
         />
+    </div>
+    
+    <!-- Trust Indicators -->
+    <div class="pb-16 border-b border-border">
+        <TrustIndicators />
     </div>
 
     <!-- Qualification Form Section -->
@@ -101,7 +107,8 @@ import FinalCTA from '../components/debt-relief/FinalCTA.astro';
     </section>
 </LandingLayout>
 
-<style is:global>
+<style>
+    /* Keep only the basic styling needed for this page */
     h2 {
         position: relative;
     }
@@ -122,100 +129,5 @@ import FinalCTA from '../components/debt-relief/FinalCTA.astro';
         section {
             scroll-margin-top: 80px;
         }
-    }
-    
-    /* CRITICAL FIX: Override any huge SVG chevrons ONLY in the FAQ section */
-    .faq-item .faq-icon,
-    .faq-question svg {
-        max-width: 20px !important;
-        max-height: 20px !important;
-        width: 20px !important;
-        height: 20px !important;
-        flex-shrink: 0 !important;
-    }
-    
-    /* Hide any extraneous SVGs outside proper containers */
-    section:nth-of-type(7) > div > svg,
-    section:nth-of-type(7) svg:not(.faq-icon):not(:has(path[stroke-linecap="round"])) {
-        display: none !important;
-    }
-    
-    /* Override specific large chevrons seen in screenshot */
-    svg path[d="M19.5 8.25l-7.5 7.5-7.5-7.5"] {
-        stroke-width: 1.5 !important;
-    }
-    
-    /* TESTIMONIALS SECTION CRITICAL FIXES */
-    #testimonials-section .testimonial-card {
-        display: block !important;
-        background-color: var(--color-form-bg) !important;
-        border: 1px solid var(--color-border) !important;
-        border-radius: 0.5rem !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-        padding: 1.5rem !important;
-        margin-bottom: 1.5rem !important;
-    }
-    
-    /* QUOTATION ICON SIZE FIX */
-    #testimonials-section .testimonial-quote-icon,
-    #testimonials-section .testimonial-card svg,
-    section:nth-of-type(5) svg {
-        width: 2.5rem !important;
-        height: 2.5rem !important;
-        max-width: none !important;
-        max-height: none !important;
-        min-width: 2.5rem !important;
-        min-height: 2.5rem !important;
-    }
-    
-    /* Exempt testimonial section SVGs from FAQ icon size restriction */
-    section:nth-of-type(5) svg {
-        width: 2.5rem !important;
-        height: 2.5rem !important;
-    }
-    
-    #testimonials-section .grid {
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-    }
-    
-    @media (min-width: 768px) {
-        #testimonials-section .grid.md\:grid-cols-2 {
-            grid-template-columns: repeat(2, 1fr) !important;
-        }
-        
-        #testimonials-section .grid.md\:grid-cols-4 {
-            grid-template-columns: repeat(4, 1fr) !important;
-        }
-    }
-    
-    #testimonials-section blockquote {
-        font-style: italic !important;
-        margin-bottom: 1rem !important;
-        font-size: 1.1rem !important;
-        line-height: 1.6 !important;
-    }
-    
-    #testimonials-section .font-bold {
-        font-weight: 700 !important;
-        color: var(--color-primary) !important;
-    }
-    
-    #testimonials-section .text-sm {
-        font-size: 0.875rem !important;
-    }
-    
-    #testimonials-section .mt-6 {
-        margin-top: 1.5rem !important;
-    }
-    
-    #testimonials-section .pt-4 {
-        padding-top: 1rem !important;
-    }
-    
-    #testimonials-section .border-t {
-        border-top-width: 1px !important;
-        border-top-style: solid !important;
-        border-top-color: var(--color-border) !important;
     }
 </style>

@@ -1,8 +1,15 @@
 ---
 ---
 
-<button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sun-icon">
+<div class="theme-toggle-container" data-theme-toggle>
+  <div class="theme-toggle" role="radiogroup" aria-label="Theme Selection" tabindex="0">
+    <button 
+      class="theme-option" 
+      data-theme="light" 
+      role="radio" 
+      aria-checked="false"
+      aria-label="Light theme">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon">
         <circle cx="12" cy="12" r="5"></circle>
         <line x1="12" y1="1" x2="12" y2="3"></line>
         <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -12,80 +19,366 @@
         <line x1="21" y1="12" x2="23" y2="12"></line>
         <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-    </svg>
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="moon-icon">
+      </svg>
+      <span class="sr-only">Light theme</span>
+    </button>
+    
+    <button 
+      class="theme-option" 
+      data-theme="system" 
+      role="radio" 
+      aria-checked="false"
+      aria-label="System theme">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon">
+        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+        <line x1="8" y1="21" x2="16" y2="21"></line>
+        <line x1="12" y1="17" x2="12" y2="21"></line>
+      </svg>
+      <span class="sr-only">System theme</span>
+    </button>
+    
+    <button 
+      class="theme-option" 
+      data-theme="dark" 
+      role="radio" 
+      aria-checked="false"
+      aria-label="Dark theme">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon">
         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-    </svg>
-</button>
+      </svg>
+      <span class="sr-only">Dark theme</span>
+    </button>
+  </div>
+  
+  <div aria-live="polite" class="sr-only" id="theme-announcement"></div>
+</div>
 
 <style>
+  .theme-toggle-container {
+    position: relative;
+  }
+  
+  .theme-toggle {
+    display: flex;
+    border-radius: 9999px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    background: var(--color-form-bg);
+    box-shadow: 0 2px 4px var(--shadow-color-light);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .theme-toggle:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  
+  .theme-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    color: var(--color-text);
+    transition: all 0.2s ease;
+  }
+  
+  .theme-option:hover {
+    background-color: rgba(var(--color-primary-rgb, 45, 121, 132), 0.1);
+  }
+  
+  /* Updated selected state for better contrast */
+  .theme-option.selected {
+    background-color: var(--color-primary);
+    color: white; /* Ensure white text on the darker primary color for contrast */
+  }
+  
+  /* High contrast focus style */
+  .theme-option:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+    z-index: 1;
+  }
+  
+  .dark .theme-option:focus-visible {
+    outline: 3px solid #58cbe0; /* Brighter outline in dark mode */
+  }
+  
+  .theme-icon {
+    transition: transform 0.3s ease;
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .theme-icon {
+      transition: none;
+    }
+    
+    .theme-option,
     .theme-toggle {
-        background: transparent;
-        border: none;
-        border-radius: 50%;
-        padding: 0.5rem;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--color-primary);
-        transition: all 0.2s ease;
+      transition: none;
     }
-    
-    .theme-toggle:hover {
-        background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .theme-option:hover .theme-icon {
+    transform: rotate(15deg);
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .theme-option:hover .theme-icon {
+      transform: none;
     }
-    
-    .sun-icon, .moon-icon {
-        transition: transform 0.2s ease;
-    }
-    
-    :global(.light-theme) .sun-icon {
-        display: block;
-    }
-    
-    :global(.light-theme) .moon-icon {
-        display: none;
-    }
-    
-    :global(.dark-theme) .sun-icon {
-        display: none;
-    }
-    
-    :global(.dark-theme) .moon-icon {
-        display: block;
-    }
+  }
+  
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
 </style>
 
 <script>
-    // Set initial theme based on localStorage or system preference
-    function setInitialTheme() {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            document.documentElement.classList.add(savedTheme + '-theme');
-            document.documentElement.setAttribute('data-theme', savedTheme);
-        } else {
-            // Default to dark theme
-            document.documentElement.classList.add('dark-theme');
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-        }
+  // Initialize as early as possible to prevent FOUC (Flash of Unstyled Content)
+  (function immediateInit() {
+    try {
+      const options = document.querySelectorAll('.theme-option');
+      if (!options || options.length === 0) return; // Wait for DOM
+      
+      const currentTheme = getCurrentTheme();
+      setToggleState(currentTheme);
+    } catch (error) {
+      // Silent fail for immediate initialization
+      // Full initialization will happen in DOMContentLoaded
     }
-    
-    // Toggle between light and dark themes
-    function toggleTheme() {
-        const isDark = document.documentElement.classList.contains('dark-theme');
-        document.documentElement.classList.remove(isDark ? 'dark-theme' : 'light-theme');
-        document.documentElement.classList.add(isDark ? 'light-theme' : 'dark-theme');
+  })();
+
+  // Type Definitions
+  /**
+   * @typedef {'light' | 'dark' | 'system'} ThemeType
+   */
+
+  /**
+   * Get current theme from localStorage or system preference
+   * @returns {ThemeType} The current theme
+   */
+  function getCurrentTheme() {
+    try {
+      if (typeof window === 'undefined') return 'system';
+      if (window.themeManager && typeof window.themeManager.getTheme === 'function') {
+        return window.themeManager.getTheme();
+      }
+      // Fallback if themeManager is not available
+      return localStorage.getItem('theme') || 'system';
+    } catch (error) {
+      console.warn('Error getting current theme:', error);
+      return 'system';
+    }
+  }
+
+  /**
+   * Get resolved theme (actual theme being applied)
+   * @returns {'light' | 'dark'} The resolved theme
+   */
+  function getResolvedTheme() {
+    try {
+      const theme = getCurrentTheme();
+      if (theme === 'system') {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      return theme;
+    } catch (error) {
+      console.warn('Error getting resolved theme:', error);
+      return 'light'; // Default fallback
+    }
+  }
+
+  /**
+   * Initialize theme toggle state based on the current theme
+   * @param {ThemeType} theme - The current theme
+   */
+  function setToggleState(theme) {
+    try {
+      const options = document.querySelectorAll('.theme-option');
+      options.forEach(option => {
+        const optionTheme = option.getAttribute('data-theme');
+        const isSelected = optionTheme === theme;
+        option.setAttribute('aria-checked', isSelected.toString());
+        option.classList.toggle('selected', isSelected);
+      });
+    } catch (error) {
+      console.warn('Error setting toggle state:', error);
+    }
+  }
+
+  /**
+   * Update theme using themeManager or fallback method
+   * @param {ThemeType} theme - The theme to set
+   */
+  function updateTheme(theme) {
+    try {
+      // Use themeManager if available
+      if (window.themeManager && typeof window.themeManager.setTheme === 'function') {
+        window.themeManager.setTheme(theme);
+      } else {
+        // Fallback if themeManager is not available
+        localStorage.setItem('theme', theme);
         
-        const newTheme = isDark ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
+        // Apply theme directly (simplified version of what themeManager would do)
+        if (theme === 'system') {
+          const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          document.documentElement.classList.toggle('dark', systemTheme === 'dark');
+          document.documentElement.classList.toggle('dark-theme', systemTheme === 'dark');
+          document.documentElement.classList.toggle('light-theme', systemTheme === 'light');
+        } else {
+          document.documentElement.classList.toggle('dark', theme === 'dark');
+          document.documentElement.classList.toggle('dark-theme', theme === 'dark');
+          document.documentElement.classList.toggle('light-theme', theme === 'light');
+        }
+      }
+      
+      // Update toggle state
+      setToggleState(theme);
+      
+      // Announce to screen readers
+      announceThemeChange(theme);
+    } catch (error) {
+      console.error('Error updating theme:', error);
     }
-    
-    // Initialize theme
-    setInitialTheme();
-    
-    // Set up event listener for theme toggle
-    document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
+  }
+
+  /**
+   * Announce theme change to screen readers
+   * @param {ThemeType} theme - The current theme
+   */
+  function announceThemeChange(theme) {
+    try {
+      const announcement = document.getElementById('theme-announcement');
+      if (announcement) {
+        let message = `Theme changed to ${theme}`;
+        if (theme === 'system') {
+          const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          message += ` (using ${systemTheme} theme based on system preference)`;
+        }
+        announcement.textContent = message;
+      }
+    } catch (error) {
+      console.warn('Error announcing theme change:', error);
+    }
+  }
+
+  // Initialize theme toggle when the DOM is fully loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    try {
+      const themeToggle = document.querySelector('.theme-toggle');
+      const options = document.querySelectorAll('.theme-option');
+      
+      if (!themeToggle || !options || options.length === 0) {
+        console.warn('Theme toggle elements not found');
+        return;
+      }
+      
+      // Set initial state
+      const currentTheme = getCurrentTheme();
+      setToggleState(currentTheme);
+      
+      // Handle container keyboard navigation
+      themeToggle.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault(); // Prevent scrolling with space
+          
+          // Find and activate the selected option
+          const selectedOption = document.querySelector('.theme-option[aria-checked="true"]');
+          if (selectedOption) {
+            (selectedOption as HTMLElement).focus();
+          } else {
+            // Focus the first option if none is selected
+            (options[0] as HTMLElement).focus();
+          }
+        }
+      });
+      
+      // Set up navigation between options
+      options.forEach((option, index) => {
+        // Click handler for changing theme
+        option.addEventListener('click', () => {
+          const theme = (option as HTMLElement).dataset.theme as ThemeType;
+          if (theme) {
+            updateTheme(theme);
+            (option as HTMLElement).focus(); // Maintain focus on clicked button
+          }
+        });
+        
+        // Keyboard handler for individual options
+        option.addEventListener('keydown', (e) => {
+          const key = e.key;
+          
+          // Space or Enter activates the option
+          if (key === ' ' || key === 'Enter') {
+            e.preventDefault();
+            (option as HTMLElement).click();
+          }
+          
+          // Arrow navigation
+          else if (key === 'ArrowRight' || key === 'ArrowDown') {
+            e.preventDefault();
+            const nextIndex = (index + 1) % options.length;
+            (options[nextIndex] as HTMLElement).focus();
+          } else if (key === 'ArrowLeft' || key === 'ArrowUp') {
+            e.preventDefault();
+            const prevIndex = (index - 1 + options.length) % options.length;
+            (options[prevIndex] as HTMLElement).focus();
+          }
+        });
+      });
+      
+      // Listen for theme changes from other sources
+      window.addEventListener('theme-change', () => {
+        const newTheme = getCurrentTheme();
+        setToggleState(newTheme);
+      });
+      
+      // Listen for system preference changes
+      const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      const handleMediaChange = () => {
+        // If current theme is 'system', update toggle appearance
+        if (getCurrentTheme() === 'system') {
+          announceThemeChange('system');
+        }
+      };
+      
+      // Add the listener with proper browser support check
+      if (darkModeMediaQuery.addEventListener) {
+        darkModeMediaQuery.addEventListener('change', handleMediaChange);
+      } else if ((darkModeMediaQuery as any).addListener) {
+        // For older browsers
+        (darkModeMediaQuery as any).addListener(handleMediaChange);
+      }
+    } catch (error) {
+      console.error('Error initializing theme toggle:', error);
+    }
+  });
+  
+  // Ensure cleanup for single-page applications
+  document.addEventListener('beforeunload', () => {
+    try {
+      const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      // Remove event listeners
+      if (darkModeMediaQuery.removeEventListener) {
+        darkModeMediaQuery.removeEventListener('change', () => {});
+      } else if ((darkModeMediaQuery as any).removeListener) {
+        (darkModeMediaQuery as any).removeListener(() => {});
+      }
+    } catch (error) {
+      // Silent fail on cleanup
+    }
+  });
 </script>

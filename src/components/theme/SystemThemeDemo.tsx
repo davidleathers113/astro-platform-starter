@@ -3,9 +3,9 @@ import {
   getSystemPreference, 
   isSystemDarkMode, 
   addPreferenceChangeListener, 
-  removePreferenceChangeListener,
-  ThemePreference
+  removePreferenceChangeListener
 } from './systemTheme';
+import type { ThemePreference } from './systemTheme';
 
 export default function SystemThemeDemo() {
   const [currentPreference, setCurrentPreference] = useState<ThemePreference>(getSystemPreference());

@@ -14,14 +14,13 @@ const { quote, name, location, debtDetails } = Astro.props;
     <div class="relative z-10">
         <!-- Quote Icon -->
         <div class="mb-4">
-            <!-- Use specific class name and inline style to prevent it from being resized by other global styles -->
-            <span class="testimonial-quote-icon-wrapper" style="display: block; width: 2.5rem; height: 2.5rem;">
+            <span class="testimonial-quote-wrapper">
                 <svg 
                     xmlns="http://www.w3.org/2000/svg" 
                     viewBox="0 0 24 24" 
                     fill="currentColor" 
-                    class="testimonial-quote-icon text-primary opacity-40" 
-                    style="width: 2.5rem !important; height: 2.5rem !important; max-width: none !important; max-height: none !important; min-width: 2.5rem !important; min-height: 2.5rem !important;"
+                    class="testimonial-quote-icon text-primary opacity-40"
+                    aria-hidden="true"
                 >
                     <path fill-rule="evenodd" d="M4.804 21.644A6.707 6.707 0 006 21.75a6.721 6.721 0 00-2.794-5.432l-1.736-.896c.161.405.28.83.357 1.27.114.63.094 1.281-.059 1.905l-.148.705.113.152a6.7 6.7 0 003.071 2.19zm.464-10.7c-.512-.006-.998.1-1.438.299l-.133.066.052.145a6.704 6.704 0 002.573 3.483l.4.332-.214.336a6.707 6.707 0 00-.259 5.182c.16.426.38.825.645 1.189.12.164.24.32.365.474.125.154.29.302.19.199l.712.712c.97-.243 1.927-.672 2.8-1.28.317-.218.63-.456.936-.711l.433-.346.144.429c.122.365.307.697.539.978.36.438.783.794 1.238 1.043l.744.41c.135-.214.257-.44.365-.675a6.706 6.706 0 00.408-4.122l-.187-.793-.159-.075a6.718 6.718 0 00-2.031-.607c.019.307.07.612.148.909.078.297.194.585.341.861l.252.66-.598.265a6.7 6.7 0 01-3.963.445l-1.151-.234.49-1.084c.108-.238.208-.488.3-.749.09-.26.17-.53.237-.812.146-.591.224-1.227.225-1.856a6.73 6.73 0 00-3.35-5.813 6.724 6.724 0 00-2.127-.695zm.2-2.29a6.709 6.709 0 00-3.194 1.814 6.71 6.71 0 00-1.16 7.565c.022-.012.055-.025.09-.043l.879-.472.069-.037a4.893 4.893 0 011.735-.335 4.903 4.903 0 014.898 4.55 4.88 4.88 0 01-.118 1.1 4.91 4.91 0 01-2.385 3.188c.12.007.24.012.36.017a4.886 4.886 0 002.96-.586 4.885 4.885 0 001.019-.813 4.886 4.886 0 002.106-.977 4.89 4.89 0 00.743-4.174 4.887 4.887 0 00-1.77-2.767 4.885 4.885 0 00-2.007-.862a4.899 4.899 0 00-3.812.756 4.883 4.883 0 00-1.68 2.206 4.87 4.87 0 00-.147.447 4.886 4.886 0 00-2.297.021 4.886 4.886 0 00-2.861 2.173 4.888 4.888 0 00-.189-2.567 4.89 4.89 0 001.537-1.308 4.895 4.895 0 00.946-1.929 4.895 4.895 0 00-.2-2.766z" clip-rule="evenodd" />
                 </svg>
@@ -58,13 +57,18 @@ const { quote, name, location, debtDetails } = Astro.props;
         text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
     }
     
-    /* IMPORTANT: Override any global styles that might resize testimonial icons */
-    :global(.testimonial-quote-icon) {
-        width: 2.5rem !important;
-        height: 2.5rem !important;
-        max-width: none !important;
-        max-height: none !important;
-        min-width: 2.5rem !important;
-        min-height: 2.5rem !important;
+    /* Use properly scoped selectors without !important */
+    .testimonial-quote-wrapper {
+        display: block;
+        position: relative;
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    
+    .testimonial-quote-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        max-width: 100%;
+        max-height: 100%;
     }
 </style>

@@ -1,18 +1,24 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import DebtReliefHero from '../components/DebtReliefHero.astro';
+import EnhancedHero from '../components/EnhancedHero.astro';
 import DebtReliefForm from '../components/DebtReliefForm.astro';
-import DarkModeTest from '../components/DarkModeTest.astro';
+import BenefitsSection from '../components/BenefitsSection.astro';
+import TestimonialsSection from '../components/TestimonialsSection.astro';
+import CTASection from '../components/CTASection.astro';
+import TrustIndicators from '../components/TrustIndicators.astro';
 ---
 
 <Layout title="Break Free From Credit Card Debt - Save Up To 50% | Debt Freedom Toolkit">
-    <div class="flex items-center justify-center mb-10">
+    <div class="brand-header flex items-center justify-center mb-8 animate-fade-in">
         <a href="/" class="text-center inline-block">
-            <span class="text-[#42a5b2] font-bold text-xl">Debt Freedom Toolkit</span>
+            <span class="text-primary font-bold text-2xl">Debt Freedom Toolkit</span>
         </a>
     </div>
     
-    <DebtReliefHero />
-    <DarkModeTest />
+    <EnhancedHero />
+    <TrustIndicators />
+    <BenefitsSection />
+    <TestimonialsSection />
     <DebtReliefForm />
+    <CTASection />
 </Layout>

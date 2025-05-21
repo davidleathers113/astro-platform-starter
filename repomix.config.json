@@ -1,0 +1,58 @@
+{
+  "$schema": "https://repomix.com/schemas/latest/schema.json",
+  "output": {
+    "style": "markdown",
+    "filePath": "repomix-output.md",
+    "removeComments": false,
+    "showLineNumbers": true,
+    "compressCode": true,
+    "topFilesLength": 20,
+    "fileSummary": true,
+    "directoryStructure": true,
+    "headerText": "# Astro Platform Starter\n\nThis is an analysis of the Astro Platform Starter codebase. The project is built with Astro.js and leverages Netlify Core Primitives (Edge Functions, Image CDN, Blob Store).\n\nThis starter includes features like:\n- Theme system with light/dark mode\n- Tailwind CSS for styling\n- React components for interactive elements\n- TypeScript for type safety\n- Netlify integration for deployment\n\nKey directories:\n- `/src/components/` - UI components\n- `/src/layouts/` - Page layouts\n- `/src/pages/` - Routes and API endpoints\n- `/netlify/` - Netlify-specific configurations"
+  },
+  "ignore": {
+    "useGitignore": true,
+    "useDefaultPatterns": true,
+    "customPatterns": [
+      "node_modules/**",
+      "**/.git/**",
+      "**/*.log",
+      "**/*.bak",
+      "**/*.zip",
+      "**/*.gz",
+      "**/*.min.js",
+      "**/*.min.css",
+      "**/*.tsbuildinfo",
+      "package-lock.json",
+      "LICENSE*",
+      "dist/**",
+      ".netlify/**",
+      ".vscode/**",
+      "public/assets/**",
+      "**/*.md",
+      "!README.md",
+      "!CLAUDE.md",
+      "!docs/*.md"
+    ]
+  },
+  "include": [
+    "src/**/*.astro",
+    "src/**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.css",
+    "astro.config.mjs",
+    "tailwind.config.js",
+    "tsconfig.json",
+    "package.json",
+    "netlify/**/*"
+  ],
+  "security": {
+    "enableSecurityCheck": true
+  },
+  "git": {
+    "sortByChanges": true,
+    "sortByChangesMaxCommits": 100,
+    "includeDiffs": false
+  }
+}

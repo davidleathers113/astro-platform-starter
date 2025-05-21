@@ -1,31 +1,192 @@
 ---
 import Logo from '../components/Logo.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
 
 const navItems = [
     { linkText: 'Home', href: '/' },
-    { linkText: 'Debt Relief', href: '/debt-relief' },
-    { linkText: 'Revalidation', href: '/revalidation' },
-    { linkText: 'Image CDN', href: '/image-cdn' },
-    { linkText: 'Edge Function', href: '/edge' },
-    { linkText: 'Blobs', href: '/blobs' }
+    { linkText: 'How It Works', href: '#benefits' },
+    { linkText: 'Success Stories', href: '#testimonials' },
+    { linkText: 'FAQ', href: '/faq' },
+    { linkText: 'About Us', href: '/about' },
+    { linkText: 'Blog', href: '/blog' }
 ];
 ---
 
-<nav class="flex flex-wrap items-center gap-4 pt-6 pb-16 sm:pt-12 sm:pb-24">
-    <a href="/">
-        <Logo />
-    </a>
-    {
-        !!navItems?.length && (
-            <ul class="flex flex-wrap gap-x-4 gap-y-1">
+<header class="header-section fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="main-header">
+    <div class="container mx-auto px-4">
+        <nav class="flex justify-between items-center py-4">
+            <!-- Logo -->
+            <div class="logo-container">
+                <a href="/" class="inline-block" aria-label="Debt Freedom Toolkit">
+                    <Logo />
+                </a>
+            </div>
+            
+            <!-- Desktop Navigation and Theme Toggle -->
+            <div class="hidden md:flex md:items-center md:gap-4">
+                {
+                    !!navItems?.length && (
+                        <ul class="flex items-center gap-x-6">
+                            {navItems.map((item) => (
+                                <li>
+                                    <a 
+                                        href={item.href} 
+                                        class="inline-block px-1.5 py-1 text-text hover:text-primary font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-primary after:transform after:scale-x-0 after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left"
+                                    >
+                                        {item.linkText}
+                                    </a>
+                                </li>
+                            ))}
+                            <li>
+                                <a 
+                                    href="#consultation" 
+                                    class="btn ml-4"
+                                >
+                                    Get Started
+                                </a>
+                            </li>
+                        </ul>
+                    )
+                }
+                <ThemeToggle />
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <div class="block md:hidden">
+                <div class="flex items-center gap-2">
+                    <ThemeToggle />
+                    <button id="mobile-menu-button" class="flex items-center p-2 rounded-lg text-text hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+                </div>
+            </div>
+        </nav>
+    </div>
+    
+    <!-- Mobile Menu (Hidden by default) -->
+    <div id="mobile-menu" class="hidden bg-background-form dark:bg-gray-800 shadow-lg absolute left-0 right-0 top-full border-t border-border dark:border-gray-700 animate-fade-in">
+        <div class="container mx-auto px-4 py-4">
+            <ul class="flex flex-col gap-y-3">
                 {navItems.map((item) => (
                     <li>
-                        <a href={item.href} class="inline-block px-1.5 py-1 sm:px-3 sm:py-2">
+                        <a 
+                            href={item.href} 
+                            class="block py-2 px-4 hover:bg-primary/10 dark:hover:bg-primary/20 rounded-lg font-medium transition-colors text-gray-900 dark:text-gray-100"
+                        >
                             {item.linkText}
                         </a>
                     </li>
                 ))}
+                <li class="mt-2">
+                    <a 
+                        href="#consultation" 
+                        class="btn w-full text-center"
+                    >
+                        Get Started
+                    </a>
+                </li>
             </ul>
-        )
-    }
-</nav>
+        </div>
+    </div>
+</header>
+
+<!-- Add padding top to account for fixed header -->
+<div class="pt-20"></div>
+
+<script>
+    // Header scroll behavior
+    document.addEventListener('DOMContentLoaded', () => {
+        const header = document.getElementById('main-header');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        let lastScrollY = window.scrollY;
+        
+        // Function to update header state
+        const updateHeaderState = () => {
+            const scrollY = window.scrollY;
+            
+            // Add shadow and background when scrolled
+            if (scrollY > 10) {
+                header.classList.add('bg-white/95', 'dark:bg-gray-900/95', 'backdrop-blur-md', 'shadow-md', 'border-b', 'border-border', 'dark:border-gray-700');
+            } else {
+                header.classList.remove('bg-white/95', 'dark:bg-gray-900/95', 'backdrop-blur-md', 'shadow-md', 'border-b', 'border-border', 'dark:border-gray-700');
+            }
+            
+            // Hide header when scrolling down, show when scrolling up
+            if (scrollY > lastScrollY && scrollY > 200) {
+                header.classList.add('-translate-y-full');
+            } else {
+                header.classList.remove('-translate-y-full');
+            }
+            
+            lastScrollY = scrollY;
+        };
+        
+        // Toggle mobile menu
+        mobileMenuButton?.addEventListener('click', () => {
+            const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+            mobileMenuButton.setAttribute('aria-expanded', !expanded);
+            
+            if (!expanded) {
+                mobileMenu.classList.remove('hidden');
+                // Change hamburger to X
+                mobileMenuButton.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                `;
+            } else {
+                mobileMenu.classList.add('hidden');
+                // Change X to hamburger
+                mobileMenuButton.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                `;
+            }
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                // Change X to hamburger
+                mobileMenuButton.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                `;
+            });
+        });
+        
+        // Set initial header state
+        updateHeaderState();
+        
+        // Update header state on scroll
+        window.addEventListener('scroll', updateHeaderState);
+        
+        // Handle smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerHeight = header.offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    });
+</script>

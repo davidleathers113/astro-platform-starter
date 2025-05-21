@@ -1,0 +1,205 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Accessibility Testing - Color Contrast">
+    <div class="max-w-4xl mx-auto py-8">
+        <h1 class="text-3xl font-bold mb-6">Accessibility Testing - Color Contrast</h1>
+        
+        <p class="mb-8">
+            This page allows you to test and verify color contrast compliance across both light and dark themes. 
+            Toggle the theme using the theme switch in the top-right corner to test both modes.
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <!-- Text Elements -->
+            <div class="card p-6">
+                <h2 class="text-xl font-bold mb-4">Text Elements</h2>
+                
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="text-lg font-medium mb-2">Regular Text</h3>
+                        <p>This is standard paragraph text using the primary text color.</p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-medium mb-2">Muted Text</h3>
+                        <p class="text-text-muted">This text uses the muted text color for secondary information.</p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-medium mb-2">Links</h3>
+                        <p>This paragraph contains a <a href="#" class="underline">standard link</a> that should have sufficient contrast.</p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-medium mb-2">Code Elements</h3>
+                        <p>Here is an example of an inline <code>code element</code> that should be readable.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Buttons -->
+            <div class="card p-6">
+                <h2 class="text-xl font-bold mb-4">Buttons</h2>
+                
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="text-lg font-medium mb-2">Primary Button</h3>
+                        <button class="btn">Primary Button</button>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-medium mb-2">Secondary Button</h3>
+                        <button class="btn-secondary">Secondary Button</button>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-medium mb-2">Accent Button</h3>
+                        <button class="btn-accent">Accent Button</button>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-medium mb-2">Disabled Button</h3>
+                        <button class="btn" disabled>Disabled Button</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Form Elements -->
+            <div class="card p-6">
+                <h2 class="text-xl font-bold mb-4">Form Elements</h2>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label for="test-input" class="form-label">Text Input</label>
+                        <input type="text" id="test-input" class="w-full p-2 rounded" placeholder="Placeholder text">
+                    </div>
+                    
+                    <div>
+                        <label for="test-select" class="form-label">Select Dropdown</label>
+                        <select id="test-select" class="w-full p-2 rounded">
+                            <option>Option 1</option>
+                            <option>Option 2</option>
+                            <option>Option 3</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="test-textarea" class="form-label">Textarea</label>
+                        <textarea id="test-textarea" class="w-full p-2 rounded" placeholder="Placeholder text"></textarea>
+                    </div>
+                    
+                    <div>
+                        <label class="form-label">Disabled Input</label>
+                        <input type="text" disabled value="Disabled input" class="w-full p-2 rounded">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Alert States -->
+            <div class="card p-6">
+                <h2 class="text-xl font-bold mb-4">Alerts & Errors</h2>
+                
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="text-lg font-medium mb-2">Error Message</h3>
+                        <p class="error-message">This is an error message with proper contrast.</p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-medium mb-2">Form Field Error</h3>
+                        <label class="form-label">Email Address</label>
+                        <input type="text" class="w-full p-2 rounded input-error" value="invalid.email">
+                        <p class="error-message">Please enter a valid email address.</p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-medium mb-2">Info Alert</h3>
+                        <div class="flex gap-2 p-3 bg-primary text-white rounded">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                            This is an informational alert.
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-medium mb-2">Warning Alert</h3>
+                        <div class="flex gap-2 p-3 bg-yellow-700 text-white rounded">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                            This is a warning alert.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card p-6 mb-8">
+            <h2 class="text-xl font-bold mb-4">Contrast Testing Tool</h2>
+            
+            <p class="mb-4">
+                Use the built-in contrast testing tool to verify that all color combinations meet WCAG AA requirements.
+            </p>
+            
+            <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded font-mono text-sm mb-4">
+                <pre>// Open your browser console and run the test function:
+testThemeContrast();</pre>
+            </div>
+            
+            <button id="run-test" class="btn">Run Contrast Tests</button>
+            
+            <div id="test-results" class="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded hidden">
+                <h3 class="font-bold mb-2">Test Results:</h3>
+                <div id="results-content" class="text-sm font-mono overflow-auto max-h-64"></div>
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<script src="/scripts/contrast-tester.js" is:inline></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const runTestButton = document.getElementById('run-test');
+        const testResults = document.getElementById('test-results');
+        const resultsContent = document.getElementById('results-content');
+        
+        if (runTestButton && testResults && resultsContent) {
+            runTestButton.addEventListener('click', () => {
+                // Execute the test
+                const results = window.testThemeContrast();
+                
+                // Prepare result HTML
+                const isDarkTheme = document.documentElement.classList.contains('dark') || 
+                                document.documentElement.classList.contains('dark-theme');
+                
+                let html = `<div class="mb-2 font-bold">${isDarkTheme ? 'DARK' : 'LIGHT'} Theme Results:</div>`;
+                
+                results.forEach(result => {
+                    const { name, color1Value, color2Value, ratio, passes } = result;
+                    const formattedRatio = ratio.toFixed(2) + ':1';
+                    const statusClass = passes ? 'bg-green-100 dark:bg-green-900' : 'bg-red-100 dark:bg-red-900';
+                    const statusText = passes ? 'PASS' : 'FAIL';
+                    
+                    html += `
+                        <div class="mb-2 pb-2 border-b border-gray-200 dark:border-gray-700">
+                            <div class="flex justify-between items-center">
+                                <span>${name}</span>
+                                <span class="${statusClass} px-2 py-1 rounded text-xs font-bold">${statusText} (${formattedRatio})</span>
+                            </div>
+                            <div class="flex gap-2 items-center mt-1">
+                                <div class="w-4 h-4 rounded" style="background-color: ${color1Value}"></div>
+                                <span class="text-xs">${color1Value}</span>
+                                <span>on</span>
+                                <div class="w-4 h-4 rounded" style="background-color: ${color2Value}"></div>
+                                <span class="text-xs">${color2Value}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                // Display results
+                resultsContent.innerHTML = html;
+                testResults.classList.remove('hidden');
+            });
+        }
+    });
+</script>

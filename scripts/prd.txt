@@ -1,0 +1,87 @@
+# Overview  
+The Astro Platform Starter project needs a comprehensive dark mode implementation that applies consistently across all components. Currently, the theme toggle functionality only affects certain parts of the UI because many components use hardcoded colors instead of theme-aware variables or classes. This PRD outlines the requirements for fixing and standardizing the theme implementation.
+
+# Core Features  
+## Complete Theme Toggle Functionality
+- What it does: Ensures that switching between light/dark/system themes applies to all UI elements consistently
+- Why it's important: Provides a better user experience and improves accessibility
+- How it works: Updates all components to use CSS variables or Tailwind dark variants instead of hardcoded colors
+
+## Theme-Aware Components
+- What it does: Makes all components respond to theme changes
+- Why it's important: Ensures a consistent look and feel across the entire application
+- How it works: Replaces hardcoded colors with theme-aware alternatives and standardizes component styling
+
+## Smooth Theme Transitions
+- What it does: Adds smooth transitions when switching between themes
+- Why it's important: Prevents jarring visual changes and enhances user experience
+- How it works: Implements CSS transitions for color and background changes
+
+# User Experience  
+## User Personas
+- Developers using the Astro Platform Starter
+- End users who prefer dark mode for accessibility or aesthetic reasons
+
+## Key User Flows
+- User toggles theme using the theme selector in the header
+- User's system preference changes (e.g., automatic dark mode at night)
+- User navigates between pages with theme preference preserved
+
+## UI/UX Considerations
+- Theme should apply consistently across all components
+- Transitions should be smooth to prevent jarring visual changes
+- High contrast ratio should be maintained for accessibility
+
+# Technical Architecture  
+## Implementation Components
+- Tailwind Configuration: Ensure `darkMode: 'class'` is set and theme colors are properly defined
+- Theme Manager Script: Adjust how theme classes are applied to the document root
+- Component Updates: Replace hardcoded colors with theme-aware alternatives
+- CSS Variables: Ensure consistent definition and usage across components
+
+## Implementation Strategy
+- Use CSS variables for complex theming needs
+- Use Tailwind dark variants for simple color changes
+- Create utility functions for JavaScript-based styling
+
+# Development Roadmap  
+## Phase 1: Configuration and Analysis
+- Update Tailwind configuration to support dark mode properly
+- Audit codebase to identify all hardcoded colors
+- Create a standard approach for theme-aware components
+
+## Phase 2: Core Implementation
+- Update the theme manager script for consistent class application
+- Fix key components (header, hero sections, forms)
+- Update SVG and background elements
+
+## Phase 3: Standardization and Testing
+- Extend fixes to all remaining components
+- Add smooth transitions between themes
+- Create documentation and guidelines for future development
+- Thoroughly test across different browsers and devices
+
+# Logical Dependency Chain
+1. First, update the Tailwind configuration and theme manager script
+2. Next, implement changes to the most visible components
+3. Then, extend the implementation to all remaining components
+4. Finally, add transitions and test thoroughly
+
+# Risks and Mitigations  
+## Technical Challenges
+- Risk: Complex components with hardcoded colors might be difficult to update
+- Mitigation: Create helper utilities to simplify the transition
+
+## Implementation Consistency
+- Risk: Inconsistent implementation across components
+- Mitigation: Create clear guidelines and examples for developers
+
+## Testing Coverage
+- Risk: Missing theme issues in certain components or states
+- Mitigation: Create a systematic testing approach covering all components
+
+# Appendix  
+## Research Findings
+- Tailwind CSS best practices for dark mode implementation
+- Astro component styling approaches
+- Theme transition techniques

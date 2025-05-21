@@ -4,6 +4,7 @@ import { ThemeProvider } from '../components/theme';
 import ThemeTest from '../components/theme/ThemeTest';
 import SystemThemeDemo from '../components/theme/SystemThemeDemo';
 import MediaQueryListenerDemo from '../components/theme/MediaQueryListenerDemo';
+import ThemeUtilsDemo from '../components/theme/ThemeUtilsDemo';
 ---
 
 <Layout title="Theme System Demo">
@@ -11,7 +12,7 @@ import MediaQueryListenerDemo from '../components/theme/MediaQueryListenerDemo';
     <h1 class="mb-8">Theme System Demo</h1>
     
     <p class="mb-6">
-      This page demonstrates the Theme Context Provider and System Preference Detection Utility implementations.
+      This page demonstrates the Theme Context Provider, System Preference Detection Utility, and Theme-Aware Component Utilities implementations.
     </p>
     
     <div class="grid grid-cols-1 gap-8">
@@ -20,8 +21,8 @@ import MediaQueryListenerDemo from '../components/theme/MediaQueryListenerDemo';
         <p class="mb-4">
           The context allows React components to access and modify the current theme state.
         </p>
-        <ThemeProvider client:load>
-          <ThemeTest client:load />
+        <ThemeProvider client:only="react">
+          <ThemeTest client:only="react" />
         </ThemeProvider>
         
         <div class="mt-4 p-4 bg-surface-2 rounded-lg">
@@ -40,7 +41,7 @@ import MediaQueryListenerDemo from '../components/theme/MediaQueryListenerDemo';
         <p class="mb-4">
           The System Preference Detection Utility provides robust detection and event handling for system color scheme preferences.
         </p>
-        <SystemThemeDemo client:load />
+        <SystemThemeDemo client:only="react" />
         
         <div class="mt-4 p-4 bg-surface-2 rounded-lg">
           <h3 class="font-bold mb-2">Implementation Notes</h3>
@@ -59,8 +60,8 @@ import MediaQueryListenerDemo from '../components/theme/MediaQueryListenerDemo';
         <p class="mb-4">
           The Media Query Listeners implementation ensures that the application responds to system preference changes in real-time.
         </p>
-        <ThemeProvider client:load>
-          <MediaQueryListenerDemo client:load />
+        <ThemeProvider client:only="react">
+          <MediaQueryListenerDemo client:only="react" />
         </ThemeProvider>
         
         <div class="mt-4 p-4 bg-surface-2 rounded-lg">
@@ -71,6 +72,29 @@ import MediaQueryListenerDemo from '../components/theme/MediaQueryListenerDemo';
             <li>Efficient cleanup of event listeners to prevent memory leaks</li>
             <li>Proper useEffect dependency handling</li>
             <li>Error handling and improved debugging</li>
+          </ul>
+        </div>
+      </section>
+      
+      <section>
+        <h2 class="text-2xl font-bold mb-4">4. Theme-Aware Component Utilities</h2>
+        <p class="mb-4">
+          The Theme-Aware Component Utilities make it easy for developers to create components that respond to theme changes.
+        </p>
+        <ThemeProvider client:only="react">
+          <ThemeUtilsDemo client:only="react" />
+        </ThemeProvider>
+        
+        <div class="mt-4 p-4 bg-surface-2 rounded-lg">
+          <h3 class="font-bold mb-2">Implementation Notes</h3>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Enhanced useTheme hook with isDarkMode, isLightMode, and isSystemTheme helpers</li>
+            <li>themeClass utility for conditional class application</li>
+            <li>getThemeValue utility for theme-specific content</li>
+            <li>useThemeStyles hook for theme-aware styling</li>
+            <li>useThemeTransition hook for theme change animations</li>
+            <li>useContrastCheck hook for accessibility compliance</li>
+            <li>Non-React utilities for using theme features outside of React components</li>
           </ul>
         </div>
       </section>

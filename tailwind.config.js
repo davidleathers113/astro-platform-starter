@@ -1,63 +1,55 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
-  darkMode: 'class', // Enable class-based dark mode strategy
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        // Map CSS variables to Tailwind colors
         primary: {
-          DEFAULT: 'var(--color-primary)',
+          DEFAULT: '#2d7984',  // Base primary color
+          light: '#58cbe0',    // Light variant
+          dark: '#1d5058',     // Dark variant
+          hover: '#266974',    // Hover state
+          active: '#1d5058',   // Active state
+          lightHover: '#4bbbce', // Light variant hover state
+          lightActive: '#3eafc2', // Light variant active state
+          darkHover: '#15373e', // Dark variant hover state
+          darkActive: '#102b30', // Dark variant active state
         },
         secondary: {
-          DEFAULT: 'var(--color-secondary)',
+          DEFAULT: '#0062b3',
+          light: '#4a94d8',
+          dark: '#004b8c',
         },
         accent: {
-          DEFAULT: 'var(--color-accent)',
-          warm: 'var(--color-warm-accent)',
+          DEFAULT: '#58cbe0',
+          warm: '#F8C88F',
         },
         background: {
-          DEFAULT: 'var(--color-background)',
-          form: 'var(--color-form-bg)',
-          input: 'var(--color-input-bg)',
+          DEFAULT: 'var(--color-background, #ffffff)',
+          form: 'var(--color-form-bg, #F7FAFC)',
+          input: 'var(--color-input-bg, #EDF2F7)',
         },
         text: {
-          DEFAULT: 'var(--color-text)',
-          muted: 'var(--color-text-muted)',
-          button: 'var(--color-button-text)',
+          DEFAULT: 'var(--color-text, #1a2234)',
+          muted: 'var(--color-text-muted, #4A5568)',
+          button: 'var(--color-button-text, #FFFFFF)',
+          accent: 'var(--color-accent-button-text, #1a2234)',
         },
         border: {
-          DEFAULT: 'var(--color-border)',
+          DEFAULT: 'var(--color-border, #E2E8F0)',
         },
         complementary: {
-          DEFAULT: 'var(--color-complementary)',
+          DEFAULT: 'var(--color-complementary, #F7FAFC)',
+        },
+        error: {
+          DEFAULT: 'var(--color-error, #e53e3e)',
         },
       },
-      transitionProperty: {
-        'theme': 'color, background-color, border-color, text-decoration-color, fill, stroke',
-      },
       backgroundImage: {
-        'noise': 'var(--background-image-noise)',
+        'noise': 'linear-gradient(to bottom, rgba(250, 250, 255, 0.05), rgba(250, 250, 255, 0.1)), url("/images/noise.png")',
       }
     },
   },
-  // Prevent dark mode classes from being purged
-  safelist: [
-    'dark',
-    'light',
-    'dark-theme',
-    'light-theme',
-    'dark:bg-background',
-    'dark:text-text',
-    'transition-theme',
-    'duration-300',
-    'sm:text-5xl',
-    'sm:text-3xl',
-    'sm:text-4xl',
-    'text-4xl',
-    'text-2xl',
-    'text-3xl',
-    'text-5xl'
-  ],
   plugins: [],
 }

@@ -26,15 +26,15 @@ const {
 ---
 
 <section class="py-12 sm:py-20 text-center md:text-left">
-    <div class="max-w-4xl mx-auto md:mx-0 animate-fade-in">
-        <h1 class="mb-4 text-4xl sm:text-5xl font-bold leading-tight tracking-tight text-shadow">{title}</h1>
-        <h2 class="mb-6 text-xl font-medium text-text-muted leading-relaxed animate-fade-in-delay-1">{subtitle}</h2>
-        <p class="mb-8 text-lg max-w-3xl leading-relaxed animate-fade-in-delay-2">{description}</p>
+    <div class="max-w-4xl mx-auto md:mx-0">
+        <h1 class="mb-4 text-4xl sm:text-5xl font-bold leading-tight tracking-tight text-shadow text-[#2d7984]">{title}</h1>
+        <h2 class="mb-6 text-xl font-medium text-gray-600 leading-relaxed">{subtitle}</h2>
+        <p class="mb-8 text-lg max-w-3xl leading-relaxed">{description}</p>
         
-        <div class="flex flex-wrap gap-6 justify-center md:justify-start items-center animate-fade-in-delay-3">
+        <div class="flex flex-wrap gap-6 justify-center md:justify-start items-center">
             <a 
                 href={primaryCta.url} 
-                class="btn btn-lg shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all animate-pulse-once"
+                class="bg-[#2d7984] text-white py-4 px-6 rounded-lg font-bold shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all text-lg"
             >
                 {primaryCta.text}
             </a>
@@ -42,7 +42,7 @@ const {
                 <span class="font-semibold">or Call</span>
                 <a 
                     href={`tel:${phoneNumber.replace(/\D/g, '')}`} 
-                    class="text-xl font-bold text-primary hover:text-accent transition-colors"
+                    class="text-xl font-bold text-[#2d7984] hover:text-[#58cbe0] transition-colors"
                 >
                     {phoneNumber}
                 </a>
