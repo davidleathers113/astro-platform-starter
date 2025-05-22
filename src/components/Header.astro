@@ -127,7 +127,7 @@ const navItems = [
         // Toggle mobile menu
         mobileMenuButton?.addEventListener('click', () => {
             const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-            mobileMenuButton.setAttribute('aria-expanded', !expanded);
+            mobileMenuButton.setAttribute('aria-expanded', String(!expanded));
             
             if (!expanded) {
                 mobileMenu.classList.remove('hidden');
