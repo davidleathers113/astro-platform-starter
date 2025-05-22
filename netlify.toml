@@ -8,13 +8,9 @@
   port = 3000
   framework = "astro"
 
-[functions]
-  # Function timeout for debt relief API operations
-  # Increased for database operations and email sending
-  timeout = 26
-  
-  # Memory allocation for better performance
-  memory = 1024
+[build.environment]
+  # Function timeout in seconds (default is 10)
+  AWS_LAMBDA_FUNCTION_TIMEOUT = "26"
 
 # Security headers for debt relief form backend
 [[headers]]
