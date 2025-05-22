@@ -6,6 +6,9 @@
  * Access via /email-preview in development mode
  */
 
+// Disable prerendering for this page since it uses React email components
+export const prerender = false;
+
 import Layout from '../layouts/Layout.astro';
 import { previewEmailTemplate, EmailPreviewData, validateTemplateRendering } from '../emails/preview';
 import type { EmailTemplateType } from '../emails/types';
