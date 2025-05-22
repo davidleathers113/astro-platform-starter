@@ -66,8 +66,7 @@ const secureEmail = z.string()
         },
         { message: 'Email address format is not supported' }
     )
-    .toLowerCase()
-    .transform(email => email.trim());
+    .transform(email => email.toLowerCase().trim());
 
 // Enhanced phone validation with additional security
 const securePhone = z.string()

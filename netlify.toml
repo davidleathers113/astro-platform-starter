@@ -1,13 +1,136 @@
 [build]
   command = "npm run build"
   publish = "dist"
+  functions = "dist/functions"
 
 [dev]
   command = "npm run dev"
   port = 3000
   framework = "astro"
 
+[functions]
+  # Function timeout for debt relief API operations
+  # Increased for database operations and email sending
+  timeout = 26
+  
+  # Memory allocation for better performance
+  memory = 1024
+
+# Security headers for debt relief form backend
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+
+# Additional security for API endpoints
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+    Pragma = "no-cache"
+    X-Robots-Tag = "noindex, nofollow"
+
+# Security headers for sensitive GDPR endpoints
+[[headers]]
+  for = "/api/gdpr/*"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate, private"
+    Pragma = "no-cache"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+
+# Webhook endpoints - exclude CSRF but maintain security
+[[headers]]
+  for = "/api/webhooks/*"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+    X-Robots-Tag = "noindex, nofollow"
+
+# Cache optimization for static assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# Redirects for debt relief form
+[[redirects]]
+  from = "/qualification"
+  to = "/debt-relief"
+  status = 301
+
+[[redirects]]
+  from = "/qualify"
+  to = "/debt-relief"
+  status = 301
+
+[[redirects]]
+  from = "/debt-form"
+  to = "/debt-relief"
+  status = 301
+
+# GDPR and privacy redirects
+[[redirects]]
+  from = "/gdpr"
+  to = "/data-rights"
+  status = 301
+
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy-policy"
+  status = 301
+
+# API rate limiting redirects (handled by functions)
+[[redirects]]
+  from = "/api/leads"
+  to = "/.netlify/functions/leads"
+  status = 200
+
+[[redirects]]
+  from = "/api/gdpr/delete"
+  to = "/.netlify/functions/gdpr-delete"
+  status = 200
+
+[[redirects]]
+  from = "/api/gdpr/export"
+  to = "/.netlify/functions/gdpr-export"
+  status = 200
+
+# Fallback for SPA routing
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Error page handling
+[[redirects]]
+  from = "/404"
+  to = "/404.html"
+  status = 404
+
+# Environment-specific settings
+[context.production.environment]
+  NODE_ENV = "production"
+  ENVIRONMENT = "production"
+
+[context.deploy-preview.environment]
+  NODE_ENV = "development"
+  ENVIRONMENT = "preview"
+
+[context.branch-deploy.environment]
+  NODE_ENV = "development"
+  ENVIRONMENT = "development"
