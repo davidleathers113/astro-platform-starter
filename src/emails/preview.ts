@@ -16,14 +16,14 @@ import {
     calculateLeadPriority,
     calculateExpectedContactTime,
     generateReferenceNumber
-} from '../types';
+} from './types';
 import { 
     LeadConfirmationEmail,
     InternalLeadNotificationEmail,
     ErrorNotificationEmail,
     WelcomeEmail,
     EMAIL_TEMPLATES
-} from '../templates';
+} from './templates';
 
 // Sample data generators for testing
 export class EmailPreviewData {

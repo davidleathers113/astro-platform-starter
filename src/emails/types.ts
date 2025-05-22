@@ -152,6 +152,7 @@ export interface EmailTrackingData {
 export type DebtAmountRange = '10000-15000' | '15000-25000' | '25000-50000' | '50000+';
 export type DebtType = 'credit-cards' | 'personal-loans' | 'medical' | 'mixed';
 export type FormSource = 'qualification-form' | 'full-form' | 'landing-page' | 'api';
+export type EmailTemplateType = 'lead_confirmation' | 'internal_notification' | 'error_notification' | 'welcome';
 
 // Utility functions for type processing
 export const debtAmountDisplayMap: Record<DebtAmountRange, string> = {
