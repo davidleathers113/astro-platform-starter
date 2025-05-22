@@ -8,9 +8,9 @@
   port = 3000
   framework = "astro"
 
-[build.environment]
-  # Function timeout in seconds (default is 10)
-  AWS_LAMBDA_FUNCTION_TIMEOUT = "26"
+# Note: Function timeout is 10 seconds by default
+# Increasing timeout beyond 10 seconds requires Pro/Enterprise plan
+# Contact Netlify support if longer execution time is needed
 
 # Security headers for debt relief form backend
 [[headers]]
