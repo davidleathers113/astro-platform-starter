@@ -5,121 +5,121 @@ import PlayIcon from './icons/PlayIcon.astro';
 import ChevronRightIcon from './icons/ChevronRightIcon.astro';
 ---
 
-<div class="testimonials-section py-16 md:py-20 relative" id="testimonials">
+<div class="testimonials-section py-16 md:py-20 relative bg-gray-50 dark:bg-gray-900 transition-colors duration-300" id="testimonials">
     <div class="container mx-auto px-4">
         <!-- Section Header -->
         <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">Client Success Stories</h2>
-            <p class="text-lg text-text-muted max-w-3xl mx-auto">Don't just take our word for it. See what our clients have to say about their debt relief journey.</p>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white transition-colors duration-300">Client Success Stories</h2>
+            <p class="text-lg max-w-3xl mx-auto text-gray-600 dark:text-gray-300 transition-colors duration-300">Don't just take our word for it. See what our clients have to say about their debt relief journey.</p>
         </div>
         
         <!-- Decorative Elements -->
-        <div class="absolute top-20 left-10 w-20 h-20 rounded-full bg-primary/10 blur-xl"></div>
-        <div class="absolute bottom-20 right-10 w-32 h-32 rounded-full bg-accent/10 blur-xl"></div>
+        <div class="absolute top-20 left-10 w-20 h-20 rounded-full blur-xl bg-primary/10 transition-colors duration-300"></div>
+        <div class="absolute bottom-20 right-10 w-32 h-32 rounded-full blur-xl bg-accent/10 transition-colors duration-300"></div>
         
         <!-- Testimonials Grid -->
         <div class="testimonial-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Testimonial 1 -->
-            <div class="testimonial-card bg-background-form dark:bg-slate-800/80 p-6 md:p-8 rounded-xl shadow-md border border-border relative">
+            <div class="testimonial-card bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 md:p-8 rounded-xl shadow-md dark:shadow-gray-900 relative transition-all duration-300">
                 <!-- Quote icon -->
-                <div class="absolute -top-5 -left-2 text-primary opacity-20">
+                <div class="absolute -top-5 -left-2 opacity-20 text-primary transition-colors duration-300">
                     <QuoteIcon class="w-8 h-8" />
                 </div>
                 
                 <!-- Rating Stars -->
                 <div class="flex items-center mb-4 mt-2">
-                    <StarIcon class="w-5 h-5 text-yellow-500" />
-                    <StarIcon class="w-5 h-5 text-yellow-500" />
-                    <StarIcon class="w-5 h-5 text-yellow-500" />
-                    <StarIcon class="w-5 h-5 text-yellow-500" />
-                    <StarIcon class="w-5 h-5 text-yellow-500" />
+                    <StarIcon class="w-5 h-5 text-warning transition-colors duration-300" />
+                    <StarIcon class="w-5 h-5 text-warning transition-colors duration-300" />
+                    <StarIcon class="w-5 h-5 text-warning transition-colors duration-300" />
+                    <StarIcon class="w-5 h-5 text-warning transition-colors duration-300" />
+                    <StarIcon class="w-5 h-5 text-warning transition-colors duration-300" />
                 </div>
                 
                 <!-- Testimonial Text -->
                 <blockquote class="mb-6">
-                    <p class="text-text-muted italic">"I was drowning in nearly $30,000 of credit card debt with high interest rates. The Debt Freedom Toolkit team helped me settle for just $15,400 - that's almost 50% savings! I'm now completely debt-free and rebuilding my credit."</p>
+                    <p class="italic text-gray-600 dark:text-gray-300 transition-colors duration-300">"I was drowning in nearly $30,000 of credit card debt with high interest rates. The Debt Freedom Toolkit team helped me settle for just $15,400 - that's almost 50% savings! I'm now completely debt-free and rebuilding my credit."</p>
                 </blockquote>
                 
                 <!-- Client Info -->
                 <div class="flex items-center">
-                    <div class="avatar-placeholder bg-primary/20 rounded-full w-12 h-12 flex items-center justify-center text-primary font-bold text-lg mr-4">MS</div>
+                    <div class="avatar-placeholder rounded-full w-12 h-12 flex items-center justify-center font-bold text-lg mr-4 bg-primary/20 text-primary transition-colors duration-300">MS</div>
                     <div>
-                        <h4 class="font-semibold">Michael S.</h4>
-                        <p class="text-sm text-text-muted">Chicago, IL • Saved $14,600</p>
+                        <h4 class="font-semibold text-gray-900 dark:text-white transition-colors duration-300">Michael S.</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 transition-colors duration-300">Chicago, IL • Saved $14,600</p>
                     </div>
                 </div>
             </div>
             
             <!-- Testimonial 2 -->
-            <div class="testimonial-card bg-background-form dark:bg-slate-800/80 p-6 md:p-8 rounded-xl shadow-md border border-border relative">
+            <div class="testimonial-card bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 md:p-8 rounded-xl shadow-md dark:shadow-gray-900 relative transition-all duration-300">
                 <!-- Quote icon -->
-                <div class="absolute -top-5 -left-2 text-primary opacity-20">
+                <div class="absolute -top-5 -left-2 opacity-20 text-primary transition-colors duration-300">
                     <QuoteIcon class="w-8 h-8" />
                 </div>
                 
                 <!-- Rating Stars -->
                 <div class="flex items-center mb-4 mt-2">
-                    <StarIcon class="w-5 h-5 text-yellow-500" />
-                    <StarIcon class="w-5 h-5 text-yellow-500" />
-                    <StarIcon class="w-5 h-5 text-yellow-500" />
-                    <StarIcon class="w-5 h-5 text-yellow-500" />
-                    <StarIcon class="w-5 h-5 text-yellow-500" />
+                    <StarIcon class="w-5 h-5 text-warning transition-colors duration-300" />
+                    <StarIcon class="w-5 h-5 text-warning transition-colors duration-300" />
+                    <StarIcon class="w-5 h-5 text-warning transition-colors duration-300" />
+                    <StarIcon class="w-5 h-5 text-warning transition-colors duration-300" />
+                    <StarIcon class="w-5 h-5 text-warning transition-colors duration-300" />
                 </div>
                 
                 <!-- Testimonial Text -->
                 <blockquote class="mb-6">
-                    <p class="text-text-muted italic">"After my medical emergency, I had over $22,000 in credit card debt that I used to cover expenses. I couldn't even make the minimum payments anymore. Debt Freedom Toolkit settled my debt for about 45% of what I owed. The relief is indescribable."</p>
+                    <p class="italic text-gray-600 dark:text-gray-300 transition-colors duration-300">"After my medical emergency, I had over $22,000 in credit card debt that I used to cover expenses. I couldn't even make the minimum payments anymore. Debt Freedom Toolkit settled my debt for about 45% of what I owed. The relief is indescribable."</p>
                 </blockquote>
                 
                 <!-- Client Info -->
                 <div class="flex items-center">
-                    <div class="avatar-placeholder bg-primary/20 rounded-full w-12 h-12 flex items-center justify-center text-primary font-bold text-lg mr-4">JR</div>
+                    <div class="avatar-placeholder rounded-full w-12 h-12 flex items-center justify-center font-bold text-lg mr-4 bg-primary/20 text-primary transition-colors duration-300">JR</div>
                     <div>
-                        <h4 class="font-semibold">Jennifer R.</h4>
-                        <p class="text-sm text-text-muted">Atlanta, GA • Saved $12,100</p>
+                        <h4 class="font-semibold text-gray-900 dark:text-white transition-colors duration-300">Jennifer R.</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 transition-colors duration-300">Atlanta, GA • Saved $12,100</p>
                     </div>
                 </div>
             </div>
             
             <!-- Testimonial 3 -->
-            <div class="testimonial-card bg-background-form dark:bg-slate-800/80 p-6 md:p-8 rounded-xl shadow-md border border-border relative">
+            <div class="testimonial-card bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 md:p-8 rounded-xl shadow-md dark:shadow-gray-900 relative transition-all duration-300">
                 <!-- Quote icon -->
-                <div class="absolute -top-5 -left-2 text-primary opacity-20">
+                <div class="absolute -top-5 -left-2 opacity-20 text-primary transition-colors duration-300">
                     <QuoteIcon class="w-8 h-8" />
                 </div>
                 
                 <!-- Rating Stars -->
                 <div class="flex items-center mb-4 mt-2">
-                    <StarIcon class="w-5 h-5 text-yellow-500" />
-                    <StarIcon class="w-5 h-5 text-yellow-500" />
-                    <StarIcon class="w-5 h-5 text-yellow-500" />
-                    <StarIcon class="w-5 h-5 text-yellow-500" />
-                    <StarIcon class="w-5 h-5 text-yellow-500" />
+                    <StarIcon class="w-5 h-5 text-warning transition-colors duration-300" />
+                    <StarIcon class="w-5 h-5 text-warning transition-colors duration-300" />
+                    <StarIcon class="w-5 h-5 text-warning transition-colors duration-300" />
+                    <StarIcon class="w-5 h-5 text-warning transition-colors duration-300" />
+                    <StarIcon class="w-5 h-5 text-warning transition-colors duration-300" />
                 </div>
                 
                 <!-- Testimonial Text -->
                 <blockquote class="mb-6">
-                    <p class="text-text-muted italic">"My wife and I accumulated $42,000 in credit card debt over the years. The interest alone was killing us. The Debt Freedom Toolkit team negotiated settlements with all 6 credit card companies, and we ended up paying just $23,100. We completed the program in 28 months!"</p>
+                    <p class="italic text-gray-600 dark:text-gray-300 transition-colors duration-300">"My wife and I accumulated $42,000 in credit card debt over the years. The interest alone was killing us. The Debt Freedom Toolkit team negotiated settlements with all 6 credit card companies, and we ended up paying just $23,100. We completed the program in 28 months!"</p>
                 </blockquote>
                 
                 <!-- Client Info -->
                 <div class="flex items-center">
-                    <div class="avatar-placeholder bg-primary/20 rounded-full w-12 h-12 flex items-center justify-center text-primary font-bold text-lg mr-4">DT</div>
+                    <div class="avatar-placeholder rounded-full w-12 h-12 flex items-center justify-center font-bold text-lg mr-4 bg-primary/20 text-primary transition-colors duration-300">DT</div>
                     <div>
-                        <h4 class="font-semibold">David T.</h4>
-                        <p class="text-sm text-text-muted">Phoenix, AZ • Saved $18,900</p>
+                        <h4 class="font-semibold text-gray-900 dark:text-white transition-colors duration-300">David T.</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 transition-colors duration-300">Phoenix, AZ • Saved $18,900</p>
                     </div>
                 </div>
             </div>
         </div>
         
         <!-- Video Testimonial / Featured Client Story -->
-        <div class="video-testimonial mt-16 p-6 md:p-8 bg-background-form dark:bg-slate-800 rounded-xl shadow-lg border border-border">
+        <div class="video-testimonial bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 mt-16 p-6 md:p-8 rounded-xl shadow-lg dark:shadow-gray-900 transition-all duration-300">
             <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
                 <!-- Video Thumbnail (Left) -->
                 <div class="lg:col-span-2 relative">
-                    <div class="video-placeholder bg-primary/10 h-full min-h-[280px] rounded-lg flex items-center justify-center">
-                        <div class="video-play-button bg-primary hover:bg-primary/90 transition-colors w-16 h-16 rounded-full flex items-center justify-center cursor-pointer">
+                    <div class="video-placeholder h-full min-h-[280px] rounded-lg flex items-center justify-center bg-primary/10 transition-colors duration-300">
+                        <div class="video-play-button w-16 h-16 rounded-full flex items-center justify-center cursor-pointer bg-primary transition-all duration-200">
                             <PlayIcon class="w-8 h-8 text-white" />
                         </div>
                     </div>
@@ -128,24 +128,24 @@ import ChevronRightIcon from './icons/ChevronRightIcon.astro';
                 <!-- Testimonial Content (Right) -->
                 <div class="lg:col-span-3">
                     <div class="flex items-center mb-4">
-                        <div class="avatar-placeholder bg-primary/20 rounded-full w-16 h-16 flex items-center justify-center text-primary font-bold text-xl mr-5">SJ</div>
+                        <div class="avatar-placeholder rounded-full w-16 h-16 flex items-center justify-center font-bold text-xl mr-5 bg-primary/20 text-primary transition-colors duration-300">SJ</div>
                         <div>
-                            <h3 class="text-2xl font-bold">Sarah J.</h3>
-                            <p class="text-text-muted">Nurse & Mother of Two</p>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white transition-colors duration-300">Sarah J.</h3>
+                            <p class="text-gray-600 dark:text-gray-300 transition-colors duration-300">Nurse & Mother of Two</p>
                         </div>
                     </div>
                     
                     <div class="mb-4">
-                        <span class="inline-block bg-primary/10 text-primary font-semibold text-sm px-3 py-1 rounded-full">$17,850 Saved</span>
-                        <span class="inline-block bg-primary/10 text-primary font-semibold text-sm px-3 py-1 rounded-full ml-2">18 Months</span>
+                        <span class="inline-block font-semibold text-sm px-3 py-1 rounded-full bg-primary/10 text-primary transition-colors duration-300">$17,850 Saved</span>
+                        <span class="inline-block font-semibold text-sm px-3 py-1 rounded-full ml-2 bg-primary/10 text-primary transition-colors duration-300">18 Months</span>
                     </div>
                     
                     <blockquote class="mb-6">
-                        <p class="text-lg mb-4 text-text-muted italic">"After my divorce, I was left with over $35,000 in credit card debt. I was working double shifts just to make minimum payments. Debt Freedom Toolkit cut my debt in half and gave me a manageable monthly payment."</p>
-                        <p class="text-text-muted italic">Watch Sarah's full story about how she became debt-free and rebuilt her life after financial hardship.</p>
+                        <p class="text-lg mb-4 italic text-gray-600 dark:text-gray-300 transition-colors duration-300">"After my divorce, I was left with over $35,000 in credit card debt. I was working double shifts just to make minimum payments. Debt Freedom Toolkit cut my debt in half and gave me a manageable monthly payment."</p>
+                        <p class="italic text-gray-600 dark:text-gray-300 transition-colors duration-300">Watch Sarah's full story about how she became debt-free and rebuilt her life after financial hardship.</p>
                     </blockquote>
                     
-                    <a href="#watch-story" class="btn flex items-center gap-2 inline-flex">
+                    <a href="#watch-story" class="btn bg-primary text-white flex items-center gap-2 inline-flex transition-all duration-200">
                         <span>Watch Full Story</span>
                         <ChevronRightIcon class="w-5 h-5" />
                     </a>
@@ -162,7 +162,6 @@ import ChevronRightIcon from './icons/ChevronRightIcon.astro';
     
     .testimonial-card:hover {
         transform: translateY(-8px);
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
     
     .video-play-button {
@@ -171,7 +170,7 @@ import ChevronRightIcon from './icons/ChevronRightIcon.astro';
     
     .video-play-button:hover {
         transform: scale(1.1);
-        box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.5);
+        box-shadow: 0 0 20px rgba(45, 121, 132, 0.5);
     }
     
     @media (prefers-reduced-motion: reduce) {
@@ -187,6 +186,6 @@ import ChevronRightIcon from './icons/ChevronRightIcon.astro';
     
     .video-placeholder {
         background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E"),
-        linear-gradient(to bottom right, rgba(var(--color-primary-rgb), 0.05), rgba(var(--color-accent-rgb), 0.1));
+        linear-gradient(to bottom right, rgba(45, 121, 132, 0.05), rgba(88, 203, 224, 0.1));
     }
 </style>

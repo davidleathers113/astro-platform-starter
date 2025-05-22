@@ -1,0 +1,365 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Background and Text Colors Demo">
+  <div class="container mx-auto px-4 py-8">
+    <div class="mb-8 text-center">
+      <h1 class="text-4xl font-bold mb-4 text-text-light dark:text-text-dark">
+        Background and Text Colors Demo
+      </h1>
+      <p class="text-lg text-text-muted-light dark:text-text-muted-dark mb-6">
+        Comprehensive demonstration of background and text color combinations with accessibility compliance.
+      </p>
+      <div class="flex justify-center gap-4">
+        <a href="/color-palette-demo" class="btn btn-secondary">
+          View Primary Colors Demo
+        </a>
+        <a href="/secondary-accent-palette-demo" class="btn btn-accent">
+          View Secondary & Accent Demo
+        </a>
+      </div>
+    </div>
+
+    <!-- Color Contrast Information -->
+    <div class="mb-12 bg-background-form-light dark:bg-background-form-dark p-6 rounded-lg border border-border-light dark:border-border-dark">
+      <h2 class="text-2xl font-bold mb-4 text-text-light dark:text-text-dark">
+        Accessibility & Contrast Information
+      </h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div>
+          <h3 class="text-lg font-semibold mb-2 text-text-light dark:text-text-dark">WCAG AA Compliance</h3>
+          <p class="text-text-muted-light dark:text-text-muted-dark mb-2">
+            All color combinations maintain a minimum contrast ratio of 4.5:1 for normal text and 3:1 for large text.
+          </p>
+          <ul class="text-sm text-text-secondary-light dark:text-text-secondary-dark space-y-1">
+            <li>• Normal text: ≥4.5:1 contrast ratio</li>
+            <li>• Large text (18pt+): ≥3:1 contrast ratio</li>
+            <li>• Interactive elements have clear focus states</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-2 text-text-light dark:text-text-dark">Theme Support</h3>
+          <p class="text-text-muted-light dark:text-text-muted-dark mb-2">
+            Colors automatically adapt based on the user's theme preference.
+          </p>
+          <ul class="text-sm text-text-secondary-light dark:text-text-secondary-dark space-y-1">
+            <li>• Light mode: Dark text on light backgrounds</li>
+            <li>• Dark mode: Light text on dark backgrounds</li>
+            <li>• Smooth transitions between themes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Background Colors Demo -->
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold mb-6 text-text-light dark:text-text-dark">Background Colors</h2>
+      
+      <div class="grid lg:grid-cols-2 gap-8">
+        <!-- Light Mode Backgrounds -->
+        <div>
+          <h3 class="text-xl font-semibold mb-4 text-text-light dark:text-text-dark">Light Mode Backgrounds</h3>
+          <div class="space-y-4">
+            <!-- Main Background -->
+            <div class="bg-background-light p-4 rounded-lg border border-border-light">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-semibold text-text-light">Main Background</span>
+                <code class="text-xs bg-background-form-light px-2 py-1 rounded text-text-light">#ffffff</code>
+              </div>
+              <p class="text-text-muted-light">Default page background in light mode</p>
+              <p class="text-text-secondary-light text-sm mt-2">Class: bg-background-light</p>
+            </div>
+
+            <!-- Form Background -->
+            <div class="bg-background-form-light p-4 rounded-lg border border-border-light">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-semibold text-text-light">Form Background</span>
+                <code class="text-xs bg-background-light px-2 py-1 rounded text-text-light">#F7FAFC</code>
+              </div>
+              <p class="text-text-muted-light">Background for forms and containers</p>
+              <p class="text-text-secondary-light text-sm mt-2">Class: bg-background-form-light</p>
+            </div>
+
+            <!-- Input Background -->
+            <div class="bg-background-input-light p-4 rounded-lg border border-border-light">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-semibold text-text-light">Input Background</span>
+                <code class="text-xs bg-background-form-light px-2 py-1 rounded text-text-light">#EDF2F7</code>
+              </div>
+              <p class="text-text-muted-light">Background for input fields</p>
+              <p class="text-text-secondary-light text-sm mt-2">Class: bg-background-input-light</p>
+            </div>
+
+            <!-- Surface Background -->
+            <div class="bg-background-surface-light p-4 rounded-lg border border-border-light">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-semibold text-text-light">Surface</span>
+                <code class="text-xs bg-background-form-light px-2 py-1 rounded text-text-light">#ffffff</code>
+              </div>
+              <p class="text-text-muted-light">Surface backgrounds for cards</p>
+              <p class="text-text-secondary-light text-sm mt-2">Class: bg-background-surface-light</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dark Mode Backgrounds -->
+        <div>
+          <h3 class="text-xl font-semibold mb-4 text-text-light dark:text-text-dark">Dark Mode Backgrounds</h3>
+          <div class="space-y-4">
+            <!-- Main Background Dark -->
+            <div class="bg-background-dark p-4 rounded-lg border border-border-dark">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-semibold text-text-dark">Main Background</span>
+                <code class="text-xs bg-background-form-dark px-2 py-1 rounded text-text-dark">#1a2234</code>
+              </div>
+              <p class="text-text-muted-dark">Default page background in dark mode</p>
+              <p class="text-text-secondary-dark text-sm mt-2">Class: bg-background-dark</p>
+            </div>
+
+            <!-- Form Background Dark -->
+            <div class="bg-background-form-dark p-4 rounded-lg border border-border-dark">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-semibold text-text-dark">Form Background</span>
+                <code class="text-xs bg-background-dark px-2 py-1 rounded text-text-dark">#202b3d</code>
+              </div>
+              <p class="text-text-muted-dark">Background for forms and containers</p>
+              <p class="text-text-secondary-dark text-sm mt-2">Class: bg-background-form-dark</p>
+            </div>
+
+            <!-- Input Background Dark -->
+            <div class="bg-background-input-dark p-4 rounded-lg border border-border-dark">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-semibold text-text-dark">Input Background</span>
+                <code class="text-xs bg-background-form-dark px-2 py-1 rounded text-text-dark">#151d2c</code>
+              </div>
+              <p class="text-text-muted-dark">Background for input fields</p>
+              <p class="text-text-secondary-dark text-sm mt-2">Class: bg-background-input-dark</p>
+            </div>
+
+            <!-- Surface Background Dark -->
+            <div class="bg-background-surface-dark p-4 rounded-lg border border-border-dark">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-semibold text-text-dark">Surface</span>
+                <code class="text-xs bg-background-form-dark px-2 py-1 rounded text-text-dark">#1a2234</code>
+              </div>
+              <p class="text-text-muted-dark">Surface backgrounds for cards</p>
+              <p class="text-text-secondary-dark text-sm mt-2">Class: bg-background-surface-dark</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Text Colors Demo -->
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold mb-6 text-text-light dark:text-text-dark">Text Colors</h2>
+      
+      <div class="grid lg:grid-cols-2 gap-8">
+        <!-- Light Mode Text -->
+        <div class="bg-background-form-light p-6 rounded-lg border border-border-light">
+          <h3 class="text-xl font-semibold mb-4 text-text-light">Light Mode Text</h3>
+          <div class="space-y-3">
+            <div>
+              <span class="font-semibold text-text-light">Primary Text</span>
+              <code class="text-xs bg-background-light px-2 py-1 rounded text-text-light ml-2">#1a2234</code>
+              <p class="text-text-light text-sm">Main content text - Class: text-text-light</p>
+            </div>
+            <div>
+              <span class="font-semibold text-text-muted-light">Muted Text</span>
+              <code class="text-xs bg-background-light px-2 py-1 rounded text-text-light ml-2">#4A5568</code>
+              <p class="text-text-muted-light text-sm">Secondary content text - Class: text-text-muted-light</p>
+            </div>
+            <div>
+              <span class="font-semibold text-text-secondary-light">Secondary Text</span>
+              <code class="text-xs bg-background-light px-2 py-1 rounded text-text-light ml-2">#718096</code>
+              <p class="text-text-secondary-light text-sm">Tertiary content text - Class: text-text-secondary-light</p>
+            </div>
+            <div>
+              <span class="font-semibold text-text-placeholder-light">Placeholder Text</span>
+              <code class="text-xs bg-background-light px-2 py-1 rounded text-text-light ml-2">#718096</code>
+              <p class="text-text-placeholder-light text-sm">Form placeholder text - Class: text-text-placeholder-light</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dark Mode Text -->
+        <div class="bg-background-form-dark p-6 rounded-lg border border-border-dark">
+          <h3 class="text-xl font-semibold mb-4 text-text-dark">Dark Mode Text</h3>
+          <div class="space-y-3">
+            <div>
+              <span class="font-semibold text-text-dark">Primary Text</span>
+              <code class="text-xs bg-background-dark px-2 py-1 rounded text-text-dark ml-2">#ffffff</code>
+              <p class="text-text-dark text-sm">Main content text - Class: text-text-dark</p>
+            </div>
+            <div>
+              <span class="font-semibold text-text-muted-dark">Muted Text</span>
+              <code class="text-xs bg-background-dark px-2 py-1 rounded text-text-dark ml-2">#b0c0d0</code>
+              <p class="text-text-muted-dark text-sm">Secondary content text - Class: text-text-muted-dark</p>
+            </div>
+            <div>
+              <span class="font-semibold text-text-secondary-dark">Secondary Text</span>
+              <code class="text-xs bg-background-dark px-2 py-1 rounded text-text-dark ml-2">#a0aec0</code>
+              <p class="text-text-secondary-dark text-sm">Tertiary content text - Class: text-text-secondary-dark</p>
+            </div>
+            <div>
+              <span class="font-semibold text-text-placeholder-dark">Placeholder Text</span>
+              <code class="text-xs bg-background-dark px-2 py-1 rounded text-text-dark ml-2">#8896ac</code>
+              <p class="text-text-placeholder-dark text-sm">Form placeholder text - Class: text-text-placeholder-dark</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Status Colors Demo -->
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold mb-6 text-text-light dark:text-text-dark">Status Colors</h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Error Colors -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-semibold text-error-light dark:text-error-dark">Error Colors</h3>
+          <div class="bg-error-bg-light dark:bg-error-bg-dark p-4 rounded-lg border border-error-light dark:border-error-dark">
+            <p class="text-error-text-light dark:text-error-text-dark font-semibold">Error Message</p>
+            <p class="text-error-text-light dark:text-error-text-dark text-sm">This is an error notification with proper contrast.</p>
+          </div>
+        </div>
+
+        <!-- Success Colors -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-semibold text-success-light dark:text-success-dark">Success Colors</h3>
+          <div class="bg-success-bg-light dark:bg-success-bg-dark p-4 rounded-lg border border-success-light dark:border-success-dark">
+            <p class="text-success-text-light dark:text-success-text-dark font-semibold">Success Message</p>
+            <p class="text-success-text-light dark:text-success-text-dark text-sm">This is a success notification with proper contrast.</p>
+          </div>
+        </div>
+
+        <!-- Warning Colors -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-semibold text-warning-light dark:text-warning-dark">Warning Colors</h3>
+          <div class="bg-warning-bg-light dark:bg-warning-bg-dark p-4 rounded-lg border border-warning-light dark:border-warning-dark">
+            <p class="text-warning-text-light dark:text-warning-text-dark font-semibold">Warning Message</p>
+            <p class="text-warning-text-light dark:text-warning-text-dark text-sm">This is a warning notification with proper contrast.</p>
+          </div>
+        </div>
+
+        <!-- Info Colors -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-semibold text-info-light dark:text-info-dark">Info Colors</h3>
+          <div class="bg-info-bg-light dark:bg-info-bg-dark p-4 rounded-lg border border-info-light dark:border-info-dark">
+            <p class="text-info-text-light dark:text-info-text-dark font-semibold">Info Message</p>
+            <p class="text-info-text-light dark:text-info-text-dark text-sm">This is an info notification with proper contrast.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Elements Demo -->
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold mb-6 text-text-light dark:text-text-dark">Interactive Elements</h2>
+      
+      <div class="bg-background-form-light dark:bg-background-form-dark p-6 rounded-lg border border-border-light dark:border-border-dark">
+        <h3 class="text-xl font-semibold mb-4 text-text-light dark:text-text-dark">Form Examples</h3>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-text-light dark:text-text-dark mb-2">
+                Text Input
+              </label>
+              <input 
+                type="text" 
+                placeholder="Enter some text..." 
+                class="w-full px-3 py-2 bg-background-input-light dark:bg-background-input-dark border border-border-light dark:border-border-dark rounded-md text-text-light dark:text-text-dark placeholder-text-placeholder-light dark:placeholder-text-placeholder-dark focus:border-border-focus-light dark:focus:border-border-focus-dark focus:outline-none"
+              />
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-text-light dark:text-text-dark mb-2">
+                Select Dropdown
+              </label>
+              <select class="w-full px-3 py-2 bg-background-input-light dark:bg-background-input-dark border border-border-light dark:border-border-dark rounded-md text-text-light dark:text-text-dark focus:border-border-focus-light dark:focus:border-border-focus-dark focus:outline-none">
+                <option value="">Choose an option...</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-text-light dark:text-text-dark mb-2">
+                Textarea
+              </label>
+              <textarea 
+                placeholder="Enter a longer message..." 
+                rows="4"
+                class="w-full px-3 py-2 bg-background-input-light dark:bg-background-input-dark border border-border-light dark:border-border-dark rounded-md text-text-light dark:text-text-dark placeholder-text-placeholder-light dark:placeholder-text-placeholder-dark focus:border-border-focus-light dark:focus:border-border-focus-dark focus:outline-none"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex gap-3 flex-wrap">
+          <button class="px-4 py-2 bg-primary text-text-button-primary rounded-md hover:bg-primary-hover transition-colors">
+            Primary Button
+          </button>
+          <button class="px-4 py-2 bg-transparent border border-border-light dark:border-border-dark text-text-outline-light dark:text-text-outline-dark rounded-md hover:bg-background-form-light dark:hover:bg-background-form-dark transition-colors">
+            Outline Button
+          </button>
+          <button class="px-4 py-2 bg-accent text-text-button-accent rounded-md hover:bg-accent-hover transition-colors">
+            Accent Button
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Usage Guidelines -->
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold mb-6 text-text-light dark:text-text-dark">Usage Guidelines</h2>
+      
+      <div class="bg-background-form-light dark:bg-background-form-dark p-6 rounded-lg border border-border-light dark:border-border-dark">
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-lg font-semibold mb-3 text-text-light dark:text-text-dark">Responsive Dark Mode Classes</h3>
+            <p class="text-text-muted-light dark:text-text-muted-dark mb-4">
+              Use Tailwind's dark mode prefix to apply different colors based on theme:
+            </p>
+            <div class="bg-background-input-light dark:bg-background-input-dark p-3 rounded font-mono text-sm overflow-x-auto">
+              <div class="text-text-light dark:text-text-dark">
+                <div class="text-blue-600">&lt;div</div>
+                <div class="ml-2 text-green-600">className=<span class="text-amber-600">"bg-background-light dark:bg-background-dark</span></div>
+                <div class="ml-2 text-green-600">text-text-light dark:text-text-dark"</div>
+                <div class="text-blue-600">&gt;</div>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold mb-3 text-text-light dark:text-text-dark">Best Practices</h3>
+            <ul class="space-y-2 text-text-muted-light dark:text-text-muted-dark">
+              <li class="flex items-start gap-2">
+                <span class="text-success-light dark:text-success-dark">✓</span>
+                <span>Always specify both light and dark variants</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-success-light dark:text-success-dark">✓</span>
+                <span>Use semantic color names (text-muted vs specific hex)</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-success-light dark:text-success-dark">✓</span>
+                <span>Test contrast ratios for accessibility</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-success-light dark:text-success-dark">✓</span>
+                <span>Consider user preferences and system settings</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>

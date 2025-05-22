@@ -1,0 +1,304 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Dark Mode Transitions Demo">
+    <main class="container mx-auto px-6 py-12 max-w-4xl">
+        <!-- Header Section -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold mb-4 transition-theme">
+                Dark Mode Transitions Demo
+            </h1>
+            <p class="text-lg text-text-muted-light dark:text-text-muted-dark transition-theme">
+                Test the smooth transitions between light and dark modes using our custom utility classes.
+            </p>
+        </div>
+
+        <!-- Theme Toggle Instructions -->
+        <div class="bg-background-form-light dark:bg-background-form-dark p-6 rounded-lg mb-8 transition-theme">
+            <h2 class="text-2xl font-semibold mb-4 transition-theme">How to Test</h2>
+            <p class="mb-4 transition-theme">
+                Use the theme toggle button in the header to switch between light and dark modes. 
+                Notice how all elements transition smoothly without jarring color changes.
+            </p>
+            <div class="bg-primary/10 border border-primary/20 rounded-lg p-4 transition-theme">
+                <p class="text-sm transition-theme">
+                    <strong>Note:</strong> If you have "prefers-reduced-motion" enabled in your system settings, 
+                    transitions will be disabled for accessibility.
+                </p>
+            </div>
+        </div>
+
+        <!-- Transition Utility Classes Demo -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-6 transition-theme">Available Transition Classes</h2>
+            
+            <div class="grid gap-6 md:grid-cols-2">
+                <!-- Base Theme Transition -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-border-light dark:border-border-dark transition-theme">
+                    <h3 class="text-xl font-semibold mb-3 transition-theme">.transition-theme</h3>
+                    <p class="text-text-muted-light dark:text-text-muted-dark mb-4 transition-theme">
+                        Standard theme transition for color, background-color, border-color, box-shadow, outline-color, fill, and stroke properties.
+                    </p>
+                    <code class="bg-background-input-light dark:bg-background-input-dark px-2 py-1 rounded text-sm transition-theme">
+                        transition-duration: 250ms
+                    </code>
+                </div>
+
+                <!-- Fast Theme Transition -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-border-light dark:border-border-dark transition-theme-fast">
+                    <h3 class="text-xl font-semibold mb-3 transition-theme-fast">.transition-theme-fast</h3>
+                    <p class="text-text-muted-light dark:text-text-muted-dark mb-4 transition-theme-fast">
+                        Faster theme transition for interactive elements that need quick feedback.
+                    </p>
+                    <code class="bg-background-input-light dark:bg-background-input-dark px-2 py-1 rounded text-sm transition-theme-fast">
+                        transition-duration: 150ms
+                    </code>
+                </div>
+
+                <!-- Slow Theme Transition -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-border-light dark:border-border-dark transition-theme-slow">
+                    <h3 class="text-xl font-semibold mb-3 transition-theme-slow">.transition-theme-slow</h3>
+                    <p class="text-text-muted-light dark:text-text-muted-dark mb-4 transition-theme-slow">
+                        Slower, smoother theme transition for larger layout changes.
+                    </p>
+                    <code class="bg-background-input-light dark:bg-background-input-dark px-2 py-1 rounded text-sm transition-theme-slow">
+                        transition-duration: 400ms
+                    </code>
+                </div>
+
+                <!-- Colors Only Transition -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-border-light dark:border-border-dark transition-colors-smooth">
+                    <h3 class="text-xl font-semibold mb-3 transition-colors-smooth">.transition-colors-smooth</h3>
+                    <p class="text-text-muted-light dark:text-text-muted-dark mb-4 transition-colors-smooth">
+                        Smooth transition for color properties only (color, background-color, border-color).
+                    </p>
+                    <code class="bg-background-input-light dark:bg-background-input-dark px-2 py-1 rounded text-sm transition-colors-smooth">
+                        timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94)
+                    </code>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Elements Demo -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-6 transition-theme">Interactive Elements</h2>
+            
+            <div class="space-y-6">
+                <!-- Buttons -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-border-light dark:border-border-dark transition-theme">
+                    <h3 class="text-xl font-semibold mb-4 transition-theme">Buttons with Transitions</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <button class="bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-lg transition-theme-fast">
+                            Primary Button
+                        </button>
+                        <button class="bg-secondary hover:bg-secondary-hover text-white px-6 py-3 rounded-lg transition-theme-fast">
+                            Secondary Button
+                        </button>
+                        <button class="bg-accent hover:bg-accent-hover text-accent-textOnAccent px-6 py-3 rounded-lg transition-theme-fast">
+                            Accent Button
+                        </button>
+                        <button class="border-2 border-primary text-primary hover:bg-primary hover:text-white px-6 py-3 rounded-lg transition-theme-fast">
+                            Outline Button
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Form Elements -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-border-light dark:border-border-dark transition-theme">
+                    <h3 class="text-xl font-semibold mb-4 transition-theme">Form Elements</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2 transition-theme">Text Input</label>
+                            <input 
+                                type="text" 
+                                placeholder="Type something..." 
+                                class="w-full px-4 py-2 rounded-lg border border-border-light dark:border-border-dark bg-background-input-light dark:bg-background-input-dark text-text-light dark:text-text-dark transition-theme focus:ring-2 focus:ring-primary focus:border-transparent"
+                            />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2 transition-theme">Select Dropdown</label>
+                            <select class="w-full px-4 py-2 rounded-lg border border-border-light dark:border-border-dark bg-background-input-light dark:bg-background-input-dark text-text-light dark:text-text-dark transition-theme">
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                                <option>Option 3</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2 transition-theme">Textarea</label>
+                            <textarea 
+                                rows="3" 
+                                placeholder="Enter your message..." 
+                                class="w-full px-4 py-2 rounded-lg border border-border-light dark:border-border-dark bg-background-input-light dark:bg-background-input-dark text-text-light dark:text-text-dark transition-theme resize-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                            ></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cards with Hover Effects -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-border-light dark:border-border-dark transition-theme">
+                    <h3 class="text-xl font-semibold mb-4 transition-theme">Interactive Cards</h3>
+                    <div class="grid gap-4 md:grid-cols-3">
+                        <div class="bg-background-form-light dark:bg-background-form-dark p-4 rounded-lg border border-border-light dark:border-border-dark transition-theme hover:shadow-lg hover:border-primary cursor-pointer">
+                            <h4 class="font-semibold mb-2 transition-theme">Card 1</h4>
+                            <p class="text-text-muted-light dark:text-text-muted-dark text-sm transition-theme">
+                                Hover over this card to see the smooth transition effects.
+                            </p>
+                        </div>
+                        <div class="bg-background-form-light dark:bg-background-form-dark p-4 rounded-lg border border-border-light dark:border-border-dark transition-theme hover:shadow-lg hover:border-secondary cursor-pointer">
+                            <h4 class="font-semibold mb-2 transition-theme">Card 2</h4>
+                            <p class="text-text-muted-light dark:text-text-muted-dark text-sm transition-theme">
+                                Notice how the border color changes smoothly on hover.
+                            </p>
+                        </div>
+                        <div class="bg-background-form-light dark:bg-background-form-dark p-4 rounded-lg border border-border-light dark:border-border-dark transition-theme hover:shadow-lg hover:border-accent cursor-pointer">
+                            <h4 class="font-semibold mb-2 transition-theme">Card 3</h4>
+                            <p class="text-text-muted-light dark:text-text-muted-dark text-sm transition-theme">
+                                All theme transitions respect the user's motion preferences.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Transition Properties Reference -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-6 transition-theme">Transition Properties Reference</h2>
+            
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-border-light dark:border-border-dark transition-theme">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b border-border-light dark:border-border-dark">
+                                <th class="py-3 px-4 font-semibold transition-theme">Class</th>
+                                <th class="py-3 px-4 font-semibold transition-theme">Duration</th>
+                                <th class="py-3 px-4 font-semibold transition-theme">Properties</th>
+                                <th class="py-3 px-4 font-semibold transition-theme">Timing Function</th>
+                            </tr>
+                        </thead>
+                        <tbody class="transition-theme">
+                            <tr class="border-b border-border-light dark:border-border-dark transition-theme">
+                                <td class="py-3 px-4 font-mono text-sm transition-theme">.transition-theme</td>
+                                <td class="py-3 px-4 transition-theme">250ms</td>
+                                <td class="py-3 px-4 text-sm transition-theme">color, background-color, border-color, box-shadow, outline-color, fill, stroke</td>
+                                <td class="py-3 px-4 text-sm transition-theme">cubic-bezier(0.4, 0, 0.2, 1)</td>
+                            </tr>
+                            <tr class="border-b border-border-light dark:border-border-dark transition-theme">
+                                <td class="py-3 px-4 font-mono text-sm transition-theme">.transition-theme-fast</td>
+                                <td class="py-3 px-4 transition-theme">150ms</td>
+                                <td class="py-3 px-4 text-sm transition-theme">color, background-color, border-color, box-shadow, outline-color, fill, stroke</td>
+                                <td class="py-3 px-4 text-sm transition-theme">cubic-bezier(0.4, 0, 0.2, 1)</td>
+                            </tr>
+                            <tr class="border-b border-border-light dark:border-border-dark transition-theme">
+                                <td class="py-3 px-4 font-mono text-sm transition-theme">.transition-theme-slow</td>
+                                <td class="py-3 px-4 transition-theme">400ms</td>
+                                <td class="py-3 px-4 text-sm transition-theme">color, background-color, border-color, box-shadow, outline-color, fill, stroke</td>
+                                <td class="py-3 px-4 text-sm transition-theme">cubic-bezier(0.25, 0.46, 0.45, 0.94)</td>
+                            </tr>
+                            <tr class="transition-theme">
+                                <td class="py-3 px-4 font-mono text-sm transition-theme">.transition-theme-slow</td>
+                                <td class="py-3 px-4 transition-theme">250ms</td>
+                                <td class="py-3 px-4 text-sm transition-theme">color, background-color, border-color</td>
+                                <td class="py-3 px-4 text-sm transition-theme">cubic-bezier(0.25, 0.46, 0.45, 0.94)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Accessibility Note -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-6 transition-theme">Accessibility Considerations</h2>
+            
+            <div class="bg-background-form-light dark:bg-background-form-dark p-6 rounded-lg border border-border-light dark:border-border-dark transition-theme">
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0">
+                        <svg class="w-6 h-6 text-info transition-theme" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2 transition-theme">Reduced Motion Support</h3>
+                        <p class="text-text-muted-light dark:text-text-muted-dark mb-4 transition-theme">
+                            Our transition system automatically respects the user's <code class="bg-background-input-light dark:bg-background-input-dark px-2 py-1 rounded text-sm transition-theme">prefers-reduced-motion</code> setting. 
+                            When this preference is enabled, all transitions are disabled to prevent motion sickness or distraction.
+                        </p>
+                        <div class="bg-primary/10 border border-primary/20 rounded-lg p-4 transition-theme">
+                            <p class="text-sm transition-theme">
+                                <strong>Technical Implementation:</strong> We use <code>@media (prefers-reduced-motion: reduce)</code> 
+                                to override all transition properties with <code>transition: none !important</code> when needed.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Usage Guidelines -->
+        <section>
+            <h2 class="text-3xl font-bold mb-6 transition-theme">Usage Guidelines</h2>
+            
+            <div class="space-y-6">
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-border-light dark:border-border-dark transition-theme">
+                    <h3 class="text-xl font-semibold mb-4 transition-theme">When to Use Each Transition</h3>
+                    <ul class="space-y-3">
+                        <li class="transition-theme">
+                            <strong class="text-primary transition-theme">.transition-theme:</strong> 
+                            Use for general UI elements like cards, containers, and text content.
+                        </li>
+                        <li class="transition-theme">
+                            <strong class="text-secondary transition-theme">.transition-theme-fast:</strong> 
+                            Use for interactive elements like buttons, links, and form inputs that need quick feedback.
+                        </li>
+                        <li class="transition-theme">
+                            <strong class="text-accent transition-theme">.transition-theme-slow:</strong> 
+                            Use for larger layout changes or when you want to emphasize the transition.
+                        </li>
+                        <li class="transition-theme">
+                            <strong class="text-success transition-theme">.transition-colors-smooth:</strong> 
+                            Use when you only need color transitions without shadows or other properties.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-border-light dark:border-border-dark transition-theme">
+                    <h3 class="text-xl font-semibold mb-4 transition-theme">Performance Tips</h3>
+                    <ul class="space-y-3">
+                        <li class="transition-theme">
+                            • Use the most specific transition class for your needs to avoid unnecessary property animations
+                        </li>
+                        <li class="transition-theme">
+                            • Prefer <code class="bg-background-input-light dark:bg-background-input-dark px-1 py-0.5 rounded text-sm transition-theme">.transition-colors-smooth</code> when only colors need to transition
+                        </li>
+                        <li class="transition-theme">
+                            • The global base styles automatically apply transitions to common elements
+                        </li>
+                        <li class="transition-theme">
+                            • All transitions respect the <code class="bg-background-input-light dark:bg-background-input-dark px-1 py-0.5 rounded text-sm transition-theme">prefers-reduced-motion</code> setting
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Links -->
+        <div class="mt-12 pt-8 border-t border-border-light dark:border-border-dark transition-theme">
+            <div class="flex flex-wrap gap-4 justify-center">
+                <a href="/color-palette-demo" class="bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-lg transition-theme-fast">
+                    View Primary Colors
+                </a>
+                <a href="/secondary-accent-palette-demo" class="bg-secondary hover:bg-secondary-hover text-white px-6 py-3 rounded-lg transition-theme-fast">
+                    View Secondary Colors
+                </a>
+                <a href="/background-text-colors-demo" class="bg-accent hover:bg-accent-hover text-accent-textOnAccent px-6 py-3 rounded-lg transition-theme-fast">
+                    View Background Colors
+                </a>
+                <a href="/" class="border-2 border-primary text-primary hover:bg-primary hover:text-white px-6 py-3 rounded-lg transition-theme-fast">
+                    Back to Home
+                </a>
+            </div>
+        </div>
+    </main>
+</Layout>

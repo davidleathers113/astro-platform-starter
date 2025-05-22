@@ -2,13 +2,24 @@
 // src/components/debt-relief/QualificationForm.astro
 ---
 
-<div id="qualification-form" class="p-6 sm:p-8 form-container rounded-lg bg-background-form text-text shadow-lg border-2 border-border hover:shadow-xl transition-all">
-    <h3 class="mb-6 text-xl font-bold">Quick Debt Relief Check</h3>
+<div id="qualification-form" class="p-6 sm:p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-gray-900 border border-gray-200 dark:border-gray-700 hover:shadow-xl dark:hover:shadow-gray-900/75 transition-all duration-300">
+    <h3 class="mb-6 text-xl font-bold text-gray-900 dark:text-white">Quick Debt Relief Check</h3>
+    
+    <!-- Divider after header -->
+    <div class="border-t border-gray-200 dark:border-gray-700 mb-6"></div>
     
     <form id="qualification-form-element" class="space-y-6">
         <div class="form-control animate-fade-in-delay-1">
-            <label for="debt-amount" class="form-label block mb-2 font-medium">How much debt do you have?*</label>
-            <select id="debt-amount" name="debtAmount" class="w-full p-3 border border-border rounded-md bg-input-bg shadow-inner focus:ring-2 focus:ring-primary focus:border-primary transition-all" required>
+            <label for="debt-amount" class="block mb-2 font-medium text-gray-900 dark:text-white">How much debt do you have?*</label>
+            <select 
+                id="debt-amount" 
+                name="debtAmount" 
+                class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md 
+                       bg-white dark:bg-gray-700 text-gray-900 dark:text-white
+                       focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-light focus:border-primary dark:focus:border-primary-light
+                       transition-colors duration-200 shadow-inner" 
+                required
+            >
                 <option value="">Select Amount</option>
                 <option value="10000-15000">$10,000 - $15,000</option>
                 <option value="15000-25000">$15,000 - $25,000</option>
@@ -19,8 +30,16 @@
         </div>
         
         <div class="form-control animate-fade-in-delay-2">
-            <label for="debt-type" class="form-label block mb-2 font-medium">What type of debt do you have?*</label>
-            <select id="debt-type" name="debtType" class="w-full p-3 border border-border rounded-md bg-input-bg shadow-inner focus:ring-2 focus:ring-primary focus:border-primary transition-all" required>
+            <label for="debt-type" class="block mb-2 font-medium text-gray-900 dark:text-white">What type of debt do you have?*</label>
+            <select 
+                id="debt-type" 
+                name="debtType" 
+                class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md 
+                       bg-white dark:bg-gray-700 text-gray-900 dark:text-white
+                       focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-light focus:border-primary dark:focus:border-primary-light
+                       transition-colors duration-200 shadow-inner" 
+                required
+            >
                 <option value="">Select Type</option>
                 <option value="credit-cards">Credit Cards</option>
                 <option value="personal-loans">Personal Loans</option>
@@ -31,20 +50,25 @@
         </div>
         
         <div class="form-control animate-fade-in-delay-3">
-            <label for="phone" class="form-label block mb-2 font-medium">Phone Number*</label>
+            <label for="phone" class="block mb-2 font-medium text-gray-900 dark:text-white">Phone Number*</label>
             <input 
                 type="tel" 
                 id="phone" 
                 name="phone" 
-                class="w-full p-3 border border-border rounded-md bg-input-bg shadow-inner focus:ring-2 focus:ring-primary focus:border-primary transition-all" 
-                placeholder="(___) ___-____" 
-                pattern="^\(\d{3}\) \d{3}-\d{4}$" 
+                class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md 
+                       bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400
+                       focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-light focus:border-primary dark:focus:border-primary-light
+                       transition-colors duration-200 shadow-inner" 
+                placeholder="(000) 000-0000" 
                 required
                 aria-describedby="phone-format"
             />
-            <small id="phone-format" class="text-text-muted">Format: (XXX) XXX-XXXX</small>
+            <small id="phone-format" class="text-gray-600 dark:text-gray-400">Format: (XXX) XXX-XXXX</small>
             <div id="phone-error" class="error-message hidden mt-1"></div>
         </div>
+        
+        <!-- Divider before button -->
+        <div class="border-t border-gray-200 dark:border-gray-700 pt-4"></div>
         
         <button 
             type="submit" 
@@ -55,39 +79,51 @@
         </button>
     </form>
     
-    <p class="mt-6 text-xs text-text-muted leading-relaxed">
+    <p class="mt-6 text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
         By submitting, you authorize DebtFreedom to contact you at the number provided using automated technology. 
         Your information is kept secure and confidential.
     </p>
 </div>
 
 <style>
-    /* Enhanced focus states for better accessibility */
+    /* Theme-aware container with enhanced depth */
+    #qualification-form {
+        transition: all var(--theme-transition-duration) var(--theme-transition-easing);
+    }
+    
+    /* Enhanced focus states for better accessibility with theme awareness */
     select:focus, input:focus {
         outline: none;
-        box-shadow: 0 0 0 3px rgba(45, 121, 132, 0.3); /* Updated to match new primary color */
+        box-shadow: 0 0 0 3px rgba(45, 121, 132, 0.3);
     }
     
     /* Dark mode focus states */
     .dark select:focus, .dark input:focus {
-        box-shadow: 0 0 0 3px rgba(88, 203, 224, 0.4); /* Brighter in dark mode */
+        box-shadow: 0 0 0 3px rgba(88, 203, 224, 0.4);
     }
     
-    /* Error states with high contrast */
+    /* Error states with high contrast and theme awareness */
     .error-message {
-        color: var(--color-error);
+        color: #ef4444; /* Light mode error */
         font-size: 0.875rem;
         font-weight: 500;
     }
     
-    .input-error {
-        border-color: var(--color-error) !important;
+    .dark .error-message {
+        color: #fc8181; /* Dark mode error - lighter for better contrast */
     }
     
-    /* Make sure placeholders have enough contrast */
+    .input-error {
+        border-color: #ef4444 !important; /* Light mode error border */
+    }
+    
+    .dark .input-error {
+        border-color: #fc8181 !important; /* Dark mode error border */
+    }
+    
+    /* Theme-aware placeholder styling */
     input::placeholder {
-        color: var(--color-placeholder);
-        opacity: 1;
+        transition: color var(--theme-transition-duration) var(--theme-transition-easing);
     }
     
     /* Improve form field appearance on mobile */
@@ -96,9 +132,45 @@
             font-size: 16px; /* Prevents iOS zoom on focus */
         }
     }
+    
+    /* Container hover effects with theme awareness */
+    #qualification-form:hover {
+        transform: translateY(-2px);
+    }
+    
+    /* Divider styling with smooth transitions */
+    .border-t {
+        transition: border-color var(--theme-transition-duration) var(--theme-transition-easing);
+    }
+    
+    /* Accessibility improvements */
+    @media (prefers-reduced-motion: reduce) {
+        #qualification-form,
+        #qualification-form:hover,
+        .border-t,
+        input::placeholder {
+            transition: none !important;
+            transform: none !important;
+        }
+    }
+    
+    /* High contrast mode adjustments */
+    @media (prefers-contrast: high) {
+        #qualification-form {
+            border-width: 2px;
+        }
+        
+        select, input {
+            border-width: 2px;
+        }
+    }
 </style>
 
-<script>
+<script type="module">
+// Import cleave.js and US phone addon
+import Cleave from 'cleave.js';
+import 'cleave.js/dist/addons/cleave-phone.us';
+
 // Client-side validation and form handling
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('qualification-form-element');
@@ -109,6 +181,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const debtAmountError = document.getElementById('debt-amount-error');
     const debtTypeError = document.getElementById('debt-type-error');
     const phoneError = document.getElementById('phone-error');
+    
+    // Initialize cleave.js for phone formatting
+    let phoneCleave = null;
+    if (phoneInput) {
+        phoneCleave = new Cleave(phoneInput, {
+            phone: true,
+            phoneRegionCode: 'US'
+        });
+        
+        // Clear error when user types
+        phoneInput.addEventListener('input', () => {
+            clearError(phoneInput, phoneError);
+        });
+    }
     
     // Function to show error
     const showError = (element, errorElement, message) => {
@@ -124,64 +210,57 @@ document.addEventListener('DOMContentLoaded', () => {
         errorElement.classList.add('hidden');
     };
     
-    // Basic phone formatting
-    phoneInput.addEventListener('input', (e) => {
-        let value = e.target.value.replace(/\D/g, '');
-        if (value.length > 0) {
-            if (value.length <= 3) {
-                value = `(${value}`;
-            } else if (value.length <= 6) {
-                value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
-            } else {
-                value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
-            }
-        }
-        e.target.value = value;
-        
-        // Clear error when user types
-        clearError(phoneInput, phoneError);
-    });
-    
     // Clear errors when user selects an option
-    debtAmountSelect.addEventListener('change', () => clearError(debtAmountSelect, debtAmountError));
-    debtTypeSelect.addEventListener('change', () => clearError(debtTypeSelect, debtTypeError));
+    debtAmountSelect && debtAmountSelect.addEventListener('change', () => clearError(debtAmountSelect, debtAmountError));
+    debtTypeSelect && debtTypeSelect.addEventListener('change', () => clearError(debtTypeSelect, debtTypeError));
     
     // Form submission
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        let isValid = true;
-        
-        // Validate debt amount
-        if (!debtAmountSelect.value) {
-            showError(debtAmountSelect, debtAmountError, 'Please select your debt amount');
-            isValid = false;
-        }
-        
-        // Validate debt type
-        if (!debtTypeSelect.value) {
-            showError(debtTypeSelect, debtTypeError, 'Please select your debt type');
-            isValid = false;
-        }
-        
-        // Validate phone
-        if (!phoneInput.value.match(/^\(\d{3}\) \d{3}-\d{4}$/)) {
-            showError(phoneInput, phoneError, 'Please enter a valid phone number');
-            isValid = false;
-        }
-        
-        if (!isValid) {
-            return;
-        }
-        
-        // Form submission would go here
-        // This is a placeholder for actual submission logic
-        alert('Thank you for your submission! A debt relief specialist will contact you shortly.');
-        form.reset();
-        
-        // Clear all errors
-        clearError(debtAmountSelect, debtAmountError);
-        clearError(debtTypeSelect, debtTypeError);
-        clearError(phoneInput, phoneError);
-    });
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isValid = true;
+            
+            // Validate debt amount
+            if (!debtAmountSelect.value) {
+                showError(debtAmountSelect, debtAmountError, 'Please select your debt amount');
+                isValid = false;
+            }
+            
+            // Validate debt type
+            if (!debtTypeSelect.value) {
+                showError(debtTypeSelect, debtTypeError, 'Please select your debt type');
+                isValid = false;
+            }
+            
+            // Validate phone using cleave.js getRawValue()
+            const rawPhone = phoneCleave ? phoneCleave.getRawValue() : phoneInput.value.replace(/\D/g, '');
+            if (!rawPhone || rawPhone.length !== 10) {
+                showError(phoneInput, phoneError, 'Please enter a valid 10-digit phone number');
+                isValid = false;
+            }
+            
+            if (!isValid) {
+                return;
+            }
+            
+            // Get the raw phone value for submission
+            console.log('Phone raw value for submission:', rawPhone);
+            
+            // Form submission would go here
+            // This is a placeholder for actual submission logic
+            alert('Thank you for your submission! A debt relief specialist will contact you shortly.');
+            
+            // Reset form and cleave instance
+            form.reset();
+            if (phoneCleave) {
+                phoneCleave.setRawValue('');
+            }
+            
+            // Clear all errors
+            clearError(debtAmountSelect, debtAmountError);
+            clearError(debtTypeSelect, debtTypeError);
+            clearError(phoneInput, phoneError);
+        });
+    }
 });
 </script>

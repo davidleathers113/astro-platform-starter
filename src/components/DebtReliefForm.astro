@@ -23,7 +23,7 @@ import CheckCircleIcon from './icons/CheckCircleIcon.astro';
             <!-- Glowing effect for emphasis -->
             <div class="absolute -inset-1 bg-gradient-to-r from-primary/20 via-accent/30 to-primary/20 rounded-xl blur-md"></div>
             
-            <div class="relative bg-background-form dark:bg-slate-800 p-8 md:p-10 rounded-xl shadow-xl border border-border">
+            <div class="relative bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-8 md:p-10 rounded-xl shadow-xl dark:shadow-gray-900 transition-colors duration-300">
                 <div class="mb-8 flex items-center justify-between">
                     <h3 class="font-bold text-2xl">Quick Debt Relief Check</h3>
                     <div class="secure-badge flex items-center gap-2 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">
@@ -38,7 +38,11 @@ import CheckCircleIcon from './icons/CheckCircleIcon.astro';
                         <select 
                             id="debt-amount" 
                             name="debtAmount" 
-                            class="w-full p-4 rounded-lg text-lg transition-shadow duration-200 focus:ring-2 focus:ring-primary/50" 
+                            class="w-full p-4 rounded-lg text-lg 
+                                   bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 
+                                   text-gray-900 dark:text-white
+                                   focus:outline-none focus:ring-2 focus:ring-[#2d7984] dark:focus:ring-[#58cbe0] focus:border-[#2d7984] dark:focus:border-[#58cbe0]
+                                   transition-colors duration-200" 
                             required
                         >
                             <option value="">Select Amount</option>
@@ -55,7 +59,11 @@ import CheckCircleIcon from './icons/CheckCircleIcon.astro';
                         <select 
                             id="debt-type" 
                             name="debtType" 
-                            class="w-full p-4 rounded-lg text-lg transition-shadow duration-200 focus:ring-2 focus:ring-primary/50" 
+                            class="w-full p-4 rounded-lg text-lg 
+                                   bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 
+                                   text-gray-900 dark:text-white
+                                   focus:outline-none focus:ring-2 focus:ring-[#2d7984] dark:focus:ring-[#58cbe0] focus:border-[#2d7984] dark:focus:border-[#58cbe0]
+                                   transition-colors duration-200" 
                             required
                         >
                             <option value="">Select Type</option>
@@ -74,9 +82,12 @@ import CheckCircleIcon from './icons/CheckCircleIcon.astro';
                                 type="tel" 
                                 id="phone" 
                                 name="phone"
-                                class="w-full p-4 pl-10 rounded-lg text-lg transition-shadow duration-200 focus:ring-2 focus:ring-primary/50" 
+                                class="w-full p-4 pl-10 rounded-lg text-lg 
+                                       bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 
+                                       text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400
+                                       focus:outline-none focus:ring-2 focus:ring-[#2d7984] dark:focus:ring-[#58cbe0] focus:border-[#2d7984] dark:focus:border-[#58cbe0]
+                                       transition-colors duration-200" 
                                 placeholder="(000) 000-0000"
-                                pattern="^\(\d{3}\) \d{3}-\d{4}$"
                                 required
                                 aria-describedby="phone-format"
                             />
@@ -173,7 +184,11 @@ import CheckCircleIcon from './icons/CheckCircleIcon.astro';
     
     .form-container:hover {
         transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Enhanced shadow for dark mode */
+    .dark .form-container:hover {
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
     }
     
     @media (prefers-reduced-motion: reduce) {
@@ -228,7 +243,11 @@ import CheckCircleIcon from './icons/CheckCircleIcon.astro';
     }
 </style>
 
-<script>
+<script type="module">
+// Import cleave.js and US phone addon
+import Cleave from 'cleave.js';
+import 'cleave.js/dist/addons/cleave-phone.us';
+
 // Client-side validation and form handling
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('debt-relief-form');
@@ -239,6 +258,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const debtAmountError = document.getElementById('debt-amount-error');
     const debtTypeError = document.getElementById('debt-type-error');
     const phoneError = document.getElementById('phone-error');
+    
+    // Initialize cleave.js for phone formatting
+    let phoneCleave = null;
+    if (phoneInput) {
+        phoneCleave = new Cleave(phoneInput, {
+            phone: true,
+            phoneRegionCode: 'US'
+        });
+        
+        // Clear error when user types
+        phoneInput.addEventListener('input', () => {
+            clearError(phoneInput, phoneError);
+        });
+    }
     
     // Function to show error
     const showError = (element, errorElement, message) => {
@@ -253,24 +286,6 @@ document.addEventListener('DOMContentLoaded', () => {
         errorElement.textContent = '';
         errorElement.classList.add('hidden');
     };
-    
-    // Basic phone formatting
-    phoneInput && phoneInput.addEventListener('input', (e) => {
-        let value = e.target.value.replace(/\D/g, '');
-        if (value.length > 0) {
-            if (value.length <= 3) {
-                value = `(${value}`;
-            } else if (value.length <= 6) {
-                value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
-            } else {
-                value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
-            }
-        }
-        e.target.value = value;
-        
-        // Clear error when user types
-        clearError(phoneInput, phoneError);
-    });
     
     // Clear errors when user selects an option
     debtAmountSelect && debtAmountSelect.addEventListener('change', () => clearError(debtAmountSelect, debtAmountError));
@@ -294,15 +309,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 isValid = false;
             }
             
-            // Validate phone
-            if (!phoneInput.value.match(/^\(\d{3}\) \d{3}-\d{4}$/)) {
-                showError(phoneInput, phoneError, 'Please enter a valid phone number');
+            // Validate phone using cleave.js getRawValue()
+            const rawPhone = phoneCleave ? phoneCleave.getRawValue() : phoneInput.value.replace(/\D/g, '');
+            if (!rawPhone || rawPhone.length !== 10) {
+                showError(phoneInput, phoneError, 'Please enter a valid 10-digit phone number');
                 isValid = false;
             }
             
             if (!isValid) {
                 return;
             }
+            
+            // Get the raw phone value for submission
+            console.log('Phone raw value for submission:', rawPhone);
             
             // Create success message
             const formContainer = form.closest('.relative');
@@ -330,8 +349,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 form.style.display = 'none';
                 formContainer.appendChild(successMessage);
                 
-                // Reset form
+                // Reset form and cleave instance
                 form.reset();
+                if (phoneCleave) {
+                    phoneCleave.setRawValue('');
+                }
                 
                 // Clear all errors
                 clearError(debtAmountSelect, debtAmountError);

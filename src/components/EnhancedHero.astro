@@ -5,41 +5,47 @@ import PhoneIcon from './icons/PhoneIcon.astro';
 import ClockIcon from './icons/ClockIcon.astro';
 ---
 
-<div class="hero-section py-12 md:py-16 lg:py-20 relative">
-    <!-- Background shape decorations (svg) - FIXED SIZING -->
+<div class="hero-section py-12 md:py-16 lg:py-20 relative bg-background-light dark:bg-background-dark transition-colors duration-300">
+    <!-- Background shape decorations (svg) -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
-        <BlobShape1 class="absolute -top-20 -right-20 text-primary opacity-10" />
-        <BlobShape2 class="absolute -bottom-24 -left-24 text-accent opacity-10" />
+        <BlobShape1 class="absolute -top-20 -right-20 text-primary-light dark:text-primary opacity-10 transition-colors duration-300" />
+        <BlobShape2 class="absolute -bottom-24 -left-24 text-accent-light dark:text-accent opacity-10 transition-colors duration-300" />
     </div>
 
     <div class="container mx-auto px-4 relative z-10">
         <div class="max-w-4xl mx-auto text-center">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight tracking-tight animate-fade-in">Break Free From Credit Card Debt <span class="text-primary">Save Up To 50%</span></h1>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight tracking-tight text-text-light dark:text-text-dark animate-fade-in transition-colors duration-300">
+                Break Free From Credit Card Debt 
+                <span class="text-primary-light dark:text-primary transition-colors duration-300">Save Up To 50%</span>
+            </h1>
             
-            <p class="text-xl md:text-2xl text-text-muted mb-8 animate-fade-in-delay-1">Reduce Your Debt By Thousands | Become Debt-Free In <span class="text-primary font-semibold">12-36 Months</span></p>
+            <p class="text-xl md:text-2xl text-text-muted-light dark:text-text-muted-dark mb-8 animate-fade-in-delay-1 transition-colors duration-300">
+                Reduce Your Debt By Thousands | Become Debt-Free In 
+                <span class="text-primary-light dark:text-primary font-semibold transition-colors duration-300">12-36 Months</span>
+            </p>
             
             <div class="relative mb-12 max-w-3xl mx-auto">
                 <!-- Pulsing background for emphasis -->
-                <div class="absolute -inset-1 bg-gradient-to-r from-primary/20 via-primary/30 to-primary/20 rounded-lg blur-md"></div>
-                <p class="relative bg-background-form dark:bg-slate-800 text-lg md:text-xl text-text-muted p-6 rounded-lg shadow-md mb-8 animate-fade-in-delay-2">
-                    Are you struggling with <span class="font-bold">$15,000+ in credit card debt</span>? Our professional debt settlement program can help you reduce what you owe and become debt-free faster than making minimum payments.
+                <div class="absolute -inset-1 bg-gradient-to-r from-primary/20 via-primary/30 to-primary/20 dark:from-primary-light/20 dark:via-primary-light/30 dark:to-primary-light/20 rounded-lg blur-md transition-colors duration-300"></div>
+                <p class="relative bg-background-form-light dark:bg-background-form-dark text-lg md:text-xl text-text-muted-light dark:text-text-muted-dark p-6 rounded-lg shadow-md mb-8 animate-fade-in-delay-2 transition-colors duration-300 border border-border-light dark:border-border-dark">
+                    Are you struggling with <span class="font-bold text-text-light dark:text-text-dark transition-colors duration-300">$15,000+ in credit card debt</span>? Our professional debt settlement program can help you reduce what you owe and become debt-free faster than making minimum payments.
                 </p>
             </div>
             
             <div class="flex flex-col sm:flex-row justify-center gap-6 mb-6 animate-fade-in-delay-3">
-                <a href="#consultation" class="btn btn-lg group relative overflow-hidden">
+                <a href="#consultation" class="btn btn-lg group relative overflow-hidden bg-primary hover:bg-primary-hover active:bg-primary-active text-text-button transition-all duration-200">
                     <span class="relative z-10">Get Your Free Consultation Now</span>
-                    <div class="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_100%] animate-gradient"></div>
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-light/20 via-secondary/20 to-primary-light/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </a>
-                <div class="flex items-center justify-center gap-2 text-text-muted">
-                    <PhoneIcon />
+                <div class="flex items-center justify-center gap-2 text-text-muted-light dark:text-text-muted-dark transition-colors duration-300">
+                    <PhoneIcon class="text-text-muted-light dark:text-text-muted-dark transition-colors duration-300" />
                     <span class="text-lg font-medium">(800) 555-1234</span>
                 </div>
             </div>
             
-            <p class="text-sm text-text-muted animate-fade-in-delay-3">
+            <p class="text-sm text-text-muted-light dark:text-text-muted-dark animate-fade-in-delay-3 transition-colors duration-300">
                 <span class="inline-flex items-center gap-1">
-                    <ClockIcon width="16" height="16" />
+                    <ClockIcon width="16" height="16" class="text-text-muted-light dark:text-text-muted-dark transition-colors duration-300" />
                     Available 9:00am - 8:00pm EST, 7 days a week
                 </span>
             </p>
@@ -48,44 +54,83 @@ import ClockIcon from './icons/ClockIcon.astro';
 </div>
 
 <style>
-    /* Adding gradient animation for the CTA button */
-    @keyframes gradient {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
+    /* Hero section with theme-aware background gradients */
+    .hero-section {
+        position: relative;
     }
     
-    .animate-gradient {
-        animation: gradient 3s ease infinite;
-        opacity: 0.9;
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 20% 20%, rgba(var(--color-primary-rgb), 0.03) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(var(--color-accent-rgb), 0.03) 0%, transparent 50%);
+        pointer-events: none;
+        transition: background var(--theme-transition-duration) var(--theme-transition-easing);
     }
     
-    .group:hover .animate-gradient {
-        opacity: 1;
+    .dark .hero-section::before {
+        background: 
+            radial-gradient(circle at 20% 20%, rgba(var(--color-primary-light-rgb), 0.05) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(var(--color-accent-rgb), 0.05) 0%, transparent 50%);
     }
     
-    /* Shadow effect on hover for buttons */
+    /* Enhanced button styling with theme-aware shadows */
     .btn-lg {
         position: relative;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        transition: 
+            transform 0.2s ease, 
+            box-shadow 0.2s ease,
+            background-color var(--theme-transition-duration) var(--theme-transition-easing);
     }
     
     .btn-lg:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 15px -3px rgba(var(--color-primary-rgb), 0.4);
+        box-shadow: 
+            0 6px 15px -3px rgba(var(--color-primary-rgb), 0.4),
+            0 2px 8px -1px rgba(var(--color-primary-rgb), 0.2);
+    }
+    
+    .dark .btn-lg:hover {
+        box-shadow: 
+            0 6px 15px -3px rgba(var(--color-primary-light-rgb), 0.3),
+            0 2px 8px -1px rgba(var(--color-primary-light-rgb), 0.15);
     }
     
     .btn-lg:active {
         transform: translateY(0);
+        box-shadow: 
+            0 2px 4px -1px rgba(var(--color-primary-rgb), 0.3);
+    }
+    
+    .dark .btn-lg:active {
+        box-shadow: 
+            0 2px 4px -1px rgba(var(--color-primary-light-rgb), 0.2);
+    }
+    
+    /* Smooth transitions for all hero elements */
+    .hero-section * {
+        transition: 
+            color var(--theme-transition-duration) var(--theme-transition-easing),
+            background-color var(--theme-transition-duration) var(--theme-transition-easing),
+            border-color var(--theme-transition-duration) var(--theme-transition-easing);
     }
     
     @media (prefers-reduced-motion: reduce) {
-        .animate-gradient {
-            animation: none;
-        }
-        
         .btn-lg:hover {
             transform: none;
+        }
+        
+        .hero-section::before {
+            transition: none;
+        }
+        
+        .hero-section * {
+            transition: none;
         }
     }
 </style>

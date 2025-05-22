@@ -2,140 +2,402 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base theme variables */
+/* ===================================================================
+   GLOBAL CSS VARIABLES FOR COMPREHENSIVE THEME SYSTEM
+   ===================================================================
+   
+   This file defines a comprehensive set of CSS variables that provide
+   consistent theming across light and dark modes. Variables are organized
+   into logical sections for maintainability and ease of use.
+   
+   STRUCTURE:
+   1. Base Variables (font, transitions, etc.)
+   2. Brand Colors (primary, secondary, accent)
+   3. Light Theme Variables 
+   4. Dark Theme Variables
+   
+   NAMING CONVENTION:
+   --color-[category]-[variant]
+   --color-[category]-[variant]-rgb (for rgba usage)
+   
+   CATEGORIES:
+   - text-* (all text colors)
+   - background-* (all background colors) 
+   - border-* (all border colors)
+   - shadow-* (all shadow colors)
+   - state-* (success, warning, error, info)
+   ================================================================= */
+
+/* ===================================================================
+   1. BASE VARIABLES (THEME-INDEPENDENT)
+   ================================================================= */
 :root {
+    /* Typography */
     --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     
-    /* Brand colors (consistent across themes) */
-    --color-primary: #2d7984; /* Darkened from #42a5b2 for better contrast */
-    --color-primary-rgb: 45, 121, 132; /* Updated to match new hex value */
-    --color-primary-light: #58cbe0; /* Lighter shade for accents and highlights */
-    --color-primary-dark: #1d5058; /* Darker shade for hover states */
+    /* Brand Colors - Consistent across all themes */
+    --color-primary: #2d7984;
+    --color-primary-rgb: 45, 121, 132;
+    --color-primary-light: #58cbe0;
+    --color-primary-light-rgb: 88, 203, 224;
+    --color-primary-dark: #1d5058;
+    --color-primary-dark-rgb: 29, 80, 88;
     
-    --color-secondary: #0062b3; /* Darkened from #2980b9 for better contrast */
-    --color-secondary-rgb: 0, 98, 179; /* Updated to match new hex value */
-    --color-secondary-light: #4a94d8; /* Lighter shade for accents and highlights */
-    --color-secondary-dark: #004b8c; /* Darker shade for hover states */
+    --color-secondary: #0062b3;
+    --color-secondary-rgb: 0, 98, 179;
+    --color-secondary-light: #4a94d8;
+    --color-secondary-light-rgb: 74, 148, 216;
+    --color-secondary-dark: #004b8c;
+    --color-secondary-dark-rgb: 0, 75, 140;
     
-    --color-accent: #58cbe0; /* Light teal from logo */
-    --color-accent-rgb: 88, 203, 224; /* Added RGB value */
-    --color-warm-accent: #F8C88F; /* Warm peach-orange */
-    --color-warm-accent-rgb: 248, 200, 143; /* Added RGB value */
+    --color-accent: #58cbe0;
+    --color-accent-rgb: 88, 203, 224;
+    --color-accent-warm: #F8C88F;
+    --color-accent-warm-rgb: 248, 200, 143;
     
-    /* Extended palette for richer UI */
-    --color-success: #10b981; /* Green */
-    --color-success-rgb: 16, 185, 129;
-    --color-warning: #f59e0b; /* Amber */
-    --color-warning-rgb: 245, 158, 11;
-    --color-info: #3b82f6; /* Blue */
-    --color-info-rgb: 59, 130, 246;
+    /* Base State Colors */
+    --color-success-base: #10b981;
+    --color-success-base-rgb: 16, 185, 129;
+    --color-warning-base: #f59e0b;
+    --color-warning-base-rgb: 245, 158, 11;
+    --color-error-base: #ef4444;
+    --color-error-base-rgb: 239, 68, 68;
+    --color-info-base: #3b82f6;
+    --color-info-base-rgb: 59, 130, 246;
     
-    /* Theme transition variables */
+    /* Theme Transition System */
     --theme-transition-duration: 250ms;
-    --theme-transition-easing: ease;
+    --theme-transition-duration-fast: 150ms;
+    --theme-transition-duration-slow: 400ms;
+    --theme-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+    --theme-transition-easing-smooth: cubic-bezier(0.16, 1, 0.3, 1);
     --theme-transition-properties: color, background-color, border-color, box-shadow, outline-color, fill, stroke, opacity, transform;
+    
+    /* Layout & Spacing */
+    --border-radius-sm: 0.25rem;
+    --border-radius: 0.375rem;
+    --border-radius-lg: 0.5rem;
+    --border-radius-xl: 0.75rem;
+    
+    /* Focus Ring */
+    --focus-ring-width: 3px;
+    --focus-ring-offset: 2px;
 }
 
-/* Dark theme (default) */
+/* ===================================================================
+   2. LIGHT THEME VARIABLES (DEFAULT)
+   ================================================================= */
+.light-theme, :root[data-theme="light"], :root:not([data-theme]) {
+    /* ===================== TEXT COLORS ===================== */
+    --color-text-primary: #1a2234;
+    --color-text-primary-rgb: 26, 34, 52;
+    --color-text-secondary: #4a5568;
+    --color-text-secondary-rgb: 74, 85, 104;
+    --color-text-muted: #718096;
+    --color-text-muted-rgb: 113, 128, 150;
+    --color-text-disabled: #a0aec0;
+    --color-text-disabled-rgb: 160, 174, 192;
+    --color-text-inverse: #ffffff;
+    --color-text-inverse-rgb: 255, 255, 255;
+    --color-text-placeholder: #a0aec0;
+    --color-text-placeholder-rgb: 160, 174, 192;
+    
+    /* Text on colored backgrounds */
+    --color-text-on-primary: #ffffff;
+    --color-text-on-primary-rgb: 255, 255, 255;
+    --color-text-on-secondary: #ffffff;
+    --color-text-on-secondary-rgb: 255, 255, 255;
+    --color-text-on-accent: #1a2234;
+    --color-text-on-accent-rgb: 26, 34, 52;
+    
+    /* Link colors */
+    --color-text-link: #0062b3;
+    --color-text-link-rgb: 0, 98, 179;
+    --color-text-link-hover: #004b8c;
+    --color-text-link-hover-rgb: 0, 75, 140;
+    --color-text-link-visited: #5a4fcf;
+    --color-text-link-visited-rgb: 90, 79, 207;
+    
+    /* ===================== BACKGROUND COLORS ===================== */
+    --color-background-primary: #ffffff;
+    --color-background-primary-rgb: 255, 255, 255;
+    --color-background-secondary: #f7fafc;
+    --color-background-secondary-rgb: 247, 250, 252;
+    --color-background-tertiary: #edf2f7;
+    --color-background-tertiary-rgb: 237, 242, 247;
+    
+    /* Form backgrounds */
+    --color-background-form: #f7fafc;
+    --color-background-form-rgb: 247, 250, 252;
+    --color-background-input: #ffffff;
+    --color-background-input-rgb: 255, 255, 255;
+    --color-background-input-disabled: #f7fafc;
+    --color-background-input-disabled-rgb: 247, 250, 252;
+    
+    /* Surface backgrounds */
+    --color-background-surface: #ffffff;
+    --color-background-surface-rgb: 255, 255, 255;
+    --color-background-elevated: #ffffff;
+    --color-background-elevated-rgb: 255, 255, 255;
+    --color-background-overlay: rgba(26, 34, 52, 0.8);
+    --color-background-backdrop: rgba(26, 34, 52, 0.5);
+    
+    /* Interactive backgrounds */
+    --color-background-hover: #f7fafc;
+    --color-background-hover-rgb: 247, 250, 252;
+    --color-background-active: #edf2f7;
+    --color-background-active-rgb: 237, 242, 247;
+    --color-background-selected: #e6fffa;
+    --color-background-selected-rgb: 230, 255, 250;
+    
+    /* Code backgrounds */
+    --color-background-code: #f7fafc;
+    --color-background-code-rgb: 247, 250, 252;
+    --color-background-code-block: #2d3748;
+    --color-background-code-block-rgb: 45, 55, 72;
+    
+    /* ===================== BORDER COLORS ===================== */
+    --color-border-default: #e2e8f0;
+    --color-border-default-rgb: 226, 232, 240;
+    --color-border-subtle: #f7fafc;
+    --color-border-subtle-rgb: 247, 250, 252;
+    --color-border-strong: #cbd5e0;
+    --color-border-strong-rgb: 203, 213, 224;
+    --color-border-focus: var(--color-primary);
+    --color-border-focus-rgb: var(--color-primary-rgb);
+    --color-border-interactive: #cbd5e0;
+    --color-border-interactive-rgb: 203, 213, 224;
+    --color-border-interactive-hover: #a0aec0;
+    --color-border-interactive-hover-rgb: 160, 174, 192;
+    
+    /* ===================== SHADOW COLORS ===================== */
+    --color-shadow-light: rgba(0, 0, 0, 0.05);
+    --color-shadow-medium: rgba(0, 0, 0, 0.1);
+    --color-shadow-heavy: rgba(0, 0, 0, 0.15);
+    --color-shadow-focus: rgba(45, 121, 132, 0.3);
+    --color-shadow-inset: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    
+    /* ===================== STATE COLORS ===================== */
+    /* Success */
+    --color-success: #10b981;
+    --color-success-rgb: 16, 185, 129;
+    --color-success-light: #d1fae5;
+    --color-success-light-rgb: 209, 250, 229;
+    --color-success-dark: #059669;
+    --color-success-dark-rgb: 5, 150, 105;
+    --color-text-success: #064e3b;
+    --color-text-success-rgb: 6, 78, 59;
+    --color-background-success: #ecfdf5;
+    --color-background-success-rgb: 236, 253, 245;
+    --color-border-success: #86efac;
+    --color-border-success-rgb: 134, 239, 172;
+    
+    /* Warning */
+    --color-warning: #f59e0b;
+    --color-warning-rgb: 245, 158, 11;
+    --color-warning-light: #fef3c7;
+    --color-warning-light-rgb: 254, 243, 199;
+    --color-warning-dark: #d97706;
+    --color-warning-dark-rgb: 217, 119, 6;
+    --color-text-warning: #92400e;
+    --color-text-warning-rgb: 146, 64, 14;
+    --color-background-warning: #fffbeb;
+    --color-background-warning-rgb: 255, 251, 235;
+    --color-border-warning: #fcd34d;
+    --color-border-warning-rgb: 252, 211, 77;
+    
+    /* Error */
+    --color-error: #ef4444;
+    --color-error-rgb: 239, 68, 68;
+    --color-error-light: #fecaca;
+    --color-error-light-rgb: 254, 202, 202;
+    --color-error-dark: #dc2626;
+    --color-error-dark-rgb: 220, 38, 38;
+    --color-text-error: #991b1b;
+    --color-text-error-rgb: 153, 27, 27;
+    --color-background-error: #fef2f2;
+    --color-background-error-rgb: 254, 242, 242;
+    --color-border-error: #fca5a5;
+    --color-border-error-rgb: 252, 165, 165;
+    
+    /* Info */
+    --color-info: #3b82f6;
+    --color-info-rgb: 59, 130, 246;
+    --color-info-light: #dbeafe;
+    --color-info-light-rgb: 219, 234, 254;
+    --color-info-dark: #2563eb;
+    --color-info-dark-rgb: 37, 99, 235;
+    --color-text-info: #1e3a8a;
+    --color-text-info-rgb: 30, 58, 138;
+    --color-background-info: #eff6ff;
+    --color-background-info-rgb: 239, 246, 255;
+    --color-border-info: #93c5fd;
+    --color-border-info-rgb: 147, 197, 253;
+    
+    /* ===================== SPECIAL BACKGROUNDS ===================== */
+    --background-image-noise: linear-gradient(
+        to bottom,
+        rgba(250, 250, 255, 0.05),
+        rgba(250, 250, 255, 0.1)
+    ), url('/images/noise.png');
+}
+
+/* ===================================================================
+   3. DARK THEME VARIABLES
+   ================================================================= */
 .dark-theme, .dark, :root[data-theme="dark"] {
-    /* Background colors */
-    --color-background: #1a2234; /* Dark blue background */
-    --color-background-rgb: 26, 34, 52;
-    --color-form-bg: #202b3d; /* Darker blue for form backgrounds */
-    --color-form-bg-rgb: 32, 43, 61;
-    --color-input-bg: #151d2c; /* Even darker for inputs */
-    --color-input-bg-rgb: 21, 29, 44;
+    /* ===================== TEXT COLORS ===================== */
+    --color-text-primary: #ffffff;
+    --color-text-primary-rgb: 255, 255, 255;
+    --color-text-secondary: #e2e8f0;
+    --color-text-secondary-rgb: 226, 232, 240;
+    --color-text-muted: #a0aec0;
+    --color-text-muted-rgb: 160, 174, 192;
+    --color-text-disabled: #718096;
+    --color-text-disabled-rgb: 113, 128, 150;
+    --color-text-inverse: #1a2234;
+    --color-text-inverse-rgb: 26, 34, 52;
+    --color-text-placeholder: #718096;
+    --color-text-placeholder-rgb: 113, 128, 150;
     
-    /* Text colors */
-    --color-text: #FFFFFF; /* White text for dark backgrounds */
-    --color-text-rgb: 255, 255, 255;
-    --color-text-muted: #b0c0d0; /* Lightened from #A0AEC0 for better contrast */
-    --color-text-muted-rgb: 176, 192, 208; /* Updated to match hex */
+    /* Text on colored backgrounds */
+    --color-text-on-primary: #ffffff;
+    --color-text-on-primary-rgb: 255, 255, 255;
+    --color-text-on-secondary: #ffffff;
+    --color-text-on-secondary-rgb: 255, 255, 255;
+    --color-text-on-accent: #1a2234;
+    --color-text-on-accent-rgb: 26, 34, 52;
     
-    /* Button colors */
-    --color-button-text: #FFFFFF; /* White text for buttons */
-    --color-button-text-rgb: 255, 255, 255;
-    --color-accent-button-text: #1a2234; /* Dark text for accent buttons */
-    --color-accent-button-text-rgb: 26, 34, 52;
+    /* Link colors */
+    --color-text-link: #58cbe0;
+    --color-text-link-rgb: 88, 203, 224;
+    --color-text-link-hover: #4bbbce;
+    --color-text-link-hover-rgb: 75, 187, 206;
+    --color-text-link-visited: #9f7aea;
+    --color-text-link-visited-rgb: 159, 122, 234;
     
-    /* Form element colors */
-    --color-placeholder: #8896ac; /* Lighter gray for placeholders in dark mode */
-    --color-placeholder-rgb: 136, 150, 172; /* Added RGB value */
+    /* ===================== BACKGROUND COLORS ===================== */
+    --color-background-primary: #1a2234;
+    --color-background-primary-rgb: 26, 34, 52;
+    --color-background-secondary: #202b3d;
+    --color-background-secondary-rgb: 32, 43, 61;
+    --color-background-tertiary: #2d3748;
+    --color-background-tertiary-rgb: 45, 55, 72;
     
-    /* Border colors */
-    --color-border: #2D3748; /* Dark border color */
-    --color-border-rgb: 45, 55, 72;
+    /* Form backgrounds */
+    --color-background-form: #202b3d;
+    --color-background-form-rgb: 32, 43, 61;
+    --color-background-input: #2d3748;
+    --color-background-input-rgb: 45, 55, 72;
+    --color-background-input-disabled: #4a5568;
+    --color-background-input-disabled-rgb: 74, 85, 104;
     
-    /* Complementary color */
-    --color-complementary: #1a2234;
-    --color-complementary-rgb: 26, 34, 52;
+    /* Surface backgrounds */
+    --color-background-surface: #202b3d;
+    --color-background-surface-rgb: 32, 43, 61;
+    --color-background-elevated: #2d3748;
+    --color-background-elevated-rgb: 45, 55, 72;
+    --color-background-overlay: rgba(0, 0, 0, 0.8);
+    --color-background-backdrop: rgba(0, 0, 0, 0.5);
     
-    /* Error colors */
-    --color-error: #fc8181; /* Light red with good contrast on dark */
+    /* Interactive backgrounds */
+    --color-background-hover: #2d3748;
+    --color-background-hover-rgb: 45, 55, 72;
+    --color-background-active: #4a5568;
+    --color-background-active-rgb: 74, 85, 104;
+    --color-background-selected: #1a365d;
+    --color-background-selected-rgb: 26, 54, 93;
+    
+    /* Code backgrounds */
+    --color-background-code: #2d3748;
+    --color-background-code-rgb: 45, 55, 72;
+    --color-background-code-block: #1a202c;
+    --color-background-code-block-rgb: 26, 32, 44;
+    
+    /* ===================== BORDER COLORS ===================== */
+    --color-border-default: #4a5568;
+    --color-border-default-rgb: 74, 85, 104;
+    --color-border-subtle: #2d3748;
+    --color-border-subtle-rgb: 45, 55, 72;
+    --color-border-strong: #718096;
+    --color-border-strong-rgb: 113, 128, 150;
+    --color-border-focus: var(--color-primary-light);
+    --color-border-focus-rgb: var(--color-primary-light-rgb);
+    --color-border-interactive: #718096;
+    --color-border-interactive-rgb: 113, 128, 150;
+    --color-border-interactive-hover: #a0aec0;
+    --color-border-interactive-hover-rgb: 160, 174, 192;
+    
+    /* ===================== SHADOW COLORS ===================== */
+    --color-shadow-light: rgba(0, 0, 0, 0.25);
+    --color-shadow-medium: rgba(0, 0, 0, 0.5);
+    --color-shadow-heavy: rgba(0, 0, 0, 0.75);
+    --color-shadow-focus: rgba(88, 203, 224, 0.4);
+    --color-shadow-inset: inset 0 2px 4px rgba(0, 0, 0, 0.25);
+    
+    /* ===================== STATE COLORS ===================== */
+    /* Success */
+    --color-success: #68d391;
+    --color-success-rgb: 104, 211, 145;
+    --color-success-light: #276749;
+    --color-success-light-rgb: 39, 103, 73;
+    --color-success-dark: #9ae6b4;
+    --color-success-dark-rgb: 154, 230, 180;
+    --color-text-success: #9ae6b4;
+    --color-text-success-rgb: 154, 230, 180;
+    --color-background-success: #1a202c;
+    --color-background-success-rgb: 26, 32, 44;
+    --color-border-success: #276749;
+    --color-border-success-rgb: 39, 103, 73;
+    
+    /* Warning */
+    --color-warning: #fbd38d;
+    --color-warning-rgb: 251, 211, 141;
+    --color-warning-light: #744210;
+    --color-warning-light-rgb: 116, 66, 16;
+    --color-warning-dark: #fed7aa;
+    --color-warning-dark-rgb: 254, 215, 170;
+    --color-text-warning: #fed7aa;
+    --color-text-warning-rgb: 254, 215, 170;
+    --color-background-warning: #1a202c;
+    --color-background-warning-rgb: 26, 32, 44;
+    --color-border-warning: #744210;
+    --color-border-warning-rgb: 116, 66, 16;
+    
+    /* Error */
+    --color-error: #fc8181;
     --color-error-rgb: 252, 129, 129;
+    --color-error-light: #742a2a;
+    --color-error-light-rgb: 116, 42, 42;
+    --color-error-dark: #feb2b2;
+    --color-error-dark-rgb: 254, 178, 178;
+    --color-text-error: #feb2b2;
+    --color-text-error-rgb: 254, 178, 178;
+    --color-background-error: #1a202c;
+    --color-background-error-rgb: 26, 32, 44;
+    --color-border-error: #742a2a;
+    --color-border-error-rgb: 116, 42, 42;
     
-    /* Shadow colors for depth */
-    --shadow-color: rgba(0, 0, 0, 0.5);
-    --shadow-color-light: rgba(0, 0, 0, 0.25);
+    /* Info */
+    --color-info: #90cdf4;
+    --color-info-rgb: 144, 205, 244;
+    --color-info-light: #2a4365;
+    --color-info-light-rgb: 42, 67, 101;
+    --color-info-dark: #bee3f8;
+    --color-info-dark-rgb: 190, 227, 248;
+    --color-text-info: #bee3f8;
+    --color-text-info-rgb: 190, 227, 248;
+    --color-background-info: #1a202c;
+    --color-background-info-rgb: 26, 32, 44;
+    --color-border-info: #2a4365;
+    --color-border-info-rgb: 42, 67, 101;
     
-    /* Background image */
+    /* ===================== SPECIAL BACKGROUNDS ===================== */
     --background-image-noise: linear-gradient(
-            to bottom,
-            rgba(10, 15, 25, 0.1),
-            rgba(10, 15, 25, 0.2)
-        ),
-        url('/images/noise.png');
-}
-
-/* Light theme */
-.light-theme, :root[data-theme="light"] {
-    /* Background colors */
-    --color-background: #FFFFFF; /* White background */
-    --color-background-rgb: 255, 255, 255;
-    --color-form-bg: #F7FAFC; /* Light gray for form backgrounds */
-    --color-form-bg-rgb: 247, 250, 252;
-    --color-input-bg: #EDF2F7; /* Slightly darker for inputs */
-    --color-input-bg-rgb: 237, 242, 247;
-    
-    /* Text colors */
-    --color-text: #1a2234; /* Dark text for light backgrounds */
-    --color-text-rgb: 26, 34, 52;
-    --color-text-muted: #4A5568; /* Muted text color */
-    --color-text-muted-rgb: 74, 85, 104;
-    
-    /* Button colors */
-    --color-button-text: #FFFFFF; /* White text for buttons */
-    --color-button-text-rgb: 255, 255, 255;
-    --color-accent-button-text: #1a2234; /* Dark text for accent buttons */
-    --color-accent-button-text-rgb: 26, 34, 52;
-    
-    /* Form element colors */
-    --color-placeholder: #718096; /* Mid-gray for placeholders in light mode */
-    --color-placeholder-rgb: 113, 128, 150; /* Added RGB value */
-    
-    /* Border colors */
-    --color-border: #E2E8F0; /* Light border color */
-    --color-border-rgb: 226, 232, 240;
-    
-    /* Complementary color */
-    --color-complementary: #F7FAFC;
-    --color-complementary-rgb: 247, 250, 252;
-    
-    /* Error colors */
-    --color-error: #e53e3e; /* Red with good contrast on white */
-    --color-error-rgb: 229, 62, 62;
-    
-    /* Shadow colors for depth */
-    --shadow-color: rgba(0, 0, 0, 0.1);
-    --shadow-color-light: rgba(0, 0, 0, 0.05);
-    
-    /* Background image */
-    --background-image-noise: linear-gradient(
-            to bottom,
-            rgba(250, 250, 255, 0.05),
-            rgba(250, 250, 255, 0.1)
-        ),
-        url('/images/noise.png');
+        to bottom,
+        rgba(10, 15, 25, 0.1),
+        rgba(10, 15, 25, 0.2)
+    ), url('/images/noise.png');
 }
 
 /* Support for reduced motion preference */
@@ -847,6 +1109,124 @@
     /* Form error styles */
     .input-error {
         border-color: var(--color-error);
+    }
+    
+    /* Selection control styles - checkboxes and radio buttons */
+    .checkbox-primary,
+    .radio-primary {
+        accent-color: var(--color-primary);
+        width: 1rem;
+        height: 1rem;
+        border-radius: 0.25rem; /* For checkboxes */
+        border: 1px solid var(--color-border-default);
+        background-color: var(--color-background-input);
+        transition: var(--theme-transition-properties) var(--theme-transition-duration) var(--theme-transition-easing);
+    }
+    
+    .radio-primary {
+        border-radius: 50%; /* Make radio buttons circular */
+    }
+    
+    .checkbox-primary:focus,
+    .radio-primary:focus {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+        box-shadow: 0 0 0 2px var(--color-background-primary), 0 0 0 4px var(--color-primary);
+    }
+    
+    .checkbox-primary:checked,
+    .radio-primary:checked {
+        background-color: var(--color-primary);
+        border-color: var(--color-primary);
+    }
+    
+    .checkbox-primary:disabled,
+    .radio-primary:disabled {
+        background-color: var(--color-background-input-disabled);
+        border-color: var(--color-border-default);
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+    
+    /* Dark mode enhancements for selection controls */
+    .dark .checkbox-primary:focus,
+    .dark .radio-primary:focus {
+        outline-color: var(--color-primary-light);
+        box-shadow: 0 0 0 2px var(--color-background-primary), 0 0 0 4px var(--color-primary-light);
+    }
+    
+    .dark .checkbox-primary:checked,
+    .dark .radio-primary:checked {
+        background-color: var(--color-primary-light);
+        border-color: var(--color-primary-light);
+    }
+    
+    /* Toggle switch utility classes */
+    .toggle-switch {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+    }
+    
+    .toggle-switch input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+    
+    .toggle-slider {
+        position: relative;
+        width: 2.75rem; /* 44px */
+        height: 1.5rem; /* 24px */
+        background-color: var(--color-border-default);
+        border-radius: 9999px;
+        transition: var(--theme-transition-properties) var(--theme-transition-duration) var(--theme-transition-easing);
+    }
+    
+    .toggle-slider::after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 1.25rem; /* 20px */
+        height: 1.25rem; /* 20px */
+        background-color: var(--color-background-primary);
+        border-radius: 50%;
+        transition: transform var(--theme-transition-duration) var(--theme-transition-easing);
+    }
+    
+    .toggle-switch input:checked + .toggle-slider {
+        background-color: var(--color-primary);
+    }
+    
+    .toggle-switch input:checked + .toggle-slider::after {
+        transform: translateX(1.25rem); /* 20px */
+    }
+    
+    .toggle-switch input:focus + .toggle-slider {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+    
+    .toggle-switch input:disabled + .toggle-slider {
+        background-color: var(--color-background-input-disabled);
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+    
+    .toggle-switch input:disabled + .toggle-slider::after {
+        background-color: var(--color-text-disabled);
+    }
+    
+    /* Dark mode toggle switch enhancements */
+    .dark .toggle-switch input:checked + .toggle-slider {
+        background-color: var(--color-primary-light);
+    }
+    
+    .dark .toggle-switch input:focus + .toggle-slider {
+        outline-color: var(--color-primary-light);
     }
     
     /* Ensures SVG icons in buttons have proper contrast */

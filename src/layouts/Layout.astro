@@ -54,82 +54,91 @@ const { title } = Astro.props;
         <link rel="preload" as="font" type="font/woff2" href={interWoff2} crossorigin />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-        <!-- Theme detection script - executed before page renders -->
+        <!-- Theme Manager Script - executed before page renders to prevent FOUC -->
         <script is:inline>
+            // Immediate theme application to prevent FOUC (Flash of Unstyled Content)
             (function () {
-                // Check for saved theme preference in localStorage
-                const savedTheme = localStorage.getItem('theme');
-
-                // Function to get system color scheme preference
+                // Theme constants
+                const THEMES = { LIGHT: 'light', DARK: 'dark', SYSTEM: 'system' };
+                const STORAGE_KEY = 'theme';
+                
+                // Utility functions
+                function getStorageItem(key, fallback) {
+                    try {
+                        return localStorage.getItem(key) || fallback;
+                    } catch (error) {
+                        console.warn('localStorage access failed:', error);
+                        return fallback;
+                    }
+                }
+                
                 function getSystemPreference() {
-                    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                    try {
+                        return window.matchMedia('(prefers-color-scheme: dark)').matches 
+                            ? THEMES.DARK 
+                            : THEMES.LIGHT;
+                    } catch (error) {
+                        console.warn('Media query not supported:', error);
+                        return THEMES.LIGHT;
+                    }
                 }
-
-                // Apply the theme
+                
                 function applyTheme(theme) {
-                    // If theme is 'system', get the system preference
-                    if (theme === 'system') {
-                        theme = getSystemPreference();
-                    }
-
-                    // Apply the appropriate theme class to the document
-                    if (theme === 'dark') {
-                        document.documentElement.classList.add('dark-theme');
-                        document.documentElement.classList.add('dark');
-                        document.documentElement.classList.remove('light-theme');
-                        document.documentElement.setAttribute('data-theme', 'dark');
-                    } else {
-                        document.documentElement.classList.add('light-theme');
-                        document.documentElement.classList.remove('dark-theme');
-                        document.documentElement.classList.remove('dark');
-                        document.documentElement.setAttribute('data-theme', 'light');
+                    try {
+                        const documentElement = document.documentElement;
+                        const shouldUseDarkMode = theme === THEMES.DARK || 
+                            (theme === THEMES.SYSTEM && getSystemPreference() === THEMES.DARK);
+                        
+                        // Remove all theme classes
+                        documentElement.classList.remove('dark', 'dark-theme', 'light-theme');
+                        
+                        // Apply appropriate theme classes
+                        if (shouldUseDarkMode) {
+                            documentElement.classList.add('dark', 'dark-theme');
+                            documentElement.setAttribute('data-theme', THEMES.DARK);
+                        } else {
+                            documentElement.classList.add('light-theme');
+                            documentElement.setAttribute('data-theme', THEMES.LIGHT);
+                        }
+                    } catch (error) {
+                        console.error('Theme application failed:', error);
                     }
                 }
-
-                // Determine which theme to use
-                let themeToApply;
-
-                if (savedTheme) {
-                    // Use saved preference if available
-                    themeToApply = savedTheme;
-                } else {
-                    // Otherwise, use system preference and save it
-                    themeToApply = 'system';
-                    localStorage.setItem('theme', 'system');
-                }
-
-                // Apply the theme immediately to prevent flash
-                applyTheme(themeToApply);
-
-                // Set up listener for system preference changes
-                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-                    if (localStorage.getItem('theme') === 'system') {
-                        applyTheme('system');
-                    }
-                });
-
-                // Make these functions available globally
+                
+                // Get and apply initial theme
+                const storedTheme = getStorageItem(STORAGE_KEY, THEMES.SYSTEM);
+                applyTheme(storedTheme);
+                
+                // Basic theme manager for immediate availability
                 window.themeManager = {
-                    getTheme: function () {
-                        return localStorage.getItem('theme') || 'system';
+                    getTheme: function() {
+                        return getStorageItem(STORAGE_KEY, THEMES.SYSTEM);
                     },
-                    setTheme: function (theme) {
-                        localStorage.setItem('theme', theme);
-                        applyTheme(theme);
-
-                        // Dispatch an event for cross-tab synchronization
-                        window.dispatchEvent(new CustomEvent('theme-change', { detail: { theme } }));
-                    }
+                    setTheme: function(theme) {
+                        if (!Object.values(THEMES).includes(theme)) {
+                            console.warn('Invalid theme value:', theme);
+                            return;
+                        }
+                        try {
+                            localStorage.setItem(STORAGE_KEY, theme);
+                            applyTheme(theme);
+                            
+                            // Dispatch theme change event
+                            const resolvedTheme = theme === THEMES.SYSTEM ? getSystemPreference() : theme;
+                            window.dispatchEvent(new CustomEvent('theme-change', {
+                                detail: { theme, resolvedTheme }
+                            }));
+                        } catch (error) {
+                            console.error('Theme setting failed:', error);
+                        }
+                    },
+                    THEMES: THEMES
                 };
-
-                // Listen for storage changes for cross-tab sync
-                window.addEventListener('storage', (e) => {
-                    if (e.key === 'theme') {
-                        applyTheme(e.newValue);
-                    }
-                });
             })();
         </script>
+        
+        <!-- Load comprehensive theme manager after DOM -->
+        <script src="/src/scripts/themeManager.js" type="module"></script>
     </head>
     <body class="antialiased text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-900">
         <!-- Import Background Pattern Component -->
@@ -138,12 +147,12 @@ const { title } = Astro.props;
             <div class="absolute inset-0 overflow-hidden pointer-events-none">
                 <div class="fixed inset-0 z-0">
                     <!-- Light mode gradients (hidden in dark mode) -->
-                    <div class="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-b from-[#2d7984]/5 to-transparent dark:hidden"></div>
-                    <div class="absolute bottom-0 left-0 right-0 h-[300px] bg-gradient-to-t from-[#2d7984]/5 to-transparent dark:hidden"></div>
+                    <div class="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-b from-primary/5 to-transparent dark:hidden transition-opacity duration-300"></div>
+                    <div class="absolute bottom-0 left-0 right-0 h-[300px] bg-gradient-to-t from-primary/5 to-transparent dark:hidden transition-opacity duration-300"></div>
 
                     <!-- Dark mode gradients (hidden in light mode) -->
-                    <div class="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-b from-[#58cbe0]/10 to-transparent hidden dark:block"></div>
-                    <div class="absolute bottom-0 left-0 right-0 h-[300px] bg-gradient-to-t from-[#58cbe0]/10 to-transparent hidden dark:block"></div>
+                    <div class="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-b from-primary-light/10 to-transparent hidden dark:block transition-opacity duration-300"></div>
+                    <div class="absolute bottom-0 left-0 right-0 h-[300px] bg-gradient-to-t from-primary-light/10 to-transparent hidden dark:block transition-opacity duration-300"></div>
 
                     <!-- Noise texture overlay -->
                     <div class="absolute inset-0 opacity-20 dark:opacity-30 bg-noise"></div>
@@ -169,10 +178,10 @@ const { title } = Astro.props;
         </button>
 
         <!-- Loading Indicator -->
-        <div id="page-loader" class="fixed inset-0 bg-white dark:bg-gray-900 flex items-center justify-center z-[100] transition-opacity duration-500">
+        <div id="page-loader" class="fixed inset-0 bg-background-light dark:bg-background-dark flex items-center justify-center z-[100] transition-all duration-500">
             <div class="relative">
-                <div class="w-16 h-16 border-4 border-[#2d7984]/30 border-t-[#2d7984] rounded-full animate-spin"></div>
-                <div class="mt-4 text-center text-gray-600 dark:text-gray-300">Loading...</div>
+                <div class="w-16 h-16 border-4 border-primary/30 dark:border-primary-light/30 border-t-primary dark:border-t-primary-light rounded-full animate-spin transition-colors duration-300"></div>
+                <div class="mt-4 text-center text-text-muted-light dark:text-text-muted-dark transition-colors duration-300">Loading...</div>
             </div>
         </div>
     </body>

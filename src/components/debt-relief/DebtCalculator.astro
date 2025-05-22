@@ -13,14 +13,18 @@ import ClockIcon from '../icons/ClockIcon.astro';
             <div>
                 <form id="debt-calculator-form" class="space-y-6">
                     <div>
-                        <label for="debt-amount" class="block mb-2 font-medium">Total Credit Card Debt</label>
+                        <label for="debt-amount" class="form-label">Total Credit Card Debt</label>
                         <div class="relative">
-                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">$</span>
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 dark:text-gray-400">$</span>
                             <input 
                                 type="number" 
                                 id="debt-amount" 
                                 name="debtAmount" 
-                                class="pl-8 w-full rounded-md border border-gray-300 py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#2d7984] focus:border-transparent" 
+                                class="pl-8 w-full rounded-md border border-gray-300 dark:border-gray-600 py-3 px-4 
+                                       bg-white dark:bg-gray-700 text-gray-900 dark:text-white 
+                                       placeholder-gray-500 dark:placeholder-gray-400
+                                       focus:outline-none focus:ring-2 focus:ring-[#2d7984] dark:focus:ring-[#58cbe0] focus:border-transparent
+                                       transition-colors duration-200" 
                                 placeholder="15000"
                                 min="1000"
                                 required
@@ -29,32 +33,40 @@ import ClockIcon from '../icons/ClockIcon.astro';
                     </div>
                     
                     <div>
-                        <label for="interest-rate" class="block mb-2 font-medium">Average Interest Rate</label>
+                        <label for="interest-rate" class="form-label">Average Interest Rate</label>
                         <div class="relative">
                             <input 
                                 type="number" 
                                 id="interest-rate" 
                                 name="interestRate" 
-                                class="w-full rounded-md border border-gray-300 py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#2d7984] focus:border-transparent" 
+                                class="w-full rounded-md border border-gray-300 dark:border-gray-600 py-3 px-4 
+                                       bg-white dark:bg-gray-700 text-gray-900 dark:text-white 
+                                       placeholder-gray-500 dark:placeholder-gray-400
+                                       focus:outline-none focus:ring-2 focus:ring-[#2d7984] dark:focus:ring-[#58cbe0] focus:border-transparent
+                                       transition-colors duration-200" 
                                 placeholder="18"
                                 min="1"
                                 max="30"
                                 step="0.1"
                                 required
                             />
-                            <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500">%</span>
+                            <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 dark:text-gray-400">%</span>
                         </div>
                     </div>
                     
                     <div>
-                        <label for="monthly-payment" class="block mb-2 font-medium">Current Monthly Payment</label>
+                        <label for="monthly-payment" class="form-label">Current Monthly Payment</label>
                         <div class="relative">
-                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">$</span>
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 dark:text-gray-400">$</span>
                             <input 
                                 type="number" 
                                 id="monthly-payment" 
                                 name="monthlyPayment" 
-                                class="pl-8 w-full rounded-md border border-gray-300 py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#2d7984] focus:border-transparent" 
+                                class="pl-8 w-full rounded-md border border-gray-300 dark:border-gray-600 py-3 px-4 
+                                       bg-white dark:bg-gray-700 text-gray-900 dark:text-white 
+                                       placeholder-gray-500 dark:placeholder-gray-400
+                                       focus:outline-none focus:ring-2 focus:ring-[#2d7984] dark:focus:ring-[#58cbe0] focus:border-transparent
+                                       transition-colors duration-200" 
                                 placeholder="300"
                                 min="20"
                                 required
@@ -64,7 +76,7 @@ import ClockIcon from '../icons/ClockIcon.astro';
                     
                     <button 
                         type="submit" 
-                        class="w-full py-3 px-6 rounded-md bg-[#2d7984] hover:bg-[#1d5058] text-white font-semibold transition-colors duration-200 shadow-sm"
+                        class="btn w-full py-3 px-6 font-semibold"
                     >
                         Calculate My Savings
                     </button>
@@ -104,7 +116,7 @@ import ClockIcon from '../icons/ClockIcon.astro';
                 <div class="text-center">
                     <a 
                         href="#qualification-form" 
-                        class="inline-block py-3 px-6 rounded-md bg-[#2d7984] hover:bg-[#1d5058] text-white font-semibold transition-colors duration-200 shadow-sm"
+                        class="btn inline-block py-3 px-6 font-semibold"
                     >
                         See If You Qualify
                     </a>

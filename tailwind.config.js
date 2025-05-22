@@ -4,6 +4,34 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
+      // Transition utilities for dark mode
+      transitionProperty: {
+        'theme': 'color, background-color, border-color, box-shadow, outline-color, fill, stroke, opacity',
+        'colors': 'color, background-color, border-color',
+        'backgrounds': 'background-color, background-image',
+        'borders': 'border-color, border-width, border-opacity',
+        'shadows': 'box-shadow, text-shadow',
+        'layout': 'width, height, margin, padding',
+        'all-theme': 'color, background-color, border-color, box-shadow, outline-color, fill, stroke, opacity, transform, filter',
+      },
+      transitionDuration: {
+        '50': '50ms',
+        '250': '250ms',
+        '400': '400ms',
+        '600': '600ms',
+        '800': '800ms',
+        '1200': '1200ms',
+        'theme-fast': '150ms',
+        'theme': '250ms',
+        'theme-slow': '400ms',
+      },
+      transitionTimingFunction: {
+        'theme': 'cubic-bezier(0.4, 0, 0.2, 1)',
+        'theme-in': 'cubic-bezier(0.4, 0, 1, 1)',
+        'theme-out': 'cubic-bezier(0, 0, 0.2, 1)',
+        'theme-smooth': 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+        'bounce-light': 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+      },
       colors: {
         primary: {
           // Base colors
@@ -109,24 +137,195 @@ export default {
           textOnWarmDark: '#1a2234',     // Text on dark warm variant
         },
         background: {
-          DEFAULT: 'var(--color-background, #ffffff)',
-          form: 'var(--color-form-bg, #F7FAFC)',
-          input: 'var(--color-input-bg, #EDF2F7)',
+          // Base background colors
+          DEFAULT: '#ffffff',     // Light mode default
+          light: '#ffffff',       // Explicit light mode
+          dark: '#1a2234',        // Dark mode (dark blue)
+          
+          // Form backgrounds
+          form: {
+            DEFAULT: '#F7FAFC',   // Light mode default
+            light: '#F7FAFC',     // Light form background (very light gray)
+            dark: '#202b3d',      // Dark form background (darker blue)
+          },
+          
+          // Input backgrounds
+          input: {
+            DEFAULT: '#EDF2F7',   // Light mode default
+            light: '#EDF2F7',     // Light input background (light gray)
+            dark: '#151d2c',      // Dark input background (darkest blue)
+          },
+          
+          // Surface backgrounds for cards, panels, etc.
+          surface: {
+            DEFAULT: '#ffffff',   // Light mode default
+            light: '#ffffff',     // Light surface (white)
+            dark: '#1a2234',      // Dark surface (same as main dark bg)
+            elevated: {
+              light: '#ffffff',   // Light elevated surface
+              dark: '#202b3d',    // Dark elevated surface (slightly lighter)
+            }
+          },
+          
+          // Overlay backgrounds
+          overlay: {
+            light: 'rgba(0, 0, 0, 0.5)',      // Dark overlay for light mode
+            dark: 'rgba(0, 0, 0, 0.7)',       // Darker overlay for dark mode
+          }
         },
         text: {
-          DEFAULT: 'var(--color-text, #1a2234)',
-          muted: 'var(--color-text-muted, #4A5568)',
-          button: 'var(--color-button-text, #FFFFFF)',
-          accent: 'var(--color-accent-button-text, #1a2234)',
+          // Primary text colors
+          DEFAULT: '#1a2234',     // Light mode default (dark blue-gray)
+          light: '#1a2234',       // Explicit light mode text
+          dark: '#ffffff',        // Dark mode text (white)
+          
+          // Muted text colors
+          muted: {
+            DEFAULT: '#4A5568',   // Light mode default
+            light: '#4A5568',     // Light mode muted (medium gray)
+            dark: '#b0c0d0',      // Dark mode muted (light blue-gray)
+          },
+          
+          // Secondary text colors
+          secondary: {
+            DEFAULT: '#718096',   // Light mode default
+            light: '#718096',     // Light mode secondary (lighter gray)
+            dark: '#a0aec0',      // Dark mode secondary (medium blue-gray)
+          },
+          
+          // Button text colors
+          button: {
+            DEFAULT: '#ffffff',   // Default button text (white)
+            primary: '#ffffff',   // Text on primary buttons
+            accent: '#1a2234',    // Text on accent buttons (dark on light)
+            outline: {
+              light: '#1a2234',   // Text for outline buttons in light mode
+              dark: '#ffffff',    // Text for outline buttons in dark mode
+            }
+          },
+          
+          // Placeholder text
+          placeholder: {
+            DEFAULT: '#718096',   // Light mode default
+            light: '#718096',     // Light mode placeholder
+            dark: '#8896ac',      // Dark mode placeholder (lighter for visibility)
+          },
+          
+          // Inverse text (for use on opposite backgrounds)
+          inverse: {
+            light: '#ffffff',     // White text for dark backgrounds in light mode
+            dark: '#1a2234',      // Dark text for light backgrounds in dark mode
+          }
         },
         border: {
-          DEFAULT: 'var(--color-border, #E2E8F0)',
+          // Base border colors
+          DEFAULT: '#E2E8F0',     // Light mode default
+          light: '#E2E8F0',       // Light mode border (light gray)
+          dark: '#2D3748',        // Dark mode border (dark gray)
+          
+          // Focus border colors
+          focus: {
+            DEFAULT: '#2d7984',   // Default focus border (primary color)
+            light: '#2d7984',     // Light mode focus
+            dark: '#58cbe0',      // Dark mode focus (brighter for visibility)
+          },
+          
+          // Subtle borders
+          subtle: {
+            light: '#F7FAFC',     // Very light border for light mode
+            dark: '#1a2234',      // Subtle border for dark mode
+          },
+          
+          // Error borders
+          error: {
+            DEFAULT: '#e53e3e',   // Default error border
+            light: '#e53e3e',     // Light mode error
+            dark: '#fc8181',      // Dark mode error (lighter for visibility)
+          }
         },
         complementary: {
-          DEFAULT: 'var(--color-complementary, #F7FAFC)',
+          // Complementary/neutral colors
+          DEFAULT: '#F7FAFC',     // Light mode default
+          light: '#F7FAFC',       // Light complementary (very light gray)
+          dark: '#1a2234',        // Dark complementary (same as dark background)
+          
+          // Alternative complementary colors
+          alt: {
+            light: '#EDF2F7',     // Alternative light complementary
+            dark: '#202b3d',      // Alternative dark complementary
+          }
         },
         error: {
-          DEFAULT: 'var(--color-error, #e53e3e)',
+          // Error/danger colors
+          DEFAULT: '#e53e3e',     // Light mode default
+          light: '#e53e3e',       // Light mode error (red)
+          dark: '#fc8181',        // Dark mode error (lighter red for visibility)
+          
+          // Error background colors
+          bg: {
+            light: '#fed7d7',     // Light error background
+            dark: '#2d1b1b',      // Dark error background
+          },
+          
+          // Error text colors
+          text: {
+            light: '#c53030',     // Light mode error text
+            dark: '#feb2b2',      // Dark mode error text
+          }
+        },
+        success: {
+          // Success colors
+          DEFAULT: '#10b981',     // Base success color
+          light: '#10b981',       // Light mode success (green)
+          dark: '#68d391',        // Dark mode success (lighter green)
+          
+          // Success background colors
+          bg: {
+            light: '#c6f6d5',     // Light success background
+            dark: '#1a2e1a',      // Dark success background
+          },
+          
+          // Success text colors
+          text: {
+            light: '#22543d',     // Light mode success text
+            dark: '#9ae6b4',      // Dark mode success text
+          }
+        },
+        warning: {
+          // Warning colors
+          DEFAULT: '#f59e0b',     // Base warning color
+          light: '#f59e0b',       // Light mode warning (amber)
+          dark: '#fbbf24',        // Dark mode warning (lighter amber)
+          
+          // Warning background colors
+          bg: {
+            light: '#fef3c7',     // Light warning background
+            dark: '#2d2412',      // Dark warning background
+          },
+          
+          // Warning text colors
+          text: {
+            light: '#92400e',     // Light mode warning text
+            dark: '#fcd34d',      // Dark mode warning text
+          }
+        },
+        info: {
+          // Info colors
+          DEFAULT: '#3b82f6',     // Base info color
+          light: '#3b82f6',       // Light mode info (blue)
+          dark: '#60a5fa',        // Dark mode info (lighter blue)
+          
+          // Info background colors
+          bg: {
+            light: '#dbeafe',     // Light info background
+            dark: '#1e293b',      // Dark info background
+          },
+          
+          // Info text colors
+          text: {
+            light: '#1e40af',     // Light mode info text
+            dark: '#93c5fd',      // Dark mode info text
+          }
         },
       },
       backgroundImage: {
@@ -137,5 +336,124 @@ export default {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    // Dark mode transition plugin
+    function({ addBase, addComponents, addUtilities, theme }) {
+      // Add base transition styles for theme switching
+      addBase({
+        // Global transition base styles
+        '*': {
+          '@media (prefers-reduced-motion: no-preference)': {
+            'transition-property': 'color, background-color, border-color, box-shadow, outline-color, fill, stroke',
+            'transition-duration': theme('transitionDuration.theme'),
+            'transition-timing-function': theme('transitionTimingFunction.theme'),
+          }
+        },
+        
+        // Respect reduced motion preference
+        '@media (prefers-reduced-motion: reduce)': {
+          '*': {
+            'transition-property': 'none !important',
+            'transition-duration': '0s !important',
+            'animation': 'none !important',
+          }
+        },
+        
+        // Enhanced transitions for interactive elements
+        'button, a, input, select, textarea': {
+          '@media (prefers-reduced-motion: no-preference)': {
+            'transition-property': 'color, background-color, border-color, box-shadow, outline-color, transform, opacity',
+            'transition-duration': theme('transitionDuration.theme-fast'),
+            'transition-timing-function': theme('transitionTimingFunction.theme'),
+          }
+        },
+        
+        // Smooth transitions for hover effects
+        'button:hover, a:hover': {
+          '@media (prefers-reduced-motion: no-preference)': {
+            'transition-timing-function': theme('transitionTimingFunction.theme-out'),
+          }
+        },
+        
+        // SVG elements for icon transitions
+        'svg': {
+          '@media (prefers-reduced-motion: no-preference)': {
+            'transition-property': 'fill, stroke, transform, opacity',
+            'transition-duration': theme('transitionDuration.theme-fast'),
+            'transition-timing-function': theme('transitionTimingFunction.theme'),
+          }
+        }
+      });
+      
+      // Add component-level transitions
+      addComponents({
+        // Theme transition utility classes
+        '.transition-theme': {
+          'transition-property': 'color, background-color, border-color, box-shadow, outline-color, fill, stroke',
+          'transition-duration': theme('transitionDuration.theme'),
+          'transition-timing-function': theme('transitionTimingFunction.theme'),
+        },
+        
+        '.transition-theme-fast': {
+          'transition-property': 'color, background-color, border-color, box-shadow, outline-color, fill, stroke',
+          'transition-duration': theme('transitionDuration.theme-fast'),
+          'transition-timing-function': theme('transitionTimingFunction.theme'),
+        },
+        
+        '.transition-theme-slow': {
+          'transition-property': 'color, background-color, border-color, box-shadow, outline-color, fill, stroke',
+          'transition-duration': theme('transitionDuration.theme-slow'),
+          'transition-timing-function': theme('transitionTimingFunction.theme-smooth'),
+        },
+        
+        '.transition-colors-smooth': {
+          'transition-property': 'color, background-color, border-color',
+          'transition-duration': theme('transitionDuration.theme'),
+          'transition-timing-function': theme('transitionTimingFunction.theme-smooth'),
+        },
+        
+        '.transition-shadows': {
+          'transition-property': 'box-shadow, text-shadow',
+          'transition-duration': theme('transitionDuration.theme-fast'),
+          'transition-timing-function': theme('transitionTimingFunction.theme'),
+        },
+        
+        '.transition-transform-smooth': {
+          'transition-property': 'transform, opacity',
+          'transition-duration': theme('transitionDuration.300'),
+          'transition-timing-function': theme('transitionTimingFunction.theme-smooth'),
+        },
+        
+        // No transition utility for cases where transitions should be disabled
+        '.transition-none-important': {
+          'transition': 'none !important',
+        },
+        
+        // Smooth bounce effect for interactive elements
+        '.transition-bounce': {
+          'transition-property': 'transform',
+          'transition-duration': theme('transitionDuration.300'),
+          'transition-timing-function': theme('transitionTimingFunction.bounce-light'),
+        }
+      });
+      
+      // Add utility classes for specific transition scenarios
+      addUtilities({
+        // Quick utility for theme-aware elements
+        '.theme-transition': {
+          'transition': `color ${theme('transitionDuration.theme')} ${theme('transitionTimingFunction.theme')}, background-color ${theme('transitionDuration.theme')} ${theme('transitionTimingFunction.theme')}, border-color ${theme('transitionDuration.theme')} ${theme('transitionTimingFunction.theme')}`,
+        },
+        
+        // Utility for elements that need all theme properties
+        '.theme-transition-all': {
+          'transition': `color ${theme('transitionDuration.theme')} ${theme('transitionTimingFunction.theme')}, background-color ${theme('transitionDuration.theme')} ${theme('transitionTimingFunction.theme')}, border-color ${theme('transitionDuration.theme')} ${theme('transitionTimingFunction.theme')}, box-shadow ${theme('transitionDuration.theme')} ${theme('transitionTimingFunction.theme')}, outline-color ${theme('transitionDuration.theme')} ${theme('transitionTimingFunction.theme')}`,
+        },
+        
+        // Fast transitions for interactive feedback
+        '.theme-transition-fast': {
+          'transition': `color ${theme('transitionDuration.theme-fast')} ${theme('transitionTimingFunction.theme')}, background-color ${theme('transitionDuration.theme-fast')} ${theme('transitionTimingFunction.theme')}, border-color ${theme('transitionDuration.theme-fast')} ${theme('transitionTimingFunction.theme')}`,
+        }
+      });
+    }
+  ],
 }
