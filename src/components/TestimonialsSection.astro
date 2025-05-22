@@ -1,8 +1,6 @@
 ---
 import QuoteIcon from './icons/QuoteIcon.astro';
 import StarIcon from './icons/StarIcon.astro';
-import PlayIcon from './icons/PlayIcon.astro';
-import ChevronRightIcon from './icons/ChevronRightIcon.astro';
 ---
 
 <div class="testimonials-section py-16 md:py-20 relative bg-gray-50 dark:bg-gray-900 transition-colors duration-300" id="testimonials">
@@ -113,45 +111,7 @@ import ChevronRightIcon from './icons/ChevronRightIcon.astro';
             </div>
         </div>
         
-        <!-- Video Testimonial / Featured Client Story -->
-        <div class="video-testimonial bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 mt-16 p-6 md:p-8 rounded-xl shadow-lg dark:shadow-gray-900 transition-all duration-300">
-            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
-                <!-- Video Thumbnail (Left) -->
-                <div class="lg:col-span-2 relative">
-                    <div class="video-placeholder h-full min-h-[280px] rounded-lg flex items-center justify-center bg-primary/10 transition-colors duration-300">
-                        <div class="video-play-button w-16 h-16 rounded-full flex items-center justify-center cursor-pointer bg-primary transition-all duration-200">
-                            <PlayIcon class="w-8 h-8 text-white" />
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Testimonial Content (Right) -->
-                <div class="lg:col-span-3">
-                    <div class="flex items-center mb-4">
-                        <div class="avatar-placeholder rounded-full w-16 h-16 flex items-center justify-center font-bold text-xl mr-5 bg-primary/20 text-primary transition-colors duration-300">SJ</div>
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white transition-colors duration-300">Sarah J.</h3>
-                            <p class="text-gray-600 dark:text-gray-300 transition-colors duration-300">Nurse & Mother of Two</p>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <span class="inline-block font-semibold text-sm px-3 py-1 rounded-full bg-primary/10 text-primary transition-colors duration-300">$17,850 Saved</span>
-                        <span class="inline-block font-semibold text-sm px-3 py-1 rounded-full ml-2 bg-primary/10 text-primary transition-colors duration-300">18 Months</span>
-                    </div>
-                    
-                    <blockquote class="mb-6">
-                        <p class="text-lg mb-4 italic text-gray-600 dark:text-gray-300 transition-colors duration-300">"After my divorce, I was left with over $35,000 in credit card debt. I was working double shifts just to make minimum payments. Debt Freedom Toolkit cut my debt in half and gave me a manageable monthly payment."</p>
-                        <p class="italic text-gray-600 dark:text-gray-300 transition-colors duration-300">Watch Sarah's full story about how she became debt-free and rebuilt her life after financial hardship.</p>
-                    </blockquote>
-                    
-                    <a href="#watch-story" class="btn bg-primary text-white flex items-center gap-2 inline-flex transition-all duration-200">
-                        <span>Watch Full Story</span>
-                        <ChevronRightIcon class="w-5 h-5" />
-                    </a>
-                </div>
-            </div>
-        </div>
+
     </div>
 </div>
 
@@ -164,28 +124,9 @@ import ChevronRightIcon from './icons/ChevronRightIcon.astro';
         transform: translateY(-8px);
     }
     
-    .video-play-button {
-        transition: all 0.3s ease;
-    }
-    
-    .video-play-button:hover {
-        transform: scale(1.1);
-        box-shadow: 0 0 20px rgba(45, 121, 132, 0.5);
-    }
-    
     @media (prefers-reduced-motion: reduce) {
         .testimonial-card:hover {
             transform: none;
         }
-        
-        .video-play-button:hover {
-            transform: none;
-            box-shadow: none;
-        }
-    }
-    
-    .video-placeholder {
-        background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E"),
-        linear-gradient(to bottom right, rgba(45, 121, 132, 0.05), rgba(88, 203, 224, 0.1));
     }
 </style>

@@ -400,11 +400,80 @@
     ), url('/images/noise.png');
 }
 
-/* Support for reduced motion preference */
+/* Enhanced support for reduced motion preference - Performance & Accessibility */
 @media (prefers-reduced-motion: reduce) {
     :root {
         --theme-transition-duration: 0ms;
+        --theme-transition-duration-fast: 0ms;
+        --theme-transition-duration-slow: 0ms;
     }
+    
+    /* Disable all transitions and animations for users who prefer reduced motion */
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    /* Ensure transforms are still applied for layout, just without animation */
+    .animate-fade-in,
+    .animate-slide-up,
+    .animate-slide-down,
+    .animate-slide-left,
+    .animate-slide-right,
+    .animate-scale-in {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+/* JavaScript-controlled reduced motion class for more precise control */
+.reduced-motion,
+.reduced-motion *,
+.reduced-motion *::before,
+.reduced-motion *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+}
+
+/* Alternative interaction feedback for reduced motion users */
+.reduced-motion .btn:hover {
+    transform: none !important;
+    filter: brightness(1.1) !important;
+}
+
+.reduced-motion .card-hover:hover {
+    transform: none !important;
+    border-color: var(--color-primary) !important;
+    box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb), 0.2) !important;
+}
+
+.reduced-motion .theme-toggle .theme-option:hover .theme-icon {
+    transform: none !important;
+}
+
+.reduced-motion .btn-with-icon-right:hover svg,
+.reduced-motion .btn-with-icon-left:hover svg {
+    transform: none !important;
+}
+
+/* Performance optimizations for theme transitions */
+.theme-transition-performance {
+    /* Promote to composite layer for GPU acceleration */
+    will-change: opacity, transform, background-color, color, border-color;
+    /* Force hardware acceleration */
+    transform: translateZ(0);
+    /* Optimize rendering */
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* Remove will-change after transitions complete to free up GPU memory */
+.theme-transition-complete {
+    will-change: auto;
 }
 
 /* Custom media query variables */
@@ -420,21 +489,30 @@
 
 @layer base {
     html {
-        /* Apply theme transitions */
+        /* Apply optimized theme transitions */
         transition: 
             var(--theme-transition-properties) 
             var(--theme-transition-duration) 
             var(--theme-transition-easing);
+        /* Performance optimization for root element */
+        transform: translateZ(0);
     }
     
     body {
-        color: var(--color-text);
-        background-color: var(--color-background);
-        /* Apply theme transitions */
+        color: var(--color-text-primary);
+        background-color: var(--color-background-primary);
+        /* Apply optimized theme transitions */
         transition: 
             var(--theme-transition-properties) 
             var(--theme-transition-duration) 
             var(--theme-transition-easing);
+        /* Performance optimization */
+        will-change: background-color, color;
+    }
+    
+    /* Clean up will-change after page load for performance */
+    body.loaded {
+        will-change: auto;
     }
     
     /* Apply theme transitions to headings */
@@ -502,7 +580,7 @@
             var(--theme-transition-easing);
     }
 
-    a:not(.btn) {
+    a:not(.btn):not(.nav-link) {
         text-decoration: underline;
         color: var(--color-secondary);
         transition: 
@@ -512,33 +590,52 @@
     }
     
     /* Dark mode links with better contrast */
-    .dark a:not(.btn) {
+    .dark a:not(.btn):not(.nav-link) {
         color: #58cbe0; /* Brighter in dark mode for better contrast */
     }
     
-    a:not(.btn):hover {
+    a:not(.btn):not(.nav-link):hover {
         opacity: 0.85;
         text-decoration-thickness: 2px; /* Make underline thicker on hover for better visibility */
     }
     
-    /* Improved focus visible styles for better accessibility */
+    /* Enhanced focus visible styles for accessibility during theme transitions */
     a:focus-visible,
     button:focus-visible,
     input:focus-visible,
     select:focus-visible,
     textarea:focus-visible {
-        outline: 3px solid var(--color-primary);
+        outline: 3px solid var(--color-border-focus);
         outline-offset: 2px;
-        transition: outline-color var(--theme-transition-duration) var(--theme-transition-easing);
+        /* Ensure focus remains visible during theme transitions */
+        transition: outline-color var(--theme-transition-duration) var(--theme-transition-easing),
+                   outline-width 0ms; /* Instant outline width to maintain visibility */
+        /* Prevent outline from being affected by will-change optimizations */
+        z-index: 9999;
+        position: relative;
     }
     
-    /* Enhanced dark mode focus */
+    /* Enhanced dark mode focus with improved contrast */
     .dark a:focus-visible,
     .dark button:focus-visible,
     .dark input:focus-visible,
     .dark select:focus-visible,
     .dark textarea:focus-visible {
-        outline: 3px solid #58cbe0; /* Brighter outline in dark mode */
+        outline-color: var(--color-border-focus);
+        /* Ensure sufficient contrast in dark mode */
+        box-shadow: 0 0 0 1px var(--color-background-primary),
+                   0 0 0 4px var(--color-border-focus);
+    }
+    
+    /* Focus styles that respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible {
+            transition: none !important;
+        }
     }
 
     pre {
@@ -631,9 +728,37 @@
         color: currentColor; /* Inherit text color for proper contrast */
     }
     
-    /* Special handling for theme-aware images that change between themes */
+    /* Enhanced handling for theme-aware images and complex backgrounds */
     .theme-aware-image {
         transition: opacity var(--theme-transition-duration) var(--theme-transition-easing);
+    }
+    
+    /* Theme-aware background images */
+    .theme-background-image {
+        transition: 
+            opacity var(--theme-transition-duration-slow) var(--theme-transition-easing-smooth),
+            background-image var(--theme-transition-duration-slow) var(--theme-transition-easing-smooth);
+    }
+    
+    /* Complex gradients and shadows */
+    .theme-gradient {
+        transition: 
+            background var(--theme-transition-duration-slow) var(--theme-transition-easing-smooth),
+            opacity var(--theme-transition-duration) var(--theme-transition-easing);
+    }
+    
+    .theme-shadow {
+        transition: 
+            box-shadow var(--theme-transition-duration) var(--theme-transition-easing),
+            filter var(--theme-transition-duration) var(--theme-transition-easing);
+    }
+    
+    /* Enhanced backdrop blur transitions */
+    .theme-backdrop {
+        transition: 
+            backdrop-filter var(--theme-transition-duration) var(--theme-transition-easing),
+            -webkit-backdrop-filter var(--theme-transition-duration) var(--theme-transition-easing),
+            background var(--theme-transition-duration) var(--theme-transition-easing);
     }
     
     /* Error message styling */
@@ -650,6 +775,67 @@
 }
 
 @layer components {
+    /* Navigation link styles - override default link styling */
+    .nav-link {
+        text-decoration: none !important;
+        color: inherit !important;
+    }
+    
+    .nav-link:hover {
+        text-decoration: none !important;
+    }
+    
+    .nav-link:visited {
+        color: inherit !important;
+    }
+    
+    /* Utility class for removing underlines */
+    .no-underline {
+        text-decoration: none !important;
+    }
+    
+    /* Reduced motion alternative styles - provide meaningful feedback without motion */
+    .reduced-motion-alternative {
+        /* Use color changes instead of animations */
+        transition: background-color 0.1s ease, color 0.1s ease, border-color 0.1s ease;
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+        /* Alternative hover effects that don't use motion */
+        .btn:hover {
+            transform: none !important;
+            /* Use subtle color shift instead */
+            filter: brightness(1.1);
+        }
+        
+        .card-hover:hover {
+            transform: none !important;
+            /* Use border highlight instead of elevation */
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb), 0.2);
+        }
+        
+        /* Theme transitions still work but are instant */
+        .theme-gradient,
+        .theme-background-image,
+        .theme-shadow,
+        .theme-backdrop {
+            transition: none !important;
+        }
+        
+        /* Focus states remain visible but without animation */
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible {
+            /* Instant, high-contrast focus */
+            outline: 4px solid var(--color-primary) !important;
+            outline-offset: 2px !important;
+            transition: none !important;
+        }
+    }
+    
     /* Markdown content styling */
     .markdown > * {
         margin-top: 1.5rem;

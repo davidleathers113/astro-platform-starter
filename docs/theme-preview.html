@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astro Platform Starter - Theme Preview Tool</title>
+    <meta name="description" content="A comprehensive preview tool for all theme variables and components in the Astro Platform Starter project">
+    
+    <style>
+        /* ===================================================================
+           THEME VARIABLES - Embedded from globals.css
+           ================================================================= */
+        
+        /* Base Variables */
+        :root {
+            --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+            
+            /* Brand Colors */
+            --color-primary: #2d7984;
+            --color-primary-rgb: 45, 121, 132;
+            --color-primary-light: #58cbe0;
+            --color-primary-light-rgb: 88, 203, 224;
+            --color-primary-dark: #1d5058;
+            --color-primary-dark-rgb: 29, 80, 88;
+            
+            --color-secondary: #0062b3;
+            --color-secondary-rgb: 0, 98, 179;
+            --color-secondary-light: #4a94d8;
+            --color-secondary-light-rgb: 74, 148, 216;
+            --color-secondary-dark: #004b8c;
+            --color-secondary-dark-rgb: 0, 75, 140;
+            
+            --color-accent: #58cbe0;
+            --color-accent-rgb: 88, 203, 224;
+            --color-accent-warm: #F8C88F;
+            --color-accent-warm-rgb: 248, 200, 143;
+            
+            /* Base State Colors */
+            --color-success-base: #10b981;
+            --color-success-base-rgb: 16, 185, 129;
+            --color-warning-base: #f59e0b;
+            --color-warning-base-rgb: 245, 158, 11;
+            --color-error-base: #ef4444;
+            --color-error-base-rgb: 239, 68, 68;
+            --color-info-base: #3b82f6;
+            --color-info-base-rgb: 59, 130, 246;
+            
+            /* Theme Transition System */
+            --theme-transition-duration: 250ms;
+            --theme-transition-duration-fast: 150ms;
+            --theme-transition-duration-slow: 400ms;
+            --theme-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+            --theme-transition-easing-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+            --theme-transition-properties: color, background-color, border-color, box-shadow, outline-color, fill, stroke, opacity, transform;
+            
+            /* Layout & Spacing */
+            --border-radius-sm: 0.25rem;
+            --border-radius: 0.375rem;
+            --border-radius-lg: 0.5rem;
+            --border-radius-xl: 0.75rem;
+            
+            /* Focus Ring */
+            --focus-ring-width: 3px;
+            --focus-ring-offset: 2px;
+        }
+        
+        /* Light Theme Variables (Default) */
+        .light-theme, :root[data-theme="light"], :root:not([data-theme]) {
+            /* Text Colors */
+            --color-text-primary: #1a2234;
+            --color-text-primary-rgb: 26, 34, 52;
+            --color-text-secondary: #4a5568;
+            --color-text-secondary-rgb: 74, 85, 104;
+            --color-text-muted: #718096;
+            --color-text-muted-rgb: 113, 128, 150;
+            --color-text-disabled: #a0aec0;
+            --color-text-disabled-rgb: 160, 174, 192;
+            --color-text-inverse: #ffffff;
+            --color-text-inverse-rgb: 255, 255, 255;
+            --color-text-placeholder: #a0aec0;
+            --color-text-placeholder-rgb: 160, 174, 192;
+            
+            /* Text on colored backgrounds */
+            --color-text-on-primary: #ffffff;
+            --color-text-on-primary-rgb: 255, 255, 255;
+            --color-text-on-secondary: #ffffff;
+            --color-text-on-secondary-rgb: 255, 255, 255;
+            --color-text-on-accent: #1a2234;
+            --color-text-on-accent-rgb: 26, 34, 52;
+            
+            /* Link colors */
+            --color-text-link: #0062b3;
+            --color-text-link-rgb: 0, 98, 179;
+            --color-text-link-hover: #004b8c;
+            --color-text-link-hover-rgb: 0, 75, 140;
+            --color-text-link-visited: #5a4fcf;
+            --color-text-link-visited-rgb: 90, 79, 207;
+            
+            /* Background Colors */
+            --color-background-primary: #ffffff;
+            --color-background-primary-rgb: 255, 255, 255;
+            --color-background-secondary: #f7fafc;
+            --color-background-secondary-rgb: 247, 250, 252;
+            --color-background-tertiary: #edf2f7;
+            --color-background-tertiary-rgb: 237, 242, 247;
+            
+            /* Form backgrounds */
+            --color-background-form: #f7fafc;
+            --color-background-form-rgb: 247, 250, 252;
+            --color-background-input: #ffffff;
+            --color-background-input-rgb: 255, 255, 255;
+            --color-background-input-disabled: #f7fafc;
+            --color-background-input-disabled-rgb: 247, 250, 252;
+            
+            /* Surface backgrounds */
+            --color-background-surface: #ffffff;
+            --color-background-surface-rgb: 255, 255, 255;
+            --color-background-elevated: #ffffff;
+            --color-background-elevated-rgb: 255, 255, 255;
+            --color-background-overlay: rgba(26, 34, 52, 0.8);
+            --color-background-backdrop: rgba(26, 34, 52, 0.5);
+            
+            /* Interactive backgrounds */
+            --color-background-hover: #f7fafc;
+            --color-background-hover-rgb: 247, 250, 252;
+            --color-background-active: #edf2f7;
+            --color-background-active-rgb: 237, 242, 247;
+            --color-background-selected: #e6fffa;
+            --color-background-selected-rgb: 230, 255, 250;
+            
+            /* Code backgrounds */
+            --color-background-code: #f7fafc;
+            --color-background-code-rgb: 247, 250, 252;
+            --color-background-code-block: #2d3748;
+            --color-background-code-block-rgb: 45, 55, 72;
+            
+            /* Border Colors */
+            --color-border-default: #e2e8f0;
+            --color-border-default-rgb: 226, 232, 240;
+            --color-border-subtle: #f7fafc;
+            --color-border-subtle-rgb: 247, 250, 252;
+            --color-border-strong: #cbd5e0;
+            --color-border-strong-rgb: 203, 213, 224;
+            --color-border-focus: var(--color-primary);
+            --color-border-focus-rgb: var(--color-primary-rgb);
+            --color-border-interactive: #cbd5e0;
+            --color-border-interactive-rgb: 203, 213, 224;
+            --color-border-interactive-hover: #a0aec0;
+            --color-border-interactive-hover-rgb: 160, 174, 192;
+            
+            /* Shadow Colors */
+            --color-shadow-light: rgba(0, 0, 0, 0.05);
+            --color-shadow-medium: rgba(0, 0, 0, 0.1);
+            --color-shadow-heavy: rgba(0, 0, 0, 0.15);
+            --color-shadow-focus: rgba(45, 121, 132, 0.3);
+            --color-shadow-inset: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+            
+            /* State Colors */
+            --color-success: #10b981;
+            --color-success-rgb: 16, 185, 129;
+            --color-success-light: #d1fae5;
+            --color-success-light-rgb: 209, 250, 229;
+            --color-success-dark: #059669;
+            --color-success-dark-rgb: 5, 150, 105;
+            --color-text-success: #064e3b;
+            --color-text-success-rgb: 6, 78, 59;
+            --color-background-success: #ecfdf5;
+            --color-background-success-rgb: 236, 253, 245;
+            --color-border-success: #86efac;
+            --color-border-success-rgb: 134, 239, 172;
+            
+            --color-warning: #f59e0b;
+            --color-warning-rgb: 245, 158, 11;
+            --color-warning-light: #fef3c7;
+            --color-warning-light-rgb: 254, 243, 199;
+            --color-warning-dark: #d97706;
+            --color-warning-dark-rgb: 217, 119, 6;
+            --color-text-warning: #92400e;
+            --color-text-warning-rgb: 146, 64, 14;
+            --color-background-warning: #fffbeb;
+            --color-background-warning-rgb: 255, 251, 235;
+            --color-border-warning: #fcd34d;
+            --color-border-warning-rgb: 252, 211, 77;
+            
+            --color-error: #ef4444;
+            --color-error-rgb: 239, 68, 68;
+            --color-error-light: #fecaca;
+            --color-error-light-rgb: 254, 202, 202;
+            --color-error-dark: #dc2626;
+            --color-error-dark-rgb: 220, 38, 38;
+            --color-text-error: #991b1b;
+            --color-text-error-rgb: 153, 27, 27;
+            --color-background-error: #fef2f2;
+            --color-background-error-rgb: 254, 242, 242;
+            --color-border-error: #fca5a5;
+            --color-border-error-rgb: 252, 165, 165;
+            
+            --color-info: #3b82f6;
+            --color-info-rgb: 59, 130, 246;
+            --color-info-light: #dbeafe;
+            --color-info-light-rgb: 219, 234, 254;
+            --color-info-dark: #2563eb;
+            --color-info-dark-rgb: 37, 99, 235;
+            --color-text-info: #1e3a8a;
+            --color-text-info-rgb: 30, 58, 138;
+            --color-background-info: #eff6ff;
+            --color-background-info-rgb: 239, 246, 255;
+            --color-border-info: #93c5fd;
+            --color-border-info-rgb: 147, 197, 253;
+            
+            /* Special Backgrounds */
+            --background-image-noise: linear-gradient(to bottom, rgba(250, 250, 255, 0.05), rgba(250, 250, 255, 0.1)), url('/images/noise.png');
+        }
+        
+        /* Dark Theme Variables */
+        .dark-theme, .dark, :root[data-theme="dark"] {
+            /* Text Colors */
+            --color-text-primary: #ffffff;
+            --color-text-primary-rgb: 255, 255, 255;
+            --color-text-secondary: #e2e8f0;
+            --color-text-secondary-rgb: 226, 232, 240;
+            --color-text-muted: #a0aec0;
+            --color-text-muted-rgb: 160, 174, 192;
+            --color-text-disabled: #718096;
+            --color-text-disabled-rgb: 113, 128, 150;
+            --color-text-inverse: #1a2234;
+            --color-text-inverse-rgb: 26, 34, 52;
+            --color-text-placeholder: #718096;
+            --color-text-placeholder-rgb: 113, 128, 150;
+            
+            /* Text on colored backgrounds */
+            --color-text-on-primary: #ffffff;
+            --color-text-on-primary-rgb: 255, 255, 255;
+            --color-text-on-secondary: #ffffff;
+            --color-text-on-secondary-rgb: 255, 255, 255;
+            --color-text-on-accent: #1a2234;
+            --color-text-on-accent-rgb: 26, 34, 52;
+            
+            /* Link colors */
+            --color-text-link: #58cbe0;
+            --color-text-link-rgb: 88, 203, 224;
+            --color-text-link-hover: #4bbbce;
+            --color-text-link-hover-rgb: 75, 187, 206;
+            --color-text-link-visited: #9f7aea;
+            --color-text-link-visited-rgb: 159, 122, 234;
+            
+            /* Background Colors */
+            --color-background-primary: #1a2234;
+            --color-background-primary-rgb: 26, 34, 52;
+            --color-background-secondary: #202b3d;
+            --color-background-secondary-rgb: 32, 43, 61;
+            --color-background-tertiary: #2d3748;
+            --color-background-tertiary-rgb: 45, 55, 72;
+            
+            /* Form backgrounds */
+            --color-background-form: #202b3d;
+            --color-background-form-rgb: 32, 43, 61;
+            --color-background-input: #2d3748;
+            --color-background-input-rgb: 45, 55, 72;
+            --color-background-input-disabled: #4a5568;
+            --color-background-input-disabled-rgb: 74, 85, 104;
+            
+            /* Surface backgrounds */
+            --color-background-surface: #202b3d;
+            --color-background-surface-rgb: 32, 43, 61;
+            --color-background-elevated: #2d3748;
+            --color-background-elevated-rgb: 45, 55, 72;
+            --color-background-overlay: rgba(0, 0, 0, 0.8);
+            --color-background-backdrop: rgba(0, 0, 0, 0.5);
+            
+            /* Interactive backgrounds */
+            --color-background-hover: #2d3748;
+            --color-background-hover-rgb: 45, 55, 72;
+            --color-background-active: #4a5568;
+            --color-background-active-rgb: 74, 85, 104;
+            --color-background-selected: #1a365d;
+            --color-background-selected-rgb: 26, 54, 93;
+            
+            /* Code backgrounds */
+            --color-background-code: #2d3748;
+            --color-background-code-rgb: 45, 55, 72;
+            --color-background-code-block: #1a202c;
+            --color-background-code-block-rgb: 26, 32, 44;
+            
+            /* Border Colors */
+            --color-border-default: #4a5568;
+            --color-border-default-rgb: 74, 85, 104;
+            --color-border-subtle: #2d3748;
+            --color-border-subtle-rgb: 45, 55, 72;
+            --color-border-strong: #718096;
+            --color-border-strong-rgb: 113, 128, 150;
+            --color-border-focus: var(--color-primary-light);
+            --color-border-focus-rgb: var(--color-primary-light-rgb);
+            --color-border-interactive: #718096;
+            --color-border-interactive-rgb: 113, 128, 150;
+            --color-border-interactive-hover: #a0aec0;
+            --color-border-interactive-hover-rgb: 160, 174, 192;
+            
+            /* Shadow Colors */
+            --color-shadow-light: rgba(0, 0, 0, 0.25);
+            --color-shadow-medium: rgba(0, 0, 0, 0.5);
+            --color-shadow-heavy: rgba(0, 0, 0, 0.75);
+            --color-shadow-focus: rgba(88, 203, 224, 0.4);
+            --color-shadow-inset: inset 0 2px 4px rgba(0, 0, 0, 0.25);
+            
+            /* State Colors */
+            --color-success: #68d391;
+            --color-success-rgb: 104, 211, 145;
+            --color-success-light: #276749;
+            --color-success-light-rgb: 39, 103, 73;
+            --color-success-dark: #9ae6b4;
+            --color-success-dark-rgb: 154, 230, 180;
+            --color-text-success: #9ae6b4;
+            --color-text-success-rgb: 154, 230, 180;
+            --color-background-success: #1a202c;
+            --color-background-success-rgb: 26, 32, 44;
+            --color-border-success: #276749;
+            --color-border-success-rgb: 39, 103, 73;
+            
+            --color-warning: #fbd38d;
+            --color-warning-rgb: 251, 211, 141;
+            --color-warning-light: #744210;
+            --color-warning-light-rgb: 116, 66, 16;
+            --color-warning-dark: #fed7aa;
+            --color-warning-dark-rgb: 254, 215, 170;
+            --color-text-warning: #fed7aa;
+            --color-text-warning-rgb: 254, 215, 170;
+            --color-background-warning: #1a202c;
+            --color-background-warning-rgb: 26, 32, 44;
+            --color-border-warning: #744210;
+            --color-border-warning-rgb: 116, 66, 16;
+            
+            --color-error: #fc8181;
+            --color-error-rgb: 252, 129, 129;
+            --color-error-light: #742a2a;
+            --color-error-light-rgb: 116, 42, 42;
+            --color-error-dark: #feb2b2;
+            --color-error-dark-rgb: 254, 178, 178;
+            --color-text-error: #feb2b2;
+            --color-text-error-rgb: 254, 178, 178;
+            --color-background-error: #1a202c;
+            --color-background-error-rgb: 26, 32, 44;
+            --color-border-error: #742a2a;
+            --color-border-error-rgb: 116, 42, 42;
+            
+            --color-info: #90cdf4;
+            --color-info-rgb: 144, 205, 244;
+            --color-info-light: #2a4365;
+            --color-info-light-rgb: 42, 67, 101;
+            --color-info-dark: #bee3f8;
+            --color-info-dark-rgb: 190, 227, 248;
+            --color-text-info: #bee3f8;
+            --color-text-info-rgb: 190, 227, 248;
+            --color-background-info: #1a202c;
+            --color-background-info-rgb: 26, 32, 44;
+            --color-border-info: #2a4365;
+            --color-border-info-rgb: 42, 67, 101;
+            
+            /* Special Backgrounds */
+            --background-image-noise: linear-gradient(to bottom, rgba(10, 15, 25, 0.1), rgba(10, 15, 25, 0.2)), url('/images/noise.png');
+        }
+        
+        /* ===================================================================
+           PREVIEW TOOL STYLES
+           ================================================================= */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--color-background-primary);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            transition: var(--theme-transition-properties) var(--theme-transition-duration) var(--theme-transition-easing);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background-color: var(--color-background-surface);
+            border-radius: var(--border-radius-lg);
+            border: 1px solid var(--color-border-default);
+            box-shadow: 0 2px 8px var(--color-shadow-light);
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--color-primary), var(--color-accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .header p {
+            font-size: 1.125rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background-color: var(--color-background-elevated);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--color-border-default);
+            box-shadow: 0 2px 4px var(--color-shadow-light);
+            transition: var(--theme-transition-properties) var(--theme-transition-duration);
+        }
+        
+        .theme-toggle:hover {
+            background-color: var(--color-background-hover);
+            box-shadow: 0 4px 8px var(--color-shadow-medium);
+        }
+        
+        .theme-toggle-switch {
+            position: relative;
+            width: 3rem;
+            height: 1.5rem;
+            background-color: var(--color-border-default);
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: var(--theme-transition-properties) var(--theme-transition-duration);
+        }
+        
+        .theme-toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 1.25rem;
+            height: 1.25rem;
+            background-color: var(--color-background-primary);
+            border-radius: 50%;
+            transition: transform var(--theme-transition-duration) var(--theme-transition-easing);
+            box-shadow: 0 2px 4px var(--color-shadow-medium);
+        }
+        
+        .dark .theme-toggle-switch {
+            background-color: var(--color-primary);
+        }
+        
+        .dark .theme-toggle-switch::after {
+            transform: translateX(1.5rem);
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+            background-color: var(--color-background-surface);
+            border-radius: var(--border-radius-lg);
+            border: 1px solid var(--color-border-default);
+            box-shadow: 0 2px 8px var(--color-shadow-light);
+            overflow: hidden;
+        }
+        
+        .section-header {
+            padding: 1.5rem 2rem;
+            background-color: var(--color-background-secondary);
+            border-bottom: 1px solid var(--color-border-default);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .section-description {
+            color: var(--color-text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        .section-content {
+            padding: 2rem;
+        }
+        
+        /* Variable Tables */
+        .variable-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+        
+        .variable-table th,
+        .variable-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--color-border-default);
+            vertical-align: top;
+        }
+        
+        .variable-table th {
+            background-color: var(--color-background-tertiary);
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+        }
+        
+        .variable-name {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.875rem;
+            color: var(--color-text-link);
+            background-color: var(--color-background-code);
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--color-border-subtle);
+        }
+        
+        .variable-value {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.875rem;
+            background-color: var(--color-background-code);
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--color-border-subtle);
+        }
+        
+        .variable-swatch {
+            width: 2rem;
+            height: 2rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--color-border-default);
+            display: inline-block;
+            margin-right: 0.75rem;
+            vertical-align: middle;
+        }
+        
+        .copy-button {
+            background-color: var(--color-primary);
+            color: var(--color-text-on-primary);
+            border: none;
+            padding: 0.375rem 0.75rem;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--theme-transition-properties) var(--theme-transition-duration);
+        }
+        
+        .copy-button:hover {
+            background-color: var(--color-primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px var(--color-shadow-medium);
+        }
+        
+        .copy-button:active {
+            transform: translateY(0);
+        }
+        
+        .copy-button.copied {
+            background-color: var(--color-success);
+        }
+        
+        /* Color Palette Grid */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .color-item {
+            background-color: var(--color-background-elevated);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--color-border-default);
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .color-swatch {
+            width: 100%;
+            height: 3rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 0.75rem;
+            border: 1px solid var(--color-border-default);
+        }
+        
+        .color-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .color-value {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+        
+        /* Component Examples */
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .component-example {
+            background-color: var(--color-background-elevated);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--color-border-default);
+            padding: 1.5rem;
+        }
+        
+        .component-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--color-text-primary);
+        }
+        
+        /* Button Examples */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background-color: var(--color-primary);
+            color: var(--color-text-on-primary);
+            border: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--border-radius);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--theme-transition-properties) var(--theme-transition-duration);
+            margin: 0.25rem;
+        }
+        
+        .btn:hover {
+            background-color: var(--color-primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px var(--color-shadow-medium);
+        }
+        
+        .btn-secondary {
+            background-color: var(--color-secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--color-secondary-dark);
+        }
+        
+        .btn-accent {
+            background-color: var(--color-accent);
+            color: var(--color-text-on-accent);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--color-primary);
+            color: var(--color-text-on-primary);
+        }
+        
+        .btn:disabled {
+            background-color: var(--color-background-input-disabled);
+            color: var(--color-text-disabled);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* Form Examples */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--color-text-primary);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--color-background-input);
+            color: var(--color-text-primary);
+            border: 1px solid var(--color-border-default);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--theme-transition-properties) var(--theme-transition-duration);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-border-focus);
+            box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.1);
+        }
+        
+        .form-input:disabled {
+            background-color: var(--color-background-input-disabled);
+            color: var(--color-text-disabled);
+            cursor: not-allowed;
+        }
+        
+        .form-input::placeholder {
+            color: var(--color-text-placeholder);
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--color-background-input);
+            color: var(--color-text-primary);
+            border: 1px solid var(--color-border-default);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--theme-transition-properties) var(--theme-transition-duration);
+        }
+        
+        .form-checkbox {
+            width: 1rem;
+            height: 1rem;
+            margin-right: 0.5rem;
+            accent-color: var(--color-primary);
+        }
+        
+        /* Card Examples */
+        .card {
+            background-color: var(--color-background-surface);
+            border: 1px solid var(--color-border-default);
+            border-radius: var(--border-radius-lg);
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px var(--color-shadow-light);
+            transition: var(--theme-transition-properties) var(--theme-transition-duration);
+        }
+        
+        .card:hover {
+            box-shadow: 0 4px 8px var(--color-shadow-medium);
+            transform: translateY(-2px);
+        }
+        
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--color-text-primary);
+        }
+        
+        .card-text {
+            color: var(--color-text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        /* Alert Examples */
+        .alert {
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            border: 1px solid;
+            margin-bottom: 1rem;
+        }
+        
+        .alert-success {
+            background-color: var(--color-background-success);
+            color: var(--color-text-success);
+            border-color: var(--color-border-success);
+        }
+        
+        .alert-warning {
+            background-color: var(--color-background-warning);
+            color: var(--color-text-warning);
+            border-color: var(--color-border-warning);
+        }
+        
+        .alert-error {
+            background-color: var(--color-background-error);
+            color: var(--color-text-error);
+            border-color: var(--color-border-error);
+        }
+        
+        .alert-info {
+            background-color: var(--color-background-info);
+            color: var(--color-text-info);
+            border-color: var(--color-border-info);
+        }
+        
+        /* Typography Examples */
+        .typography h1 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--color-text-primary);
+        }
+        
+        .typography h2 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--color-text-primary);
+        }
+        
+        .typography h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--color-text-primary);
+        }
+        
+        .typography p {
+            color: var(--color-text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .typography a {
+            color: var(--color-text-link);
+            text-decoration: underline;
+        }
+        
+        .typography a:hover {
+            color: var(--color-text-link-hover);
+        }
+        
+        .typography a:visited {
+            color: var(--color-text-link-visited);
+        }
+        
+        .typography .muted {
+            color: var(--color-text-muted);
+        }
+        
+        .typography .disabled {
+            color: var(--color-text-disabled);
+        }
+        
+        .typography code {
+            background-color: var(--color-background-code);
+            color: var(--color-text-link);
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--border-radius-sm);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.875rem;
+        }
+        
+        /* Table Examples */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+        
+        .data-table th,
+        .data-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--color-border-default);
+        }
+        
+        .data-table th {
+            background-color: var(--color-background-tertiary);
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+        
+        .data-table tbody tr:hover {
+            background-color: var(--color-background-hover);
+        }
+        
+        /* Export Button */
+        .export-section {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--color-background-secondary);
+            border-radius: var(--border-radius-lg);
+            margin-top: 2rem;
+        }
+        
+        .export-button {
+            background-color: var(--color-accent);
+            color: var(--color-text-on-accent);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--theme-transition-properties) var(--theme-transition-duration);
+        }
+        
+        .export-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--color-shadow-medium);
+        }
+        
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background-color: var(--color-background-surface);
+            color: var(--color-text-primary);
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--color-border-default);
+            box-shadow: 0 4px 12px var(--color-shadow-heavy);
+            transform: translateX(100%);
+            transition: transform var(--theme-transition-duration) var(--theme-transition-easing);
+            z-index: 1000;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .section-content {
+                padding: 1rem;
+            }
+            
+            .component-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .color-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            
+            .variable-table {
+                font-size: 0.875rem;
+            }
+            
+            .variable-table th,
+            .variable-table td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Theme Preview Tool</h1>
+            <p>Comprehensive preview of all theme variables and components for the Astro Platform Starter</p>
+            
+            <div class="theme-toggle" onclick="toggleTheme()">
+                <span>🌙</span>
+                <div class="theme-toggle-switch"></div>
+                <span>☀️</span>
+            </div>
+        </div>
+        
+        <!-- Brand Colors Section -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Brand Colors</h2>
+                <p class="section-description">Core brand colors that remain consistent across all themes</p>
+            </div>
+            <div class="section-content">
+                <div class="color-grid">
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: var(--color-primary);"></div>
+                        <div class="color-name">Primary</div>
+                        <div class="color-value" id="primary-value">#2d7984</div>
+                        <button class="copy-button" onclick="copyVariable('--color-primary')">Copy</button>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: var(--color-primary-light);"></div>
+                        <div class="color-name">Primary Light</div>
+                        <div class="color-value">#58cbe0</div>
+                        <button class="copy-button" onclick="copyVariable('--color-primary-light')">Copy</button>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: var(--color-primary-dark);"></div>
+                        <div class="color-name">Primary Dark</div>
+                        <div class="color-value">#1d5058</div>
+                        <button class="copy-button" onclick="copyVariable('--color-primary-dark')">Copy</button>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: var(--color-secondary);"></div>
+                        <div class="color-name">Secondary</div>
+                        <div class="color-value">#0062b3</div>
+                        <button class="copy-button" onclick="copyVariable('--color-secondary')">Copy</button>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: var(--color-accent);"></div>
+                        <div class="color-name">Accent</div>
+                        <div class="color-value">#58cbe0</div>
+                        <button class="copy-button" onclick="copyVariable('--color-accent')">Copy</button>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: var(--color-accent-warm);"></div>
+                        <div class="color-name">Accent Warm</div>
+                        <div class="color-value">#F8C88F</div>
+                        <button class="copy-button" onclick="copyVariable('--color-accent-warm')">Copy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Text Colors Section -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Text Colors</h2>
+                <p class="section-description">All text color variables with their current theme values</p>
+            </div>
+            <div class="section-content">
+                <table class="variable-table">
+                    <thead>
+                        <tr>
+                            <th>Variable</th>
+                            <th>Current Value</th>
+                            <th>Preview</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="text-colors-table">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Background Colors Section -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Background Colors</h2>
+                <p class="section-description">All background color variables with their current theme values</p>
+            </div>
+            <div class="section-content">
+                <table class="variable-table">
+                    <thead>
+                        <tr>
+                            <th>Variable</th>
+                            <th>Current Value</th>
+                            <th>Preview</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="background-colors-table">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- State Colors Section -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">State Colors</h2>
+                <p class="section-description">Success, warning, error, and info state colors</p>
+            </div>
+            <div class="section-content">
+                <div class="color-grid">
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: var(--color-success);"></div>
+                        <div class="color-name">Success</div>
+                        <div class="color-value" id="success-value"></div>
+                        <button class="copy-button" onclick="copyVariable('--color-success')">Copy</button>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: var(--color-warning);"></div>
+                        <div class="color-name">Warning</div>
+                        <div class="color-value" id="warning-value"></div>
+                        <button class="copy-button" onclick="copyVariable('--color-warning')">Copy</button>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: var(--color-error);"></div>
+                        <div class="color-name">Error</div>
+                        <div class="color-value" id="error-value"></div>
+                        <button class="copy-button" onclick="copyVariable('--color-error')">Copy</button>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: var(--color-info);"></div>
+                        <div class="color-name">Info</div>
+                        <div class="color-value" id="info-value"></div>
+                        <button class="copy-button" onclick="copyVariable('--color-info')">Copy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Component Examples Section -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Component Examples</h2>
+                <p class="section-description">Examples of common UI components using theme variables</p>
+            </div>
+            <div class="section-content">
+                <div class="component-grid">
+                    <!-- Button Examples -->
+                    <div class="component-example">
+                        <h3 class="component-title">Buttons</h3>
+                        <button class="btn">Primary Button</button>
+                        <button class="btn btn-secondary">Secondary</button>
+                        <button class="btn btn-accent">Accent</button>
+                        <button class="btn btn-outline">Outline</button>
+                        <button class="btn" disabled>Disabled</button>
+                    </div>
+                    
+                    <!-- Form Examples -->
+                    <div class="component-example">
+                        <h3 class="component-title">Form Elements</h3>
+                        <div class="form-group">
+                            <label class="form-label">Text Input</label>
+                            <input type="text" class="form-input" placeholder="Enter text...">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Select</label>
+                            <select class="form-select">
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                                <option>Option 3</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <input type="checkbox" class="form-checkbox">
+                                Checkbox Example
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Card Example -->
+                    <div class="component-example">
+                        <h3 class="component-title">Card</h3>
+                        <div class="card">
+                            <h4 class="card-title">Card Title</h4>
+                            <p class="card-text">This is an example card component using theme variables for consistent styling.</p>
+                            <button class="btn">Card Action</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Typography Example -->
+                    <div class="component-example">
+                        <h3 class="component-title">Typography</h3>
+                        <div class="typography">
+                            <h1>Heading 1</h1>
+                            <h2>Heading 2</h2>
+                            <h3>Heading 3</h3>
+                            <p>Regular paragraph text with a <a href="#">link example</a>.</p>
+                            <p class="muted">Muted text example</p>
+                            <p class="disabled">Disabled text example</p>
+                            <p>Inline <code>code example</code> in text.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Alert Examples -->
+                    <div class="component-example">
+                        <h3 class="component-title">Alerts</h3>
+                        <div class="alert alert-success">Success alert message</div>
+                        <div class="alert alert-warning">Warning alert message</div>
+                        <div class="alert alert-error">Error alert message</div>
+                        <div class="alert alert-info">Info alert message</div>
+                    </div>
+                    
+                    <!-- Table Example -->
+                    <div class="component-example">
+                        <h3 class="component-title">Table</h3>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Item 1</td>
+                                    <td>100</td>
+                                    <td>Active</td>
+                                </tr>
+                                <tr>
+                                    <td>Item 2</td>
+                                    <td>200</td>
+                                    <td>Inactive</td>
+                                </tr>
+                                <tr>
+                                    <td>Item 3</td>
+                                    <td>300</td>
+                                    <td>Pending</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Export Section -->
+        <div class="export-section">
+            <h3>Export Theme Variables</h3>
+            <p>Export all current theme variables as CSS or JSON for use in your projects.</p>
+            <button class="export-button" onclick="exportVariables('css')">Export as CSS</button>
+            <button class="export-button" onclick="exportVariables('json')">Export as JSON</button>
+        </div>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+    
+    <script>
+        // Theme variables categorized for display
+        const themeVariables = {
+            text: [
+                '--color-text-primary',
+                '--color-text-secondary',
+                '--color-text-muted',
+                '--color-text-disabled',
+                '--color-text-inverse',
+                '--color-text-placeholder',
+                '--color-text-on-primary',
+                '--color-text-on-secondary',
+                '--color-text-on-accent',
+                '--color-text-link',
+                '--color-text-link-hover',
+                '--color-text-link-visited',
+                '--color-text-success',
+                '--color-text-warning',
+                '--color-text-error',
+                '--color-text-info'
+            ],
+            background: [
+                '--color-background-primary',
+                '--color-background-secondary',
+                '--color-background-tertiary',
+                '--color-background-form',
+                '--color-background-input',
+                '--color-background-input-disabled',
+                '--color-background-surface',
+                '--color-background-elevated',
+                '--color-background-hover',
+                '--color-background-active',
+                '--color-background-selected',
+                '--color-background-code',
+                '--color-background-code-block',
+                '--color-background-success',
+                '--color-background-warning',
+                '--color-background-error',
+                '--color-background-info'
+            ],
+            border: [
+                '--color-border-default',
+                '--color-border-subtle',
+                '--color-border-strong',
+                '--color-border-focus',
+                '--color-border-interactive',
+                '--color-border-interactive-hover',
+                '--color-border-success',
+                '--color-border-warning',
+                '--color-border-error',
+                '--color-border-info'
+            ]
+        };
+        
+        // Get computed CSS variable value
+        function getCSSVariable(variableName) {
+            return getComputedStyle(document.documentElement)
+                .getPropertyValue(variableName)
+                .trim();
+        }
+        
+        // Set CSS variable value
+        function setCSSVariable(variableName, value) {
+            document.documentElement.style.setProperty(variableName, value);
+        }
+        
+        // Check if current theme is dark
+        function isDarkTheme() {
+            return document.documentElement.classList.contains('dark') ||
+                   document.documentElement.getAttribute('data-theme') === 'dark';
+        }
+        
+        // Toggle theme between light and dark
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isDark = isDarkTheme();
+            
+            if (isDark) {
+                html.classList.remove('dark');
+                html.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                html.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            
+            // Update dynamic values
+            setTimeout(updateDynamicValues, 100);
+            
+            // Show theme change notification
+            showToast(`Switched to ${isDark ? 'light' : 'dark'} theme`);
+        }
+        
+        // Copy CSS variable to clipboard
+        async function copyVariable(variableName) {
+            const value = getCSSVariable(variableName);
+            const cssDeclaration = `${variableName}: ${value};`;
+            
+            try {
+                await navigator.clipboard.writeText(cssDeclaration);
+                
+                // Show success feedback
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+                
+                showToast(`Copied: ${cssDeclaration}`);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+                showToast('Failed to copy to clipboard', 'error');
+            }
+        }
+        
+        // Export all variables as CSS or JSON
+        function exportVariables(format) {
+            const allVariables = {};
+            
+            // Get all CSS custom properties
+            const computedStyle = getComputedStyle(document.documentElement);
+            
+            // Collect all theme variables
+            Object.values(themeVariables).flat().forEach(variable => {
+                allVariables[variable] = getCSSVariable(variable);
+            });
+            
+            // Add brand colors and other base variables
+            const brandVariables = [
+                '--color-primary', '--color-primary-light', '--color-primary-dark',
+                '--color-secondary', '--color-secondary-light', '--color-secondary-dark',
+                '--color-accent', '--color-accent-warm',
+                '--color-success', '--color-warning', '--color-error', '--color-info',
+                '--font-sans', '--border-radius', '--border-radius-sm', '--border-radius-lg', '--border-radius-xl',
+                '--theme-transition-duration', '--theme-transition-easing'
+            ];
+            
+            brandVariables.forEach(variable => {
+                allVariables[variable] = getCSSVariable(variable);
+            });
+            
+            let content, filename, mimeType;
+            
+            if (format === 'css') {
+                content = ':root {\n' + 
+                    Object.entries(allVariables)
+                        .map(([key, value]) => `  ${key}: ${value};`)
+                        .join('\n') + 
+                    '\n}';
+                filename = 'theme-variables.css';
+                mimeType = 'text/css';
+            } else {
+                content = JSON.stringify(allVariables, null, 2);
+                filename = 'theme-variables.json';
+                mimeType = 'application/json';
+            }
+            
+            // Create and download file
+            const blob = new Blob([content], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            link.click();
+            URL.revokeObjectURL(url);
+            
+            showToast(`Exported as ${filename}`);
+        }
+        
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Populate variable tables
+        function populateVariableTable(tableId, variables) {
+            const tbody = document.getElementById(tableId);
+            tbody.innerHTML = '';
+            
+            variables.forEach(variable => {
+                const value = getCSSVariable(variable);
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>
+                        <span class="variable-name">${variable}</span>
+                    </td>
+                    <td>
+                        <span class="variable-value">${value}</span>
+                    </td>
+                    <td>
+                        ${value.includes('#') || value.includes('rgb') ? 
+                            `<div class="variable-swatch" style="background-color: ${value};"></div>` : 
+                            '<span style="color: var(--color-text-muted);">N/A</span>'
+                        }
+                    </td>
+                    <td>
+                        <button class="copy-button" onclick="copyVariable('${variable}')">Copy</button>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Update dynamic values that change with theme
+        function updateDynamicValues() {
+            // Update state color values
+            document.getElementById('success-value').textContent = getCSSVariable('--color-success');
+            document.getElementById('warning-value').textContent = getCSSVariable('--color-warning');
+            document.getElementById('error-value').textContent = getCSSVariable('--color-error');
+            document.getElementById('info-value').textContent = getCSSVariable('--color-info');
+            
+            // Re-populate variable tables
+            populateVariableTable('text-colors-table', themeVariables.text);
+            populateVariableTable('background-colors-table', themeVariables.background);
+        }
+        
+        // Initialize the preview tool
+        function initPreviewTool() {
+            // Load saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+            
+            // Populate tables
+            populateVariableTable('text-colors-table', themeVariables.text);
+            populateVariableTable('background-colors-table', themeVariables.background);
+            
+            // Update dynamic values
+            updateDynamicValues();
+            
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                // Ctrl/Cmd + Shift + T to toggle theme
+                if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'T') {
+                    e.preventDefault();
+                    toggleTheme();
+                }
+                
+                // Ctrl/Cmd + Shift + E to export CSS
+                if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'E') {
+                    e.preventDefault();
+                    exportVariables('css');
+                }
+            });
+            
+            console.log('🎨 Theme Preview Tool initialized');
+            console.log('💡 Keyboard shortcuts:');
+            console.log('   Ctrl/Cmd + Shift + T: Toggle theme');
+            console.log('   Ctrl/Cmd + Shift + E: Export as CSS');
+        }
+        
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initPreviewTool);
+        } else {
+            initPreviewTool();
+        }
+    </script>
+</body>
+</html>

@@ -166,7 +166,7 @@
     }
 </style>
 
-<script type="module">
+<script>
 // Import cleave.js and US phone addon
 import Cleave from 'cleave.js';
 import 'cleave.js/dist/addons/cleave-phone.us';
@@ -216,9 +216,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Form submission
     if (form) {
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
             let isValid = true;
+            
+            // Clear any previous errors
+            clearError(debtAmountSelect, debtAmountError);
+            clearError(debtTypeSelect, debtTypeError);
+            clearError(phoneInput, phoneError);
             
             // Validate debt amount
             if (!debtAmountSelect.value) {
@@ -243,23 +248,88 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             
-            // Get the raw phone value for submission
-            console.log('Phone raw value for submission:', rawPhone);
+            // Disable submit button during submission
+            const submitButton = form.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            submitButton.disabled = true;
+            submitButton.textContent = 'Submitting...';
+            submitButton.classList.add('opacity-50', 'cursor-not-allowed');
             
-            // Form submission would go here
-            // This is a placeholder for actual submission logic
-            alert('Thank you for your submission! A debt relief specialist will contact you shortly.');
-            
-            // Reset form and cleave instance
-            form.reset();
-            if (phoneCleave) {
-                phoneCleave.setRawValue('');
+            try {
+                // Prepare submission data
+                const submissionData = {
+                    debtAmount: debtAmountSelect.value,
+                    debtType: debtTypeSelect.value,
+                    phone: rawPhone,
+                    consentProcessing: true, // Required for GDPR compliance
+                    consentMarketing: false, // Default to false, can be made configurable
+                    source: 'qualification-form'
+                };
+                
+                // Submit to API
+                const response = await fetch('/api/leads', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(submissionData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok && result.success) {
+                    // Success - show success message
+                    alert('Thank you for your submission! A debt relief specialist will contact you shortly.');
+                    
+                    // Reset form and cleave instance
+                    form.reset();
+                    if (phoneCleave) {
+                        phoneCleave.setRawValue('');
+                    }
+                    
+                    // Optional: Track success event for analytics
+                    console.log('Lead submitted successfully:', result.leadId);
+                    
+                } else {
+                    // Handle API errors
+                    if (result.errors) {
+                        // Show field-specific errors
+                        Object.entries(result.errors).forEach(([field, message]) => {
+                            switch (field) {
+                                case 'debtAmount':
+                                    showError(debtAmountSelect, debtAmountError, message);
+                                    break;
+                                case 'debtType':
+                                    showError(debtTypeSelect, debtTypeError, message);
+                                    break;
+                                case 'phone':
+                                    showError(phoneInput, phoneError, message);
+                                    break;
+                                default:
+                                    // Show general error
+                                    alert('Error: ' + message);
+                            }
+                        });
+                    } else {
+                        // Show general error message
+                        alert(result.message || 'An error occurred. Please try again.');
+                    }
+                    
+                    // Handle rate limiting
+                    if (response.status === 429) {
+                        alert('You have submitted too many requests. Please try again in an hour.');
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Form submission error:', error);
+                alert('Unable to submit form. Please check your connection and try again.');
+            } finally {
+                // Re-enable submit button
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
+                submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
             }
-            
-            // Clear all errors
-            clearError(debtAmountSelect, debtAmountError);
-            clearError(debtTypeSelect, debtTypeError);
-            clearError(phoneInput, phoneError);
         });
     }
 });

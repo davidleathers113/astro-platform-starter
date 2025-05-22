@@ -78,11 +78,13 @@ import MoonIcon from './icons/MoonIcon.astro';
     background-color: rgba(var(--color-primary-rgb, 45, 121, 132), 0.1);
   }
   
+  /* Updated selected state for better contrast */
   .theme-option.selected {
     background-color: var(--color-primary);
-    color: white;
+    color: white; /* Ensure white text on the darker primary color for contrast */
   }
   
+  /* High contrast focus style */
   .theme-option:focus-visible {
     outline: 3px solid var(--color-primary);
     outline-offset: 2px;
@@ -90,15 +92,11 @@ import MoonIcon from './icons/MoonIcon.astro';
   }
   
   .dark .theme-option:focus-visible {
-    outline: 3px solid #58cbe0;
+    outline: 3px solid #58cbe0; /* Brighter outline in dark mode */
   }
   
   .theme-icon {
     transition: transform 0.3s ease;
-  }
-  
-  .theme-option:hover .theme-icon {
-    transform: rotate(15deg);
   }
   
   @media (prefers-reduced-motion: reduce) {
@@ -110,7 +108,13 @@ import MoonIcon from './icons/MoonIcon.astro';
     .theme-toggle {
       transition: none;
     }
-    
+  }
+  
+  .theme-option:hover .theme-icon {
+    transform: rotate(15deg);
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
     .theme-option:hover .theme-icon {
       transform: none;
     }
@@ -130,12 +134,31 @@ import MoonIcon from './icons/MoonIcon.astro';
 </style>
 
 <script>
+  // Initialize as early as possible to prevent FOUC (Flash of Unstyled Content)
+  (function immediateInit() {
+    try {
+      const options = document.querySelectorAll('.theme-option');
+      if (!options || options.length === 0) return; // Wait for DOM
+      
+      const currentTheme = getCurrentTheme();
+      setToggleState(currentTheme);
+    } catch (error) {
+      // Silent fail for immediate initialization
+      // Full initialization will happen in DOMContentLoaded
+    }
+  })();
+
+  /**
+   * Get current theme from localStorage or system preference
+   * @returns {string} The current theme
+   */
   function getCurrentTheme() {
     try {
       if (typeof window === 'undefined') return 'system';
       if (window.themeManager && typeof window.themeManager.getTheme === 'function') {
         return window.themeManager.getTheme();
       }
+      // Fallback if themeManager is not available
       return localStorage.getItem('theme') || 'system';
     } catch (error) {
       console.warn('Error getting current theme:', error);
@@ -143,6 +166,27 @@ import MoonIcon from './icons/MoonIcon.astro';
     }
   }
 
+  /**
+   * Get resolved theme (actual theme being applied)
+   * @returns {string} The resolved theme
+   */
+  function getResolvedTheme() {
+    try {
+      const theme = getCurrentTheme();
+      if (theme === 'system') {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      return theme;
+    } catch (error) {
+      console.warn('Error getting resolved theme:', error);
+      return 'light'; // Default fallback
+    }
+  }
+
+  /**
+   * Initialize theme toggle state based on the current theme
+   * @param {string} theme - The current theme
+   */
   function setToggleState(theme) {
     try {
       const options = document.querySelectorAll('.theme-option');
@@ -157,13 +201,20 @@ import MoonIcon from './icons/MoonIcon.astro';
     }
   }
 
+  /**
+   * Update theme using themeManager or fallback method
+   * @param {string} theme - The theme to set
+   */
   function updateTheme(theme) {
     try {
+      // Use themeManager if available
       if (window.themeManager && typeof window.themeManager.setTheme === 'function') {
         window.themeManager.setTheme(theme);
       } else {
+        // Fallback if themeManager is not available
         localStorage.setItem('theme', theme);
         
+        // Apply theme directly (simplified version of what themeManager would do)
         if (theme === 'system') {
           const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
           document.documentElement.classList.toggle('dark', systemTheme === 'dark');
@@ -176,8 +227,22 @@ import MoonIcon from './icons/MoonIcon.astro';
         }
       }
       
+      // Update toggle state
       setToggleState(theme);
       
+      // Announce to screen readers
+      announceThemeChange(theme);
+    } catch (error) {
+      console.error('Error updating theme:', error);
+    }
+  }
+
+  /**
+   * Announce theme change to screen readers
+   * @param {string} theme - The current theme
+   */
+  function announceThemeChange(theme) {
+    try {
       const announcement = document.getElementById('theme-announcement');
       if (announcement) {
         let message = `Theme changed to ${theme}`;
@@ -188,39 +253,68 @@ import MoonIcon from './icons/MoonIcon.astro';
         announcement.textContent = message;
       }
     } catch (error) {
-      console.error('Error updating theme:', error);
+      console.warn('Error announcing theme change:', error);
     }
   }
 
+  // Initialize theme toggle when the DOM is fully loaded
   document.addEventListener('DOMContentLoaded', () => {
     try {
+      const themeToggle = document.querySelector('.theme-toggle');
       const options = document.querySelectorAll('.theme-option');
       
-      if (!options || options.length === 0) {
+      if (!themeToggle || !options || options.length === 0) {
         console.warn('Theme toggle elements not found');
         return;
       }
       
+      // Set initial state
       const currentTheme = getCurrentTheme();
       setToggleState(currentTheme);
       
+      // Handle container keyboard navigation
+      themeToggle.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault(); // Prevent scrolling with space
+          
+          // Find and activate the selected option
+          const selectedOption = document.querySelector('.theme-option[aria-checked="true"]');
+          if (selectedOption) {
+            selectedOption.focus();
+          } else {
+            // Focus the first option if none is selected
+            options[0].focus();
+          }
+        }
+      });
+      
+      // Set up navigation between options
       options.forEach((option, index) => {
+        // Click handler for changing theme
         option.addEventListener('click', () => {
           const theme = option.dataset.theme;
           if (theme) {
             updateTheme(theme);
+            option.focus(); // Maintain focus on clicked button
           }
         });
         
+        // Keyboard handler for individual options
         option.addEventListener('keydown', (e) => {
-          if (e.key === ' ' || e.key === 'Enter') {
+          const key = e.key;
+          
+          // Space or Enter activates the option
+          if (key === ' ' || key === 'Enter') {
             e.preventDefault();
             option.click();
-          } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          }
+          
+          // Arrow navigation
+          else if (key === 'ArrowRight' || key === 'ArrowDown') {
             e.preventDefault();
             const nextIndex = (index + 1) % options.length;
             options[nextIndex].focus();
-          } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          } else if (key === 'ArrowLeft' || key === 'ArrowUp') {
             e.preventDefault();
             const prevIndex = (index - 1 + options.length) % options.length;
             options[prevIndex].focus();
@@ -228,13 +322,45 @@ import MoonIcon from './icons/MoonIcon.astro';
         });
       });
       
+      // Listen for theme changes from other sources
       window.addEventListener('theme-change', () => {
         const newTheme = getCurrentTheme();
         setToggleState(newTheme);
       });
       
+      // Listen for system preference changes
+      const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      const handleMediaChange = () => {
+        // If current theme is 'system', update toggle appearance
+        if (getCurrentTheme() === 'system') {
+          announceThemeChange('system');
+        }
+      };
+      
+      // Add the listener with proper browser support check
+      if (darkModeMediaQuery.addEventListener) {
+        darkModeMediaQuery.addEventListener('change', handleMediaChange);
+      } else if (darkModeMediaQuery.addListener) {
+        // For older browsers
+        darkModeMediaQuery.addListener(handleMediaChange);
+      }
     } catch (error) {
       console.error('Error initializing theme toggle:', error);
+    }
+  });
+  
+  // Ensure cleanup for single-page applications
+  document.addEventListener('beforeunload', () => {
+    try {
+      const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      // Remove event listeners
+      if (darkModeMediaQuery.removeEventListener) {
+        darkModeMediaQuery.removeEventListener('change', () => {});
+      } else if (darkModeMediaQuery.removeListener) {
+        darkModeMediaQuery.removeListener(() => {});
+      }
+    } catch (error) {
+      // Silent fail on cleanup
     }
   });
 </script>

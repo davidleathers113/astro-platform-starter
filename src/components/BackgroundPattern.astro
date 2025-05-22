@@ -5,22 +5,22 @@ import DotsPattern from './icons/DotsPattern.astro';
 ---
 
 <div class="background-pattern-container absolute inset-0 overflow-hidden pointer-events-none z-0">
-    <div class="dark:opacity-20 opacity-10">
-        <!-- Circles -->
-        <div class="absolute top-20 left-[10%] w-64 h-64 rounded-full bg-primary/30 blur-3xl"></div>
-        <div class="absolute bottom-40 right-[5%] w-96 h-96 rounded-full bg-accent/20 blur-3xl"></div>
+    <div class="dark:opacity-20 opacity-10 transition-opacity duration-500 ease-out">
+        <!-- Circles with smooth transitions -->
+        <div class="absolute top-20 left-[10%] w-64 h-64 rounded-full bg-primary/30 blur-3xl transition-all duration-700 ease-out"></div>
+        <div class="absolute bottom-40 right-[5%] w-96 h-96 rounded-full bg-accent/20 blur-3xl transition-all duration-700 ease-out"></div>
         
-        <!-- Lines -->
-        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
-        <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent/20 to-transparent"></div>
+        <!-- Lines with gradient transitions -->
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/20 to-transparent transition-all duration-600 ease-out"></div>
+        <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent/20 to-transparent transition-all duration-600 ease-out"></div>
         
-        <!-- Decorative shapes -->
-        <div class="absolute top-[30%] left-[5%] w-24 h-24 rotate-45 border border-primary/20 rounded-lg"></div>
-        <div class="absolute top-[40%] right-[10%] w-32 h-32 -rotate-12 border border-accent/20 rounded-full"></div>
-        <div class="absolute bottom-[20%] left-[20%] w-40 h-40 rotate-12 border border-secondary/20 rounded-3xl"></div>
+        <!-- Decorative shapes with enhanced transitions -->
+        <div class="absolute top-[30%] left-[5%] w-24 h-24 rotate-45 border border-primary/20 rounded-lg transition-all duration-500 ease-out"></div>
+        <div class="absolute top-[40%] right-[10%] w-32 h-32 -rotate-12 border border-accent/20 rounded-full transition-all duration-500 ease-out"></div>
+        <div class="absolute bottom-[20%] left-[20%] w-40 h-40 rotate-12 border border-secondary/20 rounded-3xl transition-all duration-500 ease-out"></div>
         
-        <!-- Dots pattern -->
-        <div class="absolute inset-0 opacity-30">
+        <!-- Dots pattern with smooth opacity transition -->
+        <div class="absolute inset-0 opacity-30 transition-opacity duration-600 ease-out">
             <DotsPattern />
         </div>
     </div>

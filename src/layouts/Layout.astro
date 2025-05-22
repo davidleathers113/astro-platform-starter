@@ -54,13 +54,14 @@ const { title } = Astro.props;
         <link rel="preload" as="font" type="font/woff2" href={interWoff2} crossorigin />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-        <!-- Theme Manager Script - executed before page renders to prevent FOUC -->
+        <!-- Enhanced Theme and Motion Manager Script - executed before page renders to prevent FOUC -->
         <script is:inline>
-            // Immediate theme application to prevent FOUC (Flash of Unstyled Content)
+            // Immediate theme and motion preference application to prevent FOUC
             (function () {
                 // Theme constants
                 const THEMES = { LIGHT: 'light', DARK: 'dark', SYSTEM: 'system' };
                 const STORAGE_KEY = 'theme';
+                const MOTION_STORAGE_KEY = 'reduced-motion-preference';
                 
                 // Utility functions
                 function getStorageItem(key, fallback) {
@@ -105,11 +106,51 @@ const { title } = Astro.props;
                     }
                 }
                 
-                // Get and apply initial theme
-                const storedTheme = getStorageItem(STORAGE_KEY, THEMES.SYSTEM);
-                applyTheme(storedTheme);
+                // Motion preference utilities
+                function getSystemMotionPreference() {
+                    try {
+                        return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    } catch (error) {
+                        console.warn('Motion media query not supported:', error);
+                        return false;
+                    }
+                }
                 
-                // Basic theme manager for immediate availability
+                function getUserMotionPreference() {
+                    try {
+                        const stored = localStorage.getItem(MOTION_STORAGE_KEY);
+                        if (stored === 'true') return true;
+                        if (stored === 'false') return false;
+                        // Default to system preference if no user preference stored
+                        return getSystemMotionPreference();
+                    } catch (error) {
+                        console.warn('Motion preference access failed:', error);
+                        return getSystemMotionPreference();
+                    }
+                }
+                
+                function applyMotionPreference(reducedMotion) {
+                    try {
+                        const documentElement = document.documentElement;
+                        if (reducedMotion) {
+                            documentElement.classList.add('reduced-motion');
+                            documentElement.setAttribute('data-reduced-motion', 'true');
+                        } else {
+                            documentElement.classList.remove('reduced-motion');
+                            documentElement.setAttribute('data-reduced-motion', 'false');
+                        }
+                    } catch (error) {
+                        console.error('Motion preference application failed:', error);
+                    }
+                }
+
+                // Get and apply initial theme and motion preferences
+                const storedTheme = getStorageItem(STORAGE_KEY, THEMES.SYSTEM);
+                const reducedMotion = getUserMotionPreference();
+                applyTheme(storedTheme);
+                applyMotionPreference(reducedMotion);
+                
+                // Enhanced theme and motion manager for immediate availability
                 window.themeManager = {
                     getTheme: function() {
                         return getStorageItem(STORAGE_KEY, THEMES.SYSTEM);
@@ -132,6 +173,22 @@ const { title } = Astro.props;
                             console.error('Theme setting failed:', error);
                         }
                     },
+                    getReducedMotion: function() {
+                        return getUserMotionPreference();
+                    },
+                    setReducedMotion: function(reduced) {
+                        try {
+                            localStorage.setItem(MOTION_STORAGE_KEY, reduced.toString());
+                            applyMotionPreference(reduced);
+                            
+                            // Dispatch motion preference change event
+                            window.dispatchEvent(new CustomEvent('motion-preference-change', {
+                                detail: { reducedMotion: reduced }
+                            }));
+                        } catch (error) {
+                            console.error('Motion preference setting failed:', error);
+                        }
+                    },
                     THEMES: THEMES
                 };
             })();
@@ -146,16 +203,16 @@ const { title } = Astro.props;
             <!-- Background Pattern -->
             <div class="absolute inset-0 overflow-hidden pointer-events-none">
                 <div class="fixed inset-0 z-0">
-                    <!-- Light mode gradients (hidden in dark mode) -->
-                    <div class="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-b from-primary/5 to-transparent dark:hidden transition-opacity duration-300"></div>
-                    <div class="absolute bottom-0 left-0 right-0 h-[300px] bg-gradient-to-t from-primary/5 to-transparent dark:hidden transition-opacity duration-300"></div>
+                    <!-- Light mode gradients - use opacity transitions instead of visibility -->
+                    <div class="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-b from-primary/5 to-transparent opacity-100 dark:opacity-0 transition-opacity duration-500 ease-out"></div>
+                    <div class="absolute bottom-0 left-0 right-0 h-[300px] bg-gradient-to-t from-primary/5 to-transparent opacity-100 dark:opacity-0 transition-opacity duration-500 ease-out"></div>
 
-                    <!-- Dark mode gradients (hidden in light mode) -->
-                    <div class="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-b from-primary-light/10 to-transparent hidden dark:block transition-opacity duration-300"></div>
-                    <div class="absolute bottom-0 left-0 right-0 h-[300px] bg-gradient-to-t from-primary-light/10 to-transparent hidden dark:block transition-opacity duration-300"></div>
+                    <!-- Dark mode gradients - use opacity transitions instead of visibility -->
+                    <div class="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-b from-primary-light/10 to-transparent opacity-0 dark:opacity-100 transition-opacity duration-500 ease-out"></div>
+                    <div class="absolute bottom-0 left-0 right-0 h-[300px] bg-gradient-to-t from-primary-light/10 to-transparent opacity-0 dark:opacity-100 transition-opacity duration-500 ease-out"></div>
 
-                    <!-- Noise texture overlay -->
-                    <div class="absolute inset-0 opacity-20 dark:opacity-30 bg-noise"></div>
+                    <!-- Noise texture overlay with enhanced transitions -->
+                    <div class="absolute inset-0 opacity-20 dark:opacity-30 bg-noise transition-opacity duration-500 ease-out"></div>
                 </div>
             </div>
 
@@ -166,22 +223,22 @@ const { title } = Astro.props;
             </div>
         </div>
 
-        <!-- Back to Top Button -->
+        <!-- Back to Top Button with enhanced transitions -->
         <button
             id="back-to-top"
-            class="fixed bottom-8 right-8 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transform transition-all duration-300 translate-y-20 opacity-0 hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-gray-800 z-50"
+            class="fixed bottom-8 right-8 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transform transition-all duration-300 translate-y-20 opacity-0 hover:bg-primary-dark hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-gray-800 z-50 theme-shadow"
             aria-label="Back to top"
         >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
             </svg>
         </button>
 
-        <!-- Loading Indicator -->
-        <div id="page-loader" class="fixed inset-0 bg-background-light dark:bg-background-dark flex items-center justify-center z-[100] transition-all duration-500">
+        <!-- Loading Indicator with enhanced theme transitions -->
+        <div id="page-loader" class="fixed inset-0 bg-white dark:bg-gray-900 flex items-center justify-center z-[100] transition-all duration-500 theme-background-image">
             <div class="relative">
-                <div class="w-16 h-16 border-4 border-primary/30 dark:border-primary-light/30 border-t-primary dark:border-t-primary-light rounded-full animate-spin transition-colors duration-300"></div>
-                <div class="mt-4 text-center text-text-muted-light dark:text-text-muted-dark transition-colors duration-300">Loading...</div>
+                <div class="w-16 h-16 border-4 border-primary/30 dark:border-primary-light/30 border-t-primary dark:border-t-primary-light rounded-full animate-spin transition-colors duration-500"></div>
+                <div class="mt-4 text-center text-gray-600 dark:text-gray-300 transition-colors duration-500">Loading...</div>
             </div>
         </div>
     </body>
@@ -203,7 +260,7 @@ const { title } = Astro.props;
 </style>
 
 <script>
-    // Page loader functionality
+    // Page loader functionality with performance optimization
     const pageLoader = document.getElementById('page-loader');
 
     // Hide loader once page is fully loaded
@@ -217,6 +274,20 @@ const { title } = Astro.props;
                 pageLoader.style.display = 'none';
             }, 500);
         }
+        
+        // Performance optimization: Remove will-change properties after page load
+        document.body.classList.add('loaded');
+        
+        // Clean up will-change properties on elements with theme transitions
+        const elementsWithWillChange = document.querySelectorAll('[style*="will-change"]');
+        elementsWithWillChange.forEach(element => {
+            // Only clean up if not actively transitioning
+            setTimeout(() => {
+                if (element.style.willChange && !element.matches(':hover, :focus, :active')) {
+                    element.style.willChange = 'auto';
+                }
+            }, 1000);
+        });
     });
 
     // Back to top button functionality

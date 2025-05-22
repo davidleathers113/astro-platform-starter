@@ -16,6 +16,8 @@ const { width = "90", height = "100", class: className = "" } = Astro.props;
   width={width} 
   height={height} 
   class={`logo ${className}`}
+  loading="lazy"
+  decoding="async"
 />
 
 <style>

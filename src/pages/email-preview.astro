@@ -1,0 +1,272 @@
+---
+/**
+ * Email Template Preview Page
+ * 
+ * Development page for previewing and testing email templates
+ * Access via /email-preview in development mode
+ */
+
+import Layout from '../layouts/Layout.astro';
+import { previewEmailTemplate, EmailPreviewData, validateTemplateRendering } from '../emails/preview';
+import type { EmailTemplateType } from '../emails/types';
+
+// Only allow in development
+if (import.meta.env.PROD) {
+    return new Response('Not found', { status: 404 });
+}
+
+// Get template type from URL params
+const url = new URL(Astro.request.url);
+const templateParam = url.searchParams.get('template') as EmailTemplateType | null;
+const formatParam = url.searchParams.get('format') || 'html';
+
+// Validate template parameter
+const validTemplates: EmailTemplateType[] = ['lead_confirmation', 'internal_notification', 'error_notification', 'welcome'];
+const selectedTemplate = templateParam && validTemplates.includes(templateParam) ? templateParam : null;
+
+// Render selected template if specified
+let renderedTemplate = '';
+let validationResults = null;
+
+if (selectedTemplate) {
+    try {
+        renderedTemplate = await previewEmailTemplate(selectedTemplate, formatParam as 'html' | 'text');
+        
+        if (url.searchParams.get('validate') === 'true') {
+            validationResults = await validateTemplateRendering(selectedTemplate);
+        }
+    } catch (error) {
+        renderedTemplate = `<div style="color: red; padding: 20px; border: 1px solid red; border-radius: 8px;">
+            <h3>Error Rendering Template</h3>
+            <p>${error}</p>
+        </div>`;
+    }
+}
+
+// Sample data for display
+const sampleData = {
+    lead_confirmation: EmailPreviewData.getLeadConfirmationData(),
+    internal_notification: EmailPreviewData.getInternalNotificationData(),
+    error_notification: EmailPreviewData.getErrorNotificationData(),
+    welcome: EmailPreviewData.getWelcomeData()
+};
+---
+
+<Layout title="Email Template Preview - Development">
+    <div class="min-h-screen bg-gray-50 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white shadow rounded-lg">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h1 class="text-2xl font-bold text-gray-900">📧 Email Template Preview</h1>
+                    <p class="mt-1 text-sm text-gray-600">
+                        Development tool for previewing and testing email templates
+                    </p>
+                </div>
+
+                <div class="p-6">
+                    <!-- Template Selection -->
+                    <div class="mb-8">
+                        <h2 class="text-lg font-semibold text-gray-900 mb-4">Select Template</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                            {validTemplates.map(template => (
+                                <a 
+                                    href={`/email-preview?template=${template}`}
+                                    class={`block p-4 rounded-lg border-2 transition-colors ${
+                                        selectedTemplate === template 
+                                            ? 'border-blue-500 bg-blue-50' 
+                                            : 'border-gray-300 hover:border-gray-400'
+                                    }`}
+                                >
+                                    <h3 class="font-semibold text-gray-900">
+                                        {template.split('_').map(word => 
+                                            word.charAt(0).toUpperCase() + word.slice(1)
+                                        ).join(' ')}
+                                    </h3>
+                                    <p class="text-sm text-gray-600 mt-1">
+                                        {template === 'lead_confirmation' && 'Sent to users who submit forms'}
+                                        {template === 'internal_notification' && 'Sent to team for new leads'}
+                                        {template === 'error_notification' && 'Sent to admins for errors'}
+                                        {template === 'welcome' && 'Sent to new registered users'}
+                                    </p>
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Template Controls */}
+                    {selectedTemplate && (
+                        <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+                            <h3 class="font-semibold text-gray-900 mb-3">Template Controls</h3>
+                            <div class="flex flex-wrap gap-4">
+                                <a 
+                                    href={`/email-preview?template=${selectedTemplate}&format=html`}
+                                    class={`px-3 py-1 rounded text-sm ${
+                                        formatParam === 'html' 
+                                            ? 'bg-blue-600 text-white' 
+                                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                    }`}
+                                >
+                                    HTML Preview
+                                </a>
+                                <a 
+                                    href={`/email-preview?template=${selectedTemplate}&format=text`}
+                                    class={`px-3 py-1 rounded text-sm ${
+                                        formatParam === 'text' 
+                                            ? 'bg-blue-600 text-white' 
+                                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                    }`}
+                                >
+                                    Text Preview
+                                </a>
+                                <a 
+                                    href={`/email-preview?template=${selectedTemplate}&validate=true`}
+                                    class="px-3 py-1 rounded text-sm bg-green-200 text-green-700 hover:bg-green-300"
+                                >
+                                    Validate Template
+                                </a>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Validation Results */}
+                    {validationResults && (
+                        <div class="mb-6">
+                            <h3 class="font-semibold text-gray-900 mb-3">Validation Results</h3>
+                            <div class={`p-4 rounded-lg ${
+                                validationResults.success ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'
+                            }`}>
+                                <div class={`font-semibold ${validationResults.success ? 'text-green-800' : 'text-red-800'}`}>
+                                    {validationResults.success ? '✅ Template validation passed' : '❌ Template validation failed'}
+                                </div>
+                                
+                                {validationResults.errors.length > 0 && (
+                                    <div class="mt-3">
+                                        <h4 class="font-medium text-red-800">Errors:</h4>
+                                        <ul class="list-disc list-inside text-red-700 text-sm mt-1">
+                                            {validationResults.errors.map(error => (
+                                                <li>{error}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                                
+                                {validationResults.warnings.length > 0 && (
+                                    <div class="mt-3">
+                                        <h4 class="font-medium text-yellow-800">Warnings:</h4>
+                                        <ul class="list-disc list-inside text-yellow-700 text-sm mt-1">
+                                            {validationResults.warnings.map(warning => (
+                                                <li>{warning}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Template Preview */}
+                    {selectedTemplate && renderedTemplate && (
+                        <div class="mb-8">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-lg font-semibold text-gray-900">
+                                    Template Preview: {selectedTemplate.split('_').map(word => 
+                                        word.charAt(0).toUpperCase() + word.slice(1)
+                                    ).join(' ')}
+                                </h2>
+                                <span class="text-sm text-gray-500">
+                                    Format: {formatParam.toUpperCase()}
+                                </span>
+                            </div>
+                            
+                            {formatParam === 'html' ? (
+                                <div class="border border-gray-300 rounded-lg overflow-hidden">
+                                    <iframe 
+                                        srcdoc={renderedTemplate}
+                                        class="w-full h-[600px]"
+                                        style="zoom: 0.8;"
+                                    ></iframe>
+                                </div>
+                            ) : (
+                                <div class="bg-gray-100 p-6 rounded-lg">
+                                    <pre class="whitespace-pre-wrap text-sm text-gray-800 font-mono">
+                                        {renderedTemplate}
+                                    </pre>
+                                </div>
+                            )}
+                        </div>
+                    )}
+
+                    {/* Sample Data Display */}
+                    {selectedTemplate && (
+                        <div class="mb-8">
+                            <h2 class="text-lg font-semibold text-gray-900 mb-4">Sample Data</h2>
+                            <details class="bg-gray-50 rounded-lg">
+                                <summary class="p-4 cursor-pointer hover:bg-gray-100 rounded-lg">
+                                    <span class="font-medium">View sample data used for this template</span>
+                                </summary>
+                                <div class="p-4 pt-0">
+                                    <pre class="bg-white p-4 rounded border text-sm overflow-x-auto">
+                                        {JSON.stringify(sampleData[selectedTemplate], null, 2)}
+                                    </pre>
+                                </div>
+                            </details>
+                        </div>
+                    )}
+
+                    {/* Usage Instructions */}
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                        <h2 class="text-lg font-semibold text-blue-900 mb-4">📖 Usage Instructions</h2>
+                        <div class="text-blue-800 space-y-3 text-sm">
+                            <p><strong>Preview Templates:</strong> Click on any template above to see how it renders with sample data.</p>
+                            <p><strong>Format Options:</strong> Switch between HTML and text format to see both versions.</p>
+                            <p><strong>Validation:</strong> Use the validate button to check for potential rendering issues.</p>
+                            <p><strong>Sample Data:</strong> Expand the sample data section to see the data structure used.</p>
+                            <p><strong>Development Only:</strong> This page is only available in development mode.</p>
+                        </div>
+                    </div>
+
+                    {/* Quick Links */}
+                    <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-white border border-gray-200 rounded-lg p-4">
+                            <h3 class="font-semibold text-gray-900 mb-2">📁 Template Files</h3>
+                            <p class="text-sm text-gray-600 mb-3">Email templates are located at:</p>
+                            <code class="text-xs bg-gray-100 px-2 py-1 rounded">src/emails/templates/</code>
+                        </div>
+                        
+                        <div class="bg-white border border-gray-200 rounded-lg p-4">
+                            <h3 class="font-semibold text-gray-900 mb-2">🔧 Configuration</h3>
+                            <p class="text-sm text-gray-600 mb-3">Email config and types:</p>
+                            <code class="text-xs bg-gray-100 px-2 py-1 rounded">src/emails/types.ts</code>
+                        </div>
+                        
+                        <div class="bg-white border border-gray-200 rounded-lg p-4">
+                            <h3 class="font-semibold text-gray-900 mb-2">⚙️ Resend Setup</h3>
+                            <p class="text-sm text-gray-600 mb-3">Email service configuration:</p>
+                            <code class="text-xs bg-gray-100 px-2 py-1 rounded">src/config/resend.ts</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<style>
+    /* Ensure iframes display properly */
+    iframe {
+        border: none;
+        display: block;
+    }
+    
+    /* Make code blocks more readable */
+    pre {
+        max-height: 400px;
+        overflow-y: auto;
+    }
+    
+    /* Improve details/summary styling */
+    details[open] summary {
+        border-bottom: 1px solid #e5e7eb;
+        margin-bottom: 1rem;
+    }
+</style>
