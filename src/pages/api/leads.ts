@@ -3,8 +3,11 @@
 
 import type { APIRoute } from 'astro';
 import { supabaseAdmin, getClientIP } from '../../utils/supabase';
-import { validateLeadSubmission, type LeadSubmission } from '../../utils/validation';
+import { validateLeadSubmission, type LeadSubmission, leadSubmissionSchema, validateSecurityContext } from '../../utils/validation';
 import { checkRateLimit } from '../../utils/supabase';
+import { withCSRFProtection } from '../../utils/csrf';
+import { withSecurityHeaders, InputSanitizer, SecurityValidator } from '../../utils/security';
+import { withValidation, ValidationMiddleware } from '../../utils/validation-middleware';
 import { emailService } from '../../emails/service';
 import { 
     generateReferenceNumber, 
@@ -19,7 +22,8 @@ import type {
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ request }) => {
+// Main POST handler with CSRF and security protection
+const postHandler: APIRoute = async ({ request }) => {
     const requestId = `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     const startTime = Date.now();
 
@@ -53,29 +57,118 @@ export const POST: APIRoute = async ({ request }) => {
             timestamp: new Date().toISOString()
         });
 
-        // Check rate limiting (5 requests per hour per IP)
-        const rateLimitCheck = await checkRateLimit(clientIP, '/api/leads', 5, 60);
+        // Enhanced security context validation
+        const securityValidation = validateSecurityContext(request);
+        if (securityValidation.riskLevel === 'high') {
+            console.warn(`[${requestId}] High-risk request detected from IP: ${clientIP}`, {
+                issues: securityValidation.issues,
+                userAgent: request.headers.get('user-agent')
+            });
+            return new Response(
+                JSON.stringify({
+                    success: false,
+                    message: 'Request blocked by security policy',
+                    requestId
+                }),
+                {
+                    status: 403,
+                    headers: { 'Content-Type': 'application/json' }
+                }
+            );
+        }
+
+        // Log medium-risk requests for monitoring
+        if (securityValidation.riskLevel === 'medium') {
+            console.warn(`[${requestId}] Medium-risk request from IP: ${clientIP}`, {
+                issues: securityValidation.issues
+            });
+        }
+
+        // Enhanced security checks
+        if (SecurityValidator.isLikelyBot(request)) {
+            console.warn(`[${requestId}] Bot-like request detected from IP: ${clientIP}`);
+            return new Response(
+                JSON.stringify({
+                    success: false,
+                    message: 'Request blocked by security policy',
+                    requestId
+                }),
+                {
+                    status: 403,
+                    headers: { 'Content-Type': 'application/json' }
+                }
+            );
+        }
+
+        // Check for suspicious content
+        if (SecurityValidator.hasSuspiciousContent(body)) {
+            console.warn(`[${requestId}] Suspicious content detected from IP: ${clientIP}`);
+            return new Response(
+                JSON.stringify({
+                    success: false,
+                    message: 'Request blocked by content filter',
+                    requestId
+                }),
+                {
+                    status: 403,
+                    headers: { 'Content-Type': 'application/json' }
+                }
+            );
+        }
+
+        // Enhanced input sanitization with validation middleware
+        let sanitizedBody: Record<string, any>;
+        try {
+            sanitizedBody = ValidationMiddleware.sanitizeObject(body as Record<string, any>, {
+                maxLength: 1000,
+                preventXss: true,
+                preventSqlInjection: true,
+                preventCommandInjection: true,
+                preventLdapInjection: true
+            });
+        } catch (sanitizationError) {
+            console.warn(`[${requestId}] Enhanced sanitization failed:`, sanitizationError);
+            return new Response(
+                JSON.stringify({
+                    success: false,
+                    message: 'Input validation failed',
+                    errors: { 
+                        general: sanitizationError instanceof Error ? 
+                            sanitizationError.message : 
+                            'Input contains invalid content' 
+                    },
+                    requestId
+                }),
+                {
+                    status: 400,
+                    headers: { 'Content-Type': 'application/json' }
+                }
+            );
+        }
+
+        // Check rate limiting (5 requests per 15 minutes per IP)
+        const rateLimitCheck = await checkRateLimit(clientIP, '/api/leads', 5, 15);
         if (!rateLimitCheck.allowed) {
             console.warn(`[${requestId}] Rate limit exceeded for IP: ${clientIP}`);
             return new Response(
                 JSON.stringify({
                     success: false,
                     message: 'Rate limit exceeded. Please try again later.',
-                    retryAfter: 3600, // 1 hour in seconds
+                    retryAfter: 900, // 15 minutes in seconds
                     requestId
                 }),
                 {
                     status: 429,
                     headers: {
                         'Content-Type': 'application/json',
-                        'Retry-After': '3600'
+                        'Retry-After': '900'
                     }
                 }
             );
         }
 
-        // Validate input data
-        const validation = validateLeadSubmission(body);
+        // Validate input data (using sanitized input)
+        const validation = validateLeadSubmission(sanitizedBody);
         if (!validation.success) {
             console.warn(`[${requestId}] Validation failed:`, validation.errors);
             return new Response(
@@ -474,6 +567,9 @@ export const GET: APIRoute = async () => {
         }
     );
 };
+
+// Apply security middleware and CSRF protection to POST handler
+export const POST = withSecurityHeaders(withCSRFProtection(postHandler));
 
 // Export other methods as not allowed
 export const PUT: APIRoute = GET;

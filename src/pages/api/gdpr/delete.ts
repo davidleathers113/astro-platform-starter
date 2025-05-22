@@ -3,13 +3,68 @@
 // Requires proper verification and confirmation
 
 import type { APIRoute } from 'astro';
-import { supabaseAdmin } from '../../../utils/supabase';
-import { dataDeletionRequestSchema } from '../../../utils/validation';
+import { supabaseAdmin, getClientIP, checkRateLimit } from '../../../utils/supabase';
+import { dataDeletionRequestSchema, validateSecurityContext } from '../../../utils/validation';
+import { withCSRFProtection } from '../../../utils/csrf';
+import { withSecurityHeaders } from '../../../utils/security';
+import { withValidation, ValidationMiddleware } from '../../../utils/validation-middleware';
+import { sendGDPRDeletionConfirmationEmail } from '../../../utils/email';
 
 export const prerender = false;
 
-export const DELETE: APIRoute = async ({ request }) => {
+const deleteHandler: APIRoute = async ({ request }) => {
+    const requestId = `gdpr_delete_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const startTime = Date.now();
     try {
+        // Get client information for rate limiting
+        const clientIP = getClientIP(request);
+        
+        // Enhanced security validation for GDPR endpoint
+        const securityValidation = validateSecurityContext(request);
+        if (securityValidation.riskLevel === 'high') {
+            console.warn(`[${requestId}] High-risk GDPR deletion request from IP: ${clientIP}`, {
+                issues: securityValidation.issues
+            });
+            return new Response(
+                JSON.stringify({
+                    success: false,
+                    message: 'Request blocked by security policy',
+                    requestId
+                }),
+                {
+                    status: 403,
+                    headers: { 'Content-Type': 'application/json' }
+                }
+            );
+        }
+        
+        console.log(`[${requestId}] GDPR deletion request started`, {
+            ip: clientIP,
+            timestamp: new Date().toISOString(),
+            securityRisk: securityValidation.riskLevel
+        });
+
+        // Check rate limiting (2 requests per 15 minutes per IP for GDPR endpoints)
+        const rateLimitCheck = await checkRateLimit(clientIP, '/api/gdpr/delete', 2, 15);
+        if (!rateLimitCheck.allowed) {
+            console.warn(`[${requestId}] Rate limit exceeded for IP: ${clientIP}`);
+            return new Response(
+                JSON.stringify({
+                    success: false,
+                    message: 'Rate limit exceeded. Please try again later.',
+                    retryAfter: 900, // 15 minutes in seconds
+                    requestId
+                }),
+                {
+                    status: 429,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Retry-After': '900'
+                    }
+                }
+            );
+        }
+
         // Parse request body
         let body: unknown;
         try {
@@ -18,7 +73,8 @@ export const DELETE: APIRoute = async ({ request }) => {
             return new Response(
                 JSON.stringify({
                     success: false,
-                    message: 'Invalid JSON in request body'
+                    message: 'Invalid JSON in request body',
+                    requestId
                 }),
                 {
                     status: 400,
@@ -143,6 +199,23 @@ export const DELETE: APIRoute = async ({ request }) => {
             );
         }
 
+        // Send confirmation email if email was provided
+        let emailResult = null;
+        if (email) {
+            try {
+                emailResult = await sendGDPRDeletionConfirmationEmail(email, phone, recordsToDelete.length);
+                if (!emailResult.success) {
+                    console.warn(`[${requestId}] Failed to send deletion confirmation email:`, emailResult.error);
+                }
+            } catch (emailError) {
+                console.warn(`[${requestId}] Email sending failed:`, emailError);
+            }
+        }
+
+        // Log successful deletion
+        const processingTime = Date.now() - startTime;
+        console.log(`[${requestId}] GDPR deletion completed successfully in ${processingTime}ms`);
+
         // Success response
         return new Response(
             JSON.stringify({
@@ -154,25 +227,40 @@ export const DELETE: APIRoute = async ({ request }) => {
                     email: email || null,
                     phone: phone || null
                 },
-                note: 'This action cannot be undone. All associated data has been permanently removed.'
+                note: 'This action cannot be undone. All associated data has been permanently removed.',
+                emailConfirmation: email ? {
+                    sent: emailResult?.success || false,
+                    messageId: emailResult?.messageId || null,
+                    error: emailResult?.error || null
+                } : null,
+                requestId,
+                processingTime
             }),
             {
                 status: 200,
-                headers: { 'Content-Type': 'application/json' }
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'X-Processing-Time': processingTime.toString()
+                }
             }
         );
 
     } catch (error) {
-        console.error('Unexpected error in GDPR deletion:', error);
+        const processingTime = Date.now() - startTime;
+        console.error(`[${requestId}] Unexpected error in GDPR deletion (${processingTime}ms):`, error);
         
         return new Response(
             JSON.stringify({
                 success: false,
-                message: 'An unexpected error occurred. Please try again.'
+                message: 'An unexpected error occurred. Please try again.',
+                requestId
             }),
             {
                 status: 500,
-                headers: { 'Content-Type': 'application/json' }
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'X-Processing-Time': processingTime.toString()
+                }
             }
         );
     }
@@ -204,6 +292,20 @@ export const GET: APIRoute = async () => {
         }
     );
 };
+
+// Apply validation, security middleware and CSRF protection to DELETE handler
+export const DELETE = withSecurityHeaders(
+    withCSRFProtection(
+        withValidation(dataDeletionRequestSchema, {
+            sanitizationOptions: {
+                maxLength: 500,
+                preventXss: true,
+                preventSqlInjection: true,
+                preventCommandInjection: true
+            }
+        })(deleteHandler)
+    )
+);
 
 export const POST: APIRoute = GET;
 export const PUT: APIRoute = GET;

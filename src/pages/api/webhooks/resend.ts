@@ -2,8 +2,9 @@
 // POST /api/webhooks/resend - Handle delivery status, bounces, complaints
 
 import type { APIRoute } from 'astro';
-import { supabaseAdmin } from '../../../utils/supabase';
+import { supabaseAdmin, getClientIP, checkRateLimit } from '../../../utils/supabase';
 import { emailService } from '../../../emails/service';
+import { withSecurityHeaders } from '../../../utils/security';
 
 export const prerender = false;
 
@@ -59,11 +60,33 @@ function verifyWebhookSignature(request: Request, body: string): boolean {
     }
 }
 
-export const POST: APIRoute = async ({ request }) => {
+const postHandler: APIRoute = async ({ request }) => {
     const requestId = `webhook_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     const startTime = Date.now();
 
     try {
+        // Get client information for rate limiting
+        const clientIP = getClientIP(request);
+        
+        // Check rate limiting for webhook endpoint (100 requests per 15 minutes to prevent DDoS)
+        const rateLimitCheck = await checkRateLimit(clientIP, '/api/webhooks/resend', 100, 15);
+        if (!rateLimitCheck.allowed) {
+            console.warn(`[${requestId}] Webhook rate limit exceeded for IP: ${clientIP}`);
+            return new Response(
+                JSON.stringify({
+                    success: false,
+                    message: 'Rate limit exceeded',
+                    requestId
+                }),
+                {
+                    status: 429,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Retry-After': '900'
+                    }
+                }
+            );
+        }
         // Parse webhook payload
         let body: string;
         let event: ResendWebhookEvent;
@@ -279,6 +302,9 @@ export const POST: APIRoute = async ({ request }) => {
         );
     }
 };
+
+// Apply security headers to POST handler (no CSRF for webhooks)
+export const POST = withSecurityHeaders(postHandler);
 
 // Handle unsupported methods
 export const GET: APIRoute = async () => {

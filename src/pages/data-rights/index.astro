@@ -1,0 +1,67 @@
+---
+import LandingLayout from '../../layouts/LandingLayout.astro';
+import DataRightsForm from '../../components/DataRightsForm.astro';
+---
+
+<LandingLayout title="Your Data Rights | Debt Freedom Toolkit">
+    <section class="py-12 sm:py-16">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="mb-8 text-4xl font-bold text-[#2d7984]">Your Privacy Rights</h1>
+            
+            <div class="prose prose-lg max-w-none mb-12">
+                <p class="text-lg text-gray-700 mb-6">
+                    Under GDPR and other privacy regulations, you have certain rights regarding your personal data. 
+                    Use the form below to exercise these rights or contact us with any privacy concerns.
+                </p>
+                
+                <div class="bg-blue-50 border-l-4 border-[#2d7984] p-6 mb-8">
+                    <h2 class="text-xl font-semibold text-[#2d7984] mb-4">Your Privacy Rights Include:</h2>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><strong>Right of Access:</strong> Request a copy of all personal data we have about you</li>
+                        <li><strong>Right to be Forgotten:</strong> Request permanent deletion of your personal data</li>
+                        <li><strong>Right to Rectification:</strong> Request correction of inaccurate personal data</li>
+                        <li><strong>Right to Restrict Processing:</strong> Request limitation of how we process your data</li>
+                        <li><strong>Right to Data Portability:</strong> Receive your data in a structured, machine-readable format</li>
+                        <li><strong>Right to Object:</strong> Object to processing of your data for marketing purposes</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 mb-8">
+                    <h3 class="text-lg font-semibold text-yellow-800 mb-2">⚠️ Important Information</h3>
+                    <ul class="space-y-2 text-yellow-700">
+                        <li><strong>Data Deletion:</strong> Once deleted, your data cannot be recovered. This action is permanent.</li>
+                        <li><strong>Verification:</strong> We may require additional verification for security purposes.</li>
+                        <li><strong>Response Time:</strong> We will respond to your request within 30 days as required by law.</li>
+                        <li><strong>Email Confirmation:</strong> You will receive an email confirmation when your request is processed.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Data Rights Request Form -->
+            <DataRightsForm />
+            
+            <div class="mt-12 border-t pt-8">
+                <h2 class="text-2xl font-semibold text-[#2d7984] mb-4">Alternative Contact Methods</h2>
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <p class="mb-4">If you prefer not to use the online form, you can contact us directly:</p>
+                    <div class="space-y-2">
+                        <p><strong>Email:</strong> privacy@your-domain.com</p>
+                        <p><strong>Phone:</strong> (800) 555-1234</p>
+                        <p><strong>Mail:</strong> Data Protection Officer<br>
+                        123 Financial Way, Suite 500<br>
+                        Clearwater, FL 33759</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <a href="/privacy-policy" class="text-[#2d7984] hover:text-[#1d5058] underline mr-6">
+                    Read Our Privacy Policy
+                </a>
+                <a href="/debt-relief" class="btn bg-[#2d7984] text-white hover:bg-[#1d5058]">
+                    Back to Debt Relief
+                </a>
+            </div>
+        </div>
+    </section>
+</LandingLayout>

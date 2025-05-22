@@ -2,11 +2,34 @@
 // GET /api/health - Monitor database size, connectivity, and free tier usage
 
 import type { APIRoute } from 'astro';
-import { supabaseAdmin, getDatabaseStats } from '../../utils/supabase';
+import { supabaseAdmin, getDatabaseStats, getClientIP } from '../../utils/supabase';
+import { withSecurityHeaders } from '../../utils/security';
+import { validateSecurityContext } from '../../utils/validation';
 
 export const prerender = false;
 
-export const GET: APIRoute = async () => {
+const getHandler: APIRoute = async ({ request }) => {
+    const requestId = `health_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const clientIP = getClientIP(request);
+
+    // Basic security validation for health endpoint
+    const securityValidation = validateSecurityContext(request);
+    if (securityValidation.riskLevel === 'high') {
+        console.warn(`[${requestId}] High-risk health check request from IP: ${clientIP}`, {
+            issues: securityValidation.issues
+        });
+        return new Response(
+            JSON.stringify({
+                success: false,
+                message: 'Request blocked by security policy',
+                timestamp: new Date().toISOString()
+            }),
+            {
+                status: 403,
+                headers: { 'Content-Type': 'application/json' }
+            }
+        );
+    }
     try {
         const startTime = Date.now();
         
@@ -200,6 +223,9 @@ export const POST: APIRoute = async () => {
         }
     );
 };
+
+// Apply security headers to GET handler
+export const GET = withSecurityHeaders(getHandler);
 
 export const PUT: APIRoute = POST;
 export const DELETE: APIRoute = POST;

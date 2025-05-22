@@ -1,0 +1,337 @@
+---
+// No server-side logic needed for this form component
+---
+
+<div class="bg-white rounded-lg shadow-lg p-8 border border-gray-200">
+    <h2 class="text-2xl font-semibold text-[#2d7984] mb-6">Submit a Data Rights Request</h2>
+    
+    <form id="dataRightsForm" class="space-y-6">
+        <!-- Request Type Selection -->
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-3">
+                Type of Request <span class="text-red-500">*</span>
+            </label>
+            <div class="space-y-3">
+                <label class="flex items-center">
+                    <input type="radio" name="requestType" value="export" class="text-[#2d7984] focus:ring-[#2d7984]" required>
+                    <span class="ml-3">
+                        <strong>Export My Data</strong> - Get a copy of all personal data we have about you
+                    </span>
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="requestType" value="delete" class="text-[#2d7984] focus:ring-[#2d7984]" required>
+                    <span class="ml-3">
+                        <strong>Delete My Data</strong> - Permanently remove all personal data (cannot be undone)
+                    </span>
+                </label>
+            </div>
+        </div>
+        
+        <!-- Contact Information -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                    Email Address
+                </label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2d7984] focus:border-transparent"
+                    placeholder="your@email.com"
+                >
+                <p class="text-xs text-gray-500 mt-1">Email address associated with your account</p>
+            </div>
+            
+            <div>
+                <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+                    Phone Number
+                </label>
+                <input 
+                    type="tel" 
+                    id="phone" 
+                    name="phone" 
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2d7984] focus:border-transparent"
+                    placeholder="(555) 123-4567"
+                    maxlength="14"
+                >
+                <p class="text-xs text-gray-500 mt-1">Phone number used for your debt relief inquiry</p>
+            </div>
+        </div>
+        
+        <div class="bg-yellow-50 border border-yellow-200 rounded-md p-4">
+            <p class="text-sm text-yellow-800">
+                <strong>Note:</strong> You must provide at least one form of contact information (email or phone) 
+                that matches our records to process your request.
+            </p>
+        </div>
+        
+        <!-- Additional Information -->
+        <div>
+            <label for="additionalInfo" class="block text-sm font-medium text-gray-700 mb-2">
+                Additional Information (Optional)
+            </label>
+            <textarea 
+                id="additionalInfo" 
+                name="additionalInfo" 
+                rows="4"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2d7984] focus:border-transparent"
+                placeholder="Any additional details about your request..."
+            ></textarea>
+        </div>
+        
+        <!-- Deletion Confirmation (shown only for delete requests) -->
+        <div id="deletionConfirmation" class="bg-red-50 border border-red-200 rounded-md p-4" style="display: none;">
+            <label class="flex items-start">
+                <input type="checkbox" id="confirmDeletion" name="confirmDeletion" class="mt-1 text-red-600 focus:ring-red-500">
+                <span class="ml-3 text-sm text-red-800">
+                    <strong>I understand that this action is permanent and irreversible.</strong> 
+                    All my personal data will be permanently deleted and cannot be recovered. 
+                    I confirm that I want to proceed with this deletion request.
+                </span>
+            </label>
+        </div>
+        
+        <!-- CSRF Token (hidden field) -->
+        <input type="hidden" id="csrfToken" name="csrfToken" value="">
+        
+        <!-- Form Status Messages -->
+        <div id="formStatus" class="hidden"></div>
+        
+        <!-- Submit Button -->
+        <div class="flex justify-end space-x-4">
+            <button 
+                type="button" 
+                onclick="window.location.href='/privacy-policy'"
+                class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500"
+            >
+                Cancel
+            </button>
+            <button 
+                type="submit" 
+                id="submitBtn"
+                class="px-6 py-2 bg-[#2d7984] text-white rounded-md hover:bg-[#1d5058] focus:outline-none focus:ring-2 focus:ring-[#2d7984] disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+                <span id="submitText">Submit Request</span>
+                <span id="submitSpinner" class="hidden">
+                    <svg class="animate-spin -ml-1 mr-3 h-4 w-4 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Processing...
+                </span>
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Initialize the form when the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeDataRightsForm();
+    });
+    
+    async function initializeDataRightsForm() {
+        // Fetch CSRF token
+        try {
+            const response = await fetch('/api/csrf-token');
+            const data = await response.json();
+            if (data.token) {
+                document.getElementById('csrfToken').value = data.token;
+            }
+        } catch (error) {
+            console.error('Failed to fetch CSRF token:', error);
+        }
+        
+        // Add phone number formatting
+        const phoneInput = document.getElementById('phone');
+        phoneInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 6) {
+                value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
+            } else if (value.length >= 3) {
+                value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+            }
+            e.target.value = value;
+        });
+        
+        // Show/hide deletion confirmation based on request type
+        const requestTypeInputs = document.querySelectorAll('input[name="requestType"]');
+        const deletionConfirmation = document.getElementById('deletionConfirmation');
+        const confirmDeletionCheckbox = document.getElementById('confirmDeletion');
+        
+        requestTypeInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                if (this.value === 'delete') {
+                    deletionConfirmation.style.display = 'block';
+                    confirmDeletionCheckbox.required = true;
+                } else {
+                    deletionConfirmation.style.display = 'none';
+                    confirmDeletionCheckbox.required = false;
+                    confirmDeletionCheckbox.checked = false;
+                }
+            });
+        });
+        
+        // Handle form submission
+        const form = document.getElementById('dataRightsForm');
+        form.addEventListener('submit', handleFormSubmission);
+    }
+    
+    async function handleFormSubmission(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+        
+        // Validation
+        const requestType = data.requestType;
+        const email = data.email?.trim();
+        const phone = data.phone?.replace(/\D/g, '');
+        
+        if (!requestType) {
+            showFormMessage('Please select a request type.', 'error');
+            return;
+        }
+        
+        if (!email && !phone) {
+            showFormMessage('Please provide either an email address or phone number.', 'error');
+            return;
+        }
+        
+        if (phone && phone.length !== 10) {
+            showFormMessage('Please provide a valid 10-digit phone number.', 'error');
+            return;
+        }
+        
+        if (requestType === 'delete' && !data.confirmDeletion) {
+            showFormMessage('You must confirm the deletion request to proceed.', 'error');
+            return;
+        }
+        
+        // Show loading state
+        setLoadingState(true);
+        
+        try {
+            // Determine the API endpoint
+            const endpoint = requestType === 'delete' ? '/api/gdpr/delete' : '/api/gdpr/export';
+            const method = requestType === 'delete' ? 'DELETE' : 'POST';
+            
+            // Prepare request data
+            const requestData = {
+                email: email || undefined,
+                phone: phone || undefined,
+                csrfToken: data.csrfToken
+            };
+            
+            if (requestType === 'delete') {
+                requestData.confirmDeletion = true;
+            }
+            
+            // Make API request
+            const response = await fetch(endpoint, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': data.csrfToken
+                },
+                body: JSON.stringify(requestData)
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok && result.success) {
+                if (requestType === 'delete') {
+                    showFormMessage(
+                        `✅ Successfully deleted ${result.deletedCount} record(s). ${
+                            result.emailConfirmation?.sent 
+                                ? 'A confirmation email has been sent to you.' 
+                                : 'No confirmation email was sent (no email provided).'
+                        }`, 
+                        'success'
+                    );
+                } else {
+                    showFormMessage(
+                        `✅ Found ${result.data?.length || 0} record(s). Your data export is ready. ${
+                            result.emailConfirmation?.sent 
+                                ? 'A notification email has been sent to you.' 
+                                : 'No notification email was sent (no email provided).'
+                        }`, 
+                        'success'
+                    );
+                    
+                    // For export requests, also offer to download the data
+                    if (result.data && result.data.length > 0) {
+                        downloadDataAsJson(result.data, `gdpr-export-${Date.now()}.json`);
+                    }
+                }
+                
+                // Reset form
+                e.target.reset();
+                document.getElementById('deletionConfirmation').style.display = 'none';
+                
+            } else {
+                // Handle API errors
+                let errorMessage = result.message || 'An error occurred while processing your request.';
+                
+                if (result.errors) {
+                    const errorDetails = Object.values(result.errors).join(', ');
+                    errorMessage += ` Details: ${errorDetails}`;
+                }
+                
+                showFormMessage(errorMessage, 'error');
+            }
+            
+        } catch (error) {
+            console.error('Form submission error:', error);
+            showFormMessage('A network error occurred. Please try again later.', 'error');
+        } finally {
+            setLoadingState(false);
+        }
+    }
+    
+    function showFormMessage(message, type) {
+        const statusDiv = document.getElementById('formStatus');
+        statusDiv.className = `p-4 rounded-md mb-4 ${
+            type === 'success' 
+                ? 'bg-green-50 border border-green-200 text-green-800' 
+                : 'bg-red-50 border border-red-200 text-red-800'
+        }`;
+        statusDiv.textContent = message;
+        statusDiv.classList.remove('hidden');
+        
+        // Scroll to the message
+        statusDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    
+    function setLoadingState(loading) {
+        const submitBtn = document.getElementById('submitBtn');
+        const submitText = document.getElementById('submitText');
+        const submitSpinner = document.getElementById('submitSpinner');
+        
+        submitBtn.disabled = loading;
+        
+        if (loading) {
+            submitText.classList.add('hidden');
+            submitSpinner.classList.remove('hidden');
+        } else {
+            submitText.classList.remove('hidden');
+            submitSpinner.classList.add('hidden');
+        }
+    }
+    
+    function downloadDataAsJson(data, filename) {
+        const jsonString = JSON.stringify(data, null, 2);
+        const blob = new Blob([jsonString], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        URL.revokeObjectURL(url);
+    }
+</script>

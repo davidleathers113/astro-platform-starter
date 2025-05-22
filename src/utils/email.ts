@@ -227,8 +227,168 @@ function formatPhone(phone: string): string {
     return phone;
 }
 
+// GDPR Email Templates
+function getGDPRDeletionConfirmationTemplate(email: string, phone?: string, deletedCount: number = 0): string {
+    return `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Deletion Confirmation</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background-color: #2d7984; color: white; padding: 20px; text-align: center; }
+        .content { padding: 20px; background-color: #f9f9f9; }
+        .footer { padding: 20px; text-align: center; font-size: 12px; color: #666; }
+        .highlight { background-color: #e8f4f8; padding: 15px; border-left: 4px solid #2d7984; margin: 15px 0; }
+        .warning { background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 15px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✅ Data Deletion Confirmed</h1>
+        </div>
+        <div class="content">
+            <p>This email confirms that we have processed your data deletion request under GDPR Article 17 (Right to be Forgotten).</p>
+            
+            <div class="highlight">
+                <strong>Deletion Summary:</strong><br>
+                📧 <strong>Email:</strong> ${email}<br>
+                ${phone ? `📞 <strong>Phone:</strong> ${formatPhone(phone)}<br>` : ''}
+                🗑️ <strong>Records Deleted:</strong> ${deletedCount}<br>
+                📅 <strong>Deletion Date:</strong> ${new Date().toLocaleString()}<br>
+            </div>
+            
+            <h3>What Was Deleted</h3>
+            <p>The following personal data has been permanently removed from our systems:</p>
+            <ul>
+                <li>All lead generation records associated with your information</li>
+                <li>Contact information (name, email, phone number)</li>
+                <li>Debt information and preferences</li>
+                <li>Marketing consent records</li>
+                <li>Communication history</li>
+            </ul>
+            
+            <div class="warning">
+                <strong>⚠️ Important:</strong> This action is irreversible. All data associated with your request has been permanently deleted and cannot be recovered.
+            </div>
+            
+            <h3>Your Privacy Rights</h3>
+            <p>This deletion was processed in accordance with:</p>
+            <ul>
+                <li>GDPR Article 17 - Right to erasure ('right to be forgotten')</li>
+                <li>Our Privacy Policy terms</li>
+                <li>Applicable data protection regulations</li>
+            </ul>
+            
+            <h3>Questions or Concerns?</h3>
+            <p>If you have any questions about this deletion or your privacy rights, please contact us:</p>
+            <p>📧 Email: privacy@your-domain.com<br>
+            📞 Phone: (555) 123-DEBT</p>
+            
+            <p>Thank you for using our services.</p>
+            
+            <p>Best regards,<br>
+            Data Protection Officer<br>
+            Debt Freedom Toolkit</p>
+        </div>
+        <div class="footer">
+            <p>This is an automated confirmation of your GDPR data deletion request.</p>
+            <p>Request processed on ${new Date().toLocaleString()}</p>
+        </div>
+    </div>
+</body>
+</html>`;
+}
+
+function getGDPRExportDeliveryTemplate(email: string, phone?: string, recordCount: number = 0): string {
+    return `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Data Export is Ready</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background-color: #2d7984; color: white; padding: 20px; text-align: center; }
+        .content { padding: 20px; background-color: #f9f9f9; }
+        .footer { padding: 20px; text-align: center; font-size: 12px; color: #666; }
+        .highlight { background-color: #e8f4f8; padding: 15px; border-left: 4px solid #2d7984; margin: 15px 0; }
+        .info { background-color: #d1ecf1; border-left: 4px solid #0c5460; padding: 15px; margin: 15px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Your Data Export</h1>
+        </div>
+        <div class="content">
+            <p>We have successfully processed your data export request under GDPR Article 15 (Right of access).</p>
+            
+            <div class="highlight">
+                <strong>Export Summary:</strong><br>
+                📧 <strong>Email:</strong> ${email}<br>
+                ${phone ? `📞 <strong>Phone:</strong> ${formatPhone(phone)}<br>` : ''}
+                📦 <strong>Records Found:</strong> ${recordCount}<br>
+                📅 <strong>Export Date:</strong> ${new Date().toLocaleString()}<br>
+            </div>
+            
+            <h3>What's Included</h3>
+            <p>Your data export contains all personal information we have on file, including:</p>
+            <ul>
+                <li>Contact information (name, email, phone)</li>
+                <li>Debt relief inquiry details</li>
+                <li>Marketing consent preferences</li>
+                <li>Submission dates and sources</li>
+                <li>Communication history</li>
+            </ul>
+            
+            <div class="info">
+                <strong>🔒 Privacy Protection:</strong> For security reasons, sensitive information like IP addresses and detailed user agent data are excluded from exports.
+            </div>
+            
+            <h3>Data Format</h3>
+            <p>Your data has been exported in JSON format, which is machine-readable and can be:</p>
+            <ul>
+                <li>Opened in text editors</li>
+                <li>Imported into other systems</li>
+                <li>Processed programmatically</li>
+                <li>Converted to other formats as needed</li>
+            </ul>
+            
+            <h3>Your Privacy Rights</h3>
+            <p>This export was provided in accordance with:</p>
+            <ul>
+                <li>GDPR Article 15 - Right of access</li>
+                <li>GDPR Article 20 - Right to data portability</li>
+                <li>Our Privacy Policy commitments</li>
+            </ul>
+            
+            <h3>Questions or Need Help?</h3>
+            <p>If you have questions about your data or need assistance with the export format:</p>
+            <p>📧 Email: privacy@your-domain.com<br>
+            📞 Phone: (555) 123-DEBT</p>
+            
+            <p>Best regards,<br>
+            Data Protection Officer<br>
+            Debt Freedom Toolkit</p>
+        </div>
+        <div class="footer">
+            <p>This export was generated in response to your GDPR data access request.</p>
+            <p>Export generated on ${new Date().toLocaleString()}</p>
+        </div>
+    </div>
+</body>
+</html>`;
+}
+
 // Track email usage in database
-async function trackEmailUsage(type: 'user_confirmation' | 'internal_notification', leadId?: string): Promise<void> {
+async function trackEmailUsage(type: 'user_confirmation' | 'internal_notification' | 'gdpr_deletion' | 'gdpr_export', leadId?: string): Promise<void> {
     try {
         await supabaseAdmin
             .from('email_usage')
@@ -469,5 +629,103 @@ export async function sendUsageAlerts(): Promise<void> {
         console.log(`Email usage alert sent: ${alertLevel} at ${stats.percentageUsed.toFixed(1)}%`);
     } catch (error) {
         console.error('Failed to send usage alert:', error);
+    }
+}
+
+// GDPR Email Functions
+
+// Send GDPR data deletion confirmation email
+export async function sendGDPRDeletionConfirmationEmail(
+    email: string, 
+    phone?: string, 
+    deletedCount: number = 0
+): Promise<EmailResult> {
+    try {
+        // Check limits before sending
+        const limitCheck = await checkEmailLimits();
+        if (!limitCheck.canSend) {
+            return {
+                success: false,
+                error: limitCheck.reason
+            };
+        }
+        
+        const { data, error } = await resend.emails.send({
+            from: FROM_EMAIL,
+            to: [email],
+            subject: 'Data Deletion Confirmation - Your Request Has Been Processed',
+            html: getGDPRDeletionConfirmationTemplate(email, phone, deletedCount)
+        });
+        
+        if (error) {
+            console.error('Resend API error (GDPR deletion confirmation):', error);
+            return {
+                success: false,
+                error: error.message
+            };
+        }
+        
+        // Track successful email send
+        await trackEmailUsage('gdpr_deletion');
+        
+        return {
+            success: true,
+            messageId: data?.id
+        };
+        
+    } catch (error) {
+        console.error('Failed to send GDPR deletion confirmation email:', error);
+        return {
+            success: false,
+            error: error instanceof Error ? error.message : 'Unknown email error'
+        };
+    }
+}
+
+// Send GDPR data export delivery email  
+export async function sendGDPRExportDeliveryEmail(
+    email: string, 
+    phone?: string, 
+    recordCount: number = 0
+): Promise<EmailResult> {
+    try {
+        // Check limits before sending
+        const limitCheck = await checkEmailLimits();
+        if (!limitCheck.canSend) {
+            return {
+                success: false,
+                error: limitCheck.reason
+            };
+        }
+        
+        const { data, error } = await resend.emails.send({
+            from: FROM_EMAIL,
+            to: [email],
+            subject: 'Your Data Export is Ready - GDPR Request Completed',
+            html: getGDPRExportDeliveryTemplate(email, phone, recordCount)
+        });
+        
+        if (error) {
+            console.error('Resend API error (GDPR export delivery):', error);
+            return {
+                success: false,
+                error: error.message
+            };
+        }
+        
+        // Track successful email send
+        await trackEmailUsage('gdpr_export');
+        
+        return {
+            success: true,
+            messageId: data?.id
+        };
+        
+    } catch (error) {
+        console.error('Failed to send GDPR export delivery email:', error);
+        return {
+            success: false,
+            error: error instanceof Error ? error.message : 'Unknown email error'
+        };
     }
 }
